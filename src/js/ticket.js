@@ -83,6 +83,7 @@ function doStamp() {
     cursorEl.classList.remove('show');
   }, 100);
 
+  //dialogue 1
   setTimeout(() => {
     dotHome.classList.add('is-active');
     dotHome.querySelector('.train-nav__dot')?.setAttribute('aria-current', 'page');
@@ -91,6 +92,7 @@ function doStamp() {
       'platform 01... this is it', 42);
   }, 350);
 
+  //dialogue 2
   setTimeout(() => {
     capTrain.classList.add('visible');
     typeText(capTrain,
@@ -106,7 +108,7 @@ function doStamp() {
       bottom: 14px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 10px;
+      font-size: 15px;
       letter-spacing: 0.12em;
       color: rgba(26,82,212,0.35);
       font-family: var(--font-mono);
