@@ -1,13 +1,178 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio2026-7</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elaine Yu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- SVG filter for stamp roughen effect -->
+  <svg style="position:absolute;width:0;height:0">
+    <defs>
+      <filter id="roughen">
+        <feTurbulence type="turbulence" baseFrequency="0.045"
+          numOctaves="4" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise"
+          scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Custom stamp cursor -->
+  <div class="cursor" id="cursor">
+    <svg width="48" height="48" viewBox="0 0 48 48">
+      <rect x="17" y="0" width="14" height="19" rx="3.5" fill="#1a2744"/>
+      <rect x="13" y="17" width="22" height="7" rx="2" fill="#1a2744"/>
+      <rect x="8" y="24" width="32" height="14" rx="3" fill="#c8001e"/>
+      <line x1="13" y1="30" x2="35" y2="30"
+        stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+      <line x1="13" y1="34" x2="31" y2="34"
+        stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- NAV -->
+  <nav id="main-nav" class="train-nav" aria-label="Main">
+    <div class="train-nav__track">
+      <div class="train-nav__line" aria-hidden="true"></div>
+      <ol class="train-nav__stops">
+        <li class="train-nav__stop" id="dot-home">
+          <a href="/" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
+            <span class="train-nav__label">home</span>
+          </a>
+        </li>
+        <li class="train-nav__stop">
+          <a href="/work/" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
+            <span class="train-nav__label">work</span>
+          </a>
+        </li>
+        <li class="train-nav__stop">
+          <a href="#about" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
+            <span class="train-nav__label">about</span>
+          </a>
+        </li>
+        <li class="train-nav__stop">
+          <a href="#play" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
+            <span class="train-nav__label">play</span>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- PAGE BODY -->
+  <div class="page-body">
+
+    <!-- LEFT COLUMN -->
+    <aside class="left-col">
+      <div class="left-name">Elaine Yu</div>
+      <div class="left-caption">idk some catchphrase/<br>bio here</div>
+      <div class="left-facts">
+        <span>Studying CS + Visual Media @ Duke</span>
+        <span>Currently @ IBM</span>
+      </div>
+      <div class="left-contact">
+        <a href="#">linkedin</a> · <a href="#">resume</a><br>
+        elaineyustudio@gmail.com
+      </div>
+    </aside>
+
+    <!-- PANELS -->
+    <div class="panels">
+
+      <!-- TOP ROW -->
+      <div class="row-top">
+
+        <!-- TICKET PANEL -->
+        <div class="panel panel-ticket" id="panel-ticket">
+          <div class="ticket-instruction" id="ticket-instruction">
+            HOVER OVER THE TICKET TO SCAN · CLICK TO STAMP
+          </div>
+
+          <div class="ticket-card" id="ticket-card">
+            <div class="scan-line" id="scan-line"></div>
+            <div class="scan-glow" id="scan-glow"></div>
+
+            <div class="t-stub"></div>
+            <div class="t-notch top"></div>
+            <div class="t-notch bot"></div>
+
+            <div class="t-top">
+              <div class="t-field">
+                <div class="t-lbl">FROM</div>
+                <div class="t-station">HOME</div>
+              </div>
+              <div class="t-arrow">→</div>
+              <div class="t-field">
+                <div class="t-lbl">TO</div>
+                <div class="t-station">PLAY</div>
+              </div>
+              <div class="t-field t-roundtrip">
+                <div class="t-lbl">&nbsp;</div>
+                <div class="t-station t-sm">ROUND TRIP</div>
+              </div>
+            </div>
+
+            <div class="t-mid">
+              <div class="t-field">
+                <div class="t-lbl">PASSENGER</div>
+                <div class="t-field-val t-bold">you!</div>
+              </div>
+              <div class="t-field">
+                <div class="t-lbl">DATE</div>
+                <div class="t-field-val t-bold" id="ticket-date">22JUN</div>
+              </div>
+              <div class="t-field">
+                <div class="t-lbl">DEPARTS</div>
+                <div class="t-field-val t-bold" id="ticket-departs">09:30</div>
+              </div>
+            </div>
+
+            <div class="t-bot">
+              <div class="t-name-italic">elaine's 2026 portfolio</div>
+              <div class="t-num">FLT 01 ALL STOPS</div>
+            </div>
+
+            <!-- stamp overlay -->
+            <div class="stamp-overlay">
+              <div class="stamp-mark" id="stamp-mark">
+                <div class="stamp-ring">
+                  <div class="stamp-top-txt">elaine yu</div>
+                  <div class="stamp-main-txt">搭乗<br>OK</div>
+                  <div class="stamp-sub-txt">boarding</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- splatter -->
+            <div class="splatter" id="splatter"></div>
+          </div>
+        </div>
+
+        <!-- PLATFORM PANEL -->
+        <div class="panel panel-platform" id="panel-platform">
+          <!-- your illustration goes here -->
+          <div class="caption-box caption-platform" id="cap-platform"></div>
+        </div>
+
+      </div><!-- /row-top -->
+
+      <!-- BOTTOM PANEL -->
+      <div class="panel panel-bottom" id="panel-bottom">
+        <!-- your illustration goes here -->
+        <div class="caption-box caption-train" id="cap-train"></div>
+      </div>
+
+    </div><!-- /panels -->
+  </div><!-- /page-body -->
+
+  <script type="module" src="/src/main.js"></script>
+</body>
 </html>
