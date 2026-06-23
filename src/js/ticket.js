@@ -19,13 +19,26 @@ function updateTime() {
   const now = new Date();
   const months = ['JAN','FEB','MAR','APR','MAY','JUN',
                   'JUL','AUG','SEP','OCT','NOV','DEC'];
+  
+  // date
   const dateEl = document.getElementById('ticket-date');
-  const timeEl = document.getElementById('ticket-departs');
   if (dateEl) dateEl.textContent =
     String(now.getDate()).padStart(2,'0') + months[now.getMonth()];
-  if (timeEl) timeEl.textContent =
-    String(now.getHours()).padStart(2,'0') + ':' +
-    String(now.getMinutes()).padStart(2,'0');
+
+  // time — 12hr with AM/PM and EST
+  const hours24  = now.getHours();
+  const minutes  = String(now.getMinutes()).padStart(2,'0');
+  const ampm     = hours24 >= 12 ? 'PM' : 'AM';
+  const hours12  = hours24 % 12 || 12;
+  const timeStr  = `${String(hours12).padStart(2,'0')}:${minutes} ${ampm} EST`;
+
+  const timeEl = document.getElementById('ticket-departs');
+  if (timeEl) timeEl.textContent = timeStr;
+
+  //est vs edt toggle 
+  const tz = now.toLocaleDateString('en-US', { timeZoneName: 'short' })
+  .split(', ')[1]; // returns 'EST' or 'EDT' automatically
+  const timeStr = `${String(hours12).padStart(2,'0')}:${minutes} ${ampm} ${tz}`;
 }
 updateTime();
 setInterval(updateTime, 60000);
