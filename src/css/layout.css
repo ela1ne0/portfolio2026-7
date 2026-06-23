@@ -179,13 +179,13 @@ body {
   overflow: visible;
 }
 .left-caption {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(255,255,255,0.82);
   line-height: 1.65;
   margin-bottom: 18px;
 }
 .left-facts {
-  font-size: 11.5px;
+  font-size: 13px;
   color: rgba(255,255,255,0.65);
   line-height: 1.9;
 }
