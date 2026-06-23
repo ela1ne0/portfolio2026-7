@@ -160,9 +160,16 @@ body {
   gap: 0;
   overflow: visible;
 }
+.left-avatar {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: 16px;
+  display: block;
+}
 .left-name {
   font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: clamp(20px, 4vw, 44px);
   font-weight: 300;
   color: #fff;
   line-height: 1.05;
