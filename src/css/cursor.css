@@ -32,8 +32,8 @@
 
 /* ── DOT: the filled station marker ── */
 .cur-dot {
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
   background: #ffffff;
   box-shadow: 0 0 0 1.5px rgba(26, 82, 212, 0.4);
 }
@@ -48,8 +48,8 @@
 
 /* on click: brief shrink (stamp-down feel) */
 .cur-dot.clicking {
-  width: 4px;
-  height: 4px;
+  width: 7px;
+  height: 7px;
   background: #1a52d4;
   transition:
     width 0.08s ease,
@@ -84,10 +84,10 @@
 
 /* extra state when hovering a nav station dot */
 .cur-ring.on-station {
-  opacity: 1;
-  width: 38px;
-  height: 38px;
-  border-color: #ffffff;
+  opacity: 0.5;
+  width: 30px;
+  height: 30px;
+  border-color: #345ec8;
   border-width: 2px;
   animation: stationPulse 0.7s ease-out;
 }
@@ -104,8 +104,8 @@
   pointer-events: none;
   z-index: 99998;
   transform: translate(-50%, -50%) scale(0);
-  width: 24px;
-  height: 24px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   border: 1.5px solid rgba(255, 255, 255, 0.6);
   animation: rippleOut 0.5s cubic-bezier(0, 0.5, 0.5, 1) forwards;

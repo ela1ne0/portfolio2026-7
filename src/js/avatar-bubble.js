@@ -90,7 +90,7 @@ wrapper.addEventListener('mouseenter', () => {
   rotateInterval = setInterval(() => {
     currentIndex = (currentIndex + 1) % LINES.length;
     renderLine(currentIndex);
-  }, 2200);
+  }, 2000);
 });
 
 wrapper.addEventListener('mouseleave', () => {
