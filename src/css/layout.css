@@ -161,8 +161,8 @@ body {
   overflow: visible;
 }
 .left-avatar {
-  width: 72px;
-  height: 72px;
+  width: 65px;
+  height: 65px;
   object-fit: contain;
   margin-bottom: 16px;
   display: block;
