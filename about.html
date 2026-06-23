@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Elaine Yu</title>
+  <link rel="icon" type="image/png" href="/favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      cursor: none !important;
+    }
+
+    :root {
+      --blue:  #1a52d4;
+      --ink:   #1a2744;
+      --white: #ffffff;
+      --font-display: 'Noto Serif JP', serif;
+      --font-mono:    'Space Mono', monospace;
+      --font-hand:    'Caveat', cursive;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--blue);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── CURSOR ── */
+    .cur-dot {
+      position: fixed;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 0 1.5px rgba(26,82,212,0.3);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      top: -100px; left: -100px;
+    }
+    .cur-ring {
+      position: fixed;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      background: transparent;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      top: -100px; left: -100px;
+      opacity: 0;
+      transition: opacity 0.2s,
+        width 0.25s cubic-bezier(0.34,1.56,0.64,1),
+        height 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .cur-ring.show {
+      opacity: 1; width: 32px; height: 32px;
+    }
+
+    /* ── TRAIN NAV — sticky at top ── */
+    .train-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #1a52d4;
+      padding: 20px 44px 0 44px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .train-nav__track {
+      position: relative;
+      padding-top: 8px;
+    }
+    .train-nav__line {
+      position: absolute;
+      top: 17px;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: rgba(255,255,255,0.25);
+      z-index: 0;
+    }
+    .train-nav__stops {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+    .train-nav__stop {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .train-nav__stop a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .train-nav__dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.15);
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+    .train-nav__stop.active .train-nav__dot {
+      background: #fff;
+      border-color: #fff;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
+    }
+    .train-nav__label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Space Mono', monospace;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .train-nav__stop.active .train-nav__label {
+      color: #fff;
+    }
+
+    /* ── PAGE LAYOUT ── */
+    .page-body {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* ── LEFT COLUMN — sticky ── */
+    .left-col {
+      position: sticky;
+      top: 64px; /* nav height */
+      height: calc(100vh - 64px);
+      padding: 36px 20px 28px 44px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .left-avatar {
+      width: 64px; height: 64px;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 14px;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .left-avatar:hover { transform: translateY(-3px) scale(1.05); }
+    .left-name {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+    .left-caption {
+      font-size: 11px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .left-facts {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.95;
+    }
+    .left-facts span { display: block; }
+    .left-contact {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 10px;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.9;
+    }
+    .left-contact a {
+      color: rgba(255,255,255,0.38);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .left-contact a:hover { color: rgba(255,255,255,0.8); }
+
+    /* mini train map in left col */
+    .left-map {
+      margin-top: 18px;
+      opacity: 0.3;
+    }
+
+    /* ── MAIN SCROLL CONTENT ── */
+    .main-content {
+      padding: 40px 44px 80px 36px;
+      overflow-y: auto;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      margin-bottom: 52px;
+    }
+    .page-stop {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 60px; }
+    .section-label {
+      font-size: 8.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 22px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ── MANGA DIVIDER ── */
+    .manga-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 52px 0;
+      opacity: 0.35;
+    }
+    .manga-divider::before,
+    .manga-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+    }
+    .manga-divider span {
+      font-family: var(--font-hand);
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      white-space: nowrap;
+    }
+
+    /* ── INTRO ── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 230px;
+      gap: 40px;
+      align-items: start;
+    }
+    .intro-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .intro-text strong { color: #fff; font-weight: 700; }
+    .intro-list {
+      list-style: none;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      line-height: 2.1;
+    }
+    .intro-list li::before {
+      content: '·  ';
+      color: rgba(255,255,255,0.28);
+    }
+    .photo-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .photo-slot {
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .photo-slot:nth-child(1) { aspect-ratio: 3/4; }
+    .photo-slot:nth-child(2) { aspect-ratio: 4/3; }
+    .photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-hint {
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* ── COMMUNITIES ── */
+    .communities-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .community-card {
+      background: rgba(255,255,255,0.055);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 16px;
+      align-items: start;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .community-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .com-icon {
+      width: 44px; height: 44px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .com-name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .com-role {
+      font-size: 8.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 7px;
+    }
+    .com-desc {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    /* ── FAVORITES ── */
+    .fav-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .fav-tab {
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      padding: 8px 18px 8px 0;
+      border-bottom: 1.5px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s;
+    }
+    .fav-tab:hover { color: rgba(255,255,255,0.7); }
+    .fav-tab.active { color: #fff; border-bottom-color: #fff; }
+
+    .fav-grid {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .fav-grid.active { display: grid; }
+
+    .fav-card {
+      aspect-ratio: 2/3;
+      perspective: 900px;
+    }
+    .fav-card-inner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4,0.2,0.2,1);
+    }
+    .fav-card:hover .fav-card-inner { transform: rotateY(180deg); }
+    .fav-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .fav-front {
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.13);
+      display: flex;
+      flex-direction: column;
+    }
+    .fav-img {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      overflow: hidden;
+    }
+    .fav-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .fav-info { padding: 9px 10px; flex-shrink: 0; }
+    .fav-star { font-size: 7.5px; color: rgba(255,255,255,0.28); margin-bottom: 3px; }
+    .fav-title { font-size: 10px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 2px; }
+    .fav-author { font-size: 9px; color: rgba(255,255,255,0.4); }
+
+    .fav-back {
+      background: #fff;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 14px 12px;
+      gap: 7px;
+    }
+    .fav-back-title {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1.25;
+    }
+    .fav-back-note {
+      font-family: var(--font-hand);
+      font-size: 14px;
+      color: rgba(26,82,212,0.7);
+      line-height: 1.5;
+    }
+    .fav-back-tag {
+      font-size: 7.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(26,82,212,0.3);
+      margin-top: 4px;
+    }
+
+    /* ── NOW PLAYING ── */
+    .now-playing {
+      background: rgba(255,255,255,0.055);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: background 0.2s;
+    }
+    .now-playing:hover { background: rgba(255,255,255,0.09); }
+    .np-icon {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: #1DB954;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .np-label {
+      font-size: 7.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 3px;
+    }
+    .np-track { font-size: 13px; color: #fff; font-weight: 700; }
+    .np-link {
+      margin-left: auto;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .np-link:hover { color: #fff; }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.12);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- cursors -->
+  <div class="cur-dot" id="cur-dot"></div>
+  <div class="cur-ring" id="cur-ring"></div>
+
+  <!-- ══ TRAIN NAV — sticky top, same language as landing ══ -->
+  <nav class="train-nav" aria-label="Main navigation">
+    <div class="train-nav__track">
+      <div class="train-nav__line"></div>
+      <ol class="train-nav__stops">
+        <li class="train-nav__stop">
+          <a href="/index.html">
+            <span class="train-nav__dot"></span>
+            <span class="train-nav__label">home</span>
+          </a>
+        </li>
+        <li class="train-nav__stop">
+          <a href="/work/">
+            <span class="train-nav__dot"></span>
+            <span class="train-nav__label">work</span>
+          </a>
+        </li>
+        <li class="train-nav__stop active">
+          <a href="/about.html">
+            <span class="train-nav__dot"></span>
+            <span class="train-nav__label">about</span>
+          </a>
+        </li>
+        <li class="train-nav__stop">
+          <a href="/play.html">
+            <span class="train-nav__dot"></span>
+            <span class="train-nav__label">play</span>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ══ PAGE BODY ══ -->
+  <div class="page-body">
+
+    <!-- LEFT — sticky identity column -->
+    <aside class="left-col">
+      <!-- replace path with your actual icon path -->
+      <img src="/updatedpfpicon.png" alt="Elaine Yu" class="left-avatar"/>
+      <div class="left-name">Elaine<br>Yu.</div>
+      <div class="left-caption">"i design things<br>people actually want to use."</div>
+      <div class="left-facts">
+        <span>CS + Visual Media @ Duke</span>
+        <span>Currently @ IBM Z DevOps</span>
+        <span>UI/UX Lead @ HackDuke</span>
+      </div>
+
+      <!-- mini route map showing current stop -->
+      <div class="left-map">
+        <svg viewBox="0 0 140 30" fill="none">
+          <line x1="8" y1="12" x2="132" y2="12"
+            stroke="white" stroke-width="1.5"/>
+          <circle cx="8"   cy="12" r="4" fill="white" opacity="0.35"/>
+          <circle cx="52"  cy="12" r="4" fill="white" opacity="0.35"/>
+          <!-- about = current stop, filled -->
+          <circle cx="96"  cy="12" r="5.5" fill="white"/>
+          <circle cx="132" cy="12" r="4" fill="white" opacity="0.35"/>
+          <text x="8"   y="26" text-anchor="middle"
+            font-size="6" font-family="Space Mono, monospace"
+            fill="white" opacity="0.35">home</text>
+          <text x="52"  y="26" text-anchor="middle"
+            font-size="6" font-family="Space Mono, monospace"
+            fill="white" opacity="0.35">work</text>
+          <text x="96"  y="26" text-anchor="middle"
+            font-size="6" font-family="Space Mono, monospace"
+            fill="white">about</text>
+          <text x="132" y="26" text-anchor="middle"
+            font-size="6" font-family="Space Mono, monospace"
+            fill="white" opacity="0.35">play</text>
+        </svg>
+      </div>
+
+      <div class="left-contact">
+        <a href="#">linkedin</a> · <a href="#">resume</a><br>
+        elaineyustudio@gmail.com
+      </div>
+    </aside>
+
+    <!-- ══ SCROLLING CONTENT ══ -->
+    <main class="main-content">
+
+      <!-- header -->
+      <div class="page-header">
+        <div class="page-stop">stop 03 · about</div>
+        <div class="page-title">Hi, I'm Elaine.</div>
+      </div>
+
+      <!-- ── WHO I AM ── -->
+      <section class="section">
+        <div class="section-label">who i am</div>
+        <div class="intro-grid">
+          <div>
+            <p class="intro-text">
+              I'm a <strong>designer-developer</strong> studying CS + Visual Media
+              Studies at Duke University, currently interning at
+              <strong>IBM Z DevOps</strong>. I care about design that feels human —
+              the kind that makes you forget you're using software.
+            </p>
+            <p class="intro-text">
+              I come at it from both sides: the systems thinker who wants everything
+              to make sense, and the visual artist who wants it to feel like
+              <strong>something</strong>.
+            </p>
+            <p class="intro-text" style="margin-bottom:22px">
+              When I'm not in Figma or Cursor:
+            </p>
+            <ul class="intro-list">
+              <li>shooting on film somewhere with good light</li>
+              <li>making playlists for every conceivable occasion</li>
+              <li>drawing in Procreate at an unreasonable hour</li>
+              <li>eating my way through whatever city I'm in</li>
+              <li>curating Pinterest boards I'll never finish</li>
+            </ul>
+          </div>
+          <!-- swap .photo-hint divs for <img> when you have photos -->
+          <div class="photo-stack">
+            <div class="photo-slot">
+              <span class="photo-hint">photo here</span>
+            </div>
+            <div class="photo-slot">
+              <span class="photo-hint">photo here</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="manga-divider"><span>— the journey so far</span></div>
+
+      <!-- ── COMMUNITIES ── -->
+      <section class="section">
+        <div class="section-label">communities</div>
+        <div class="communities-list">
+
+          <div class="community-card">
+            <div class="com-icon">🦆</div>
+            <div>
+              <div class="com-name">HackDuke</div>
+              <div class="com-role">UI/UX Lead · Organizer</div>
+              <div class="com-desc">
+                Leading design for Duke's annual hackathon. Responsible for
+                the full visual identity, participant experience, and design
+                system across all touchpoints.
+              </div>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <div class="com-icon">💙</div>
+            <div>
+              <div class="com-name">IBM Z DevOps</div>
+              <div class="com-role">Design Intern · Summer 2025</div>
+              <div class="com-desc">
+                Working on the Z DevOps design team, focused on enterprise
+                developer tooling and systems design.
+              </div>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <div class="com-icon">🎓</div>
+            <div>
+              <div class="com-name">Duke University</div>
+              <div class="com-role">CS + Visual Media Studies · Class of 2026</div>
+              <div class="com-desc">
+                Studying at the intersection of computer science and visual
+                art — the place where all of this started.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="manga-divider"><span>— a few of my favorite things</span></div>
+
+      <!-- ── FAVORITES ── -->
+      <section class="section">
+        <div class="section-label">favorites · hover a card to flip</div>
+
+        <div class="fav-tabs">
+          <div class="fav-tab active" data-tab="films">films</div>
+          <div class="fav-tab" data-tab="music">music</div>
+          <div class="fav-tab" data-tab="places">places</div>
+          <div class="fav-tab" data-tab="reads">reads</div>
+        </div>
+
+        <!-- FILMS -->
+        <div class="fav-grid active" id="tab-films">
+          <div class="fav-card">
+            <div class="fav-card-inner">
+              <div class="fav-face fav-front">
+                <div class="fav-img">🎬</div>
+                <div class="fav-info">
+                  <div class="fav-star">★ favorite</div>
+                  <div class="fav-title">Your Name</div>
+                  <div class="fav-author">Makoto Shinkai</div>
+                </div>
+              </div>
+              <div class="fav-face fav-back">
+                <div class="fav-back-title">Your Name</div>
+                <div class="fav-back-note">"add your note about this film here"</div>
+                <div class="fav-back-tag">film · add your note</div>
+              </div>
+            </div>
+          </div>
+          <!-- duplicate and fill in your actual favorites -->
+          <div class="fav-card">
+            <div class="fav-card-inner">
+              <div class="fav-face fav-front">
+                <div class="fav-img">🎬</div>
+                <div class="fav-info">
+                  <div class="fav-star">★ favorite</div>
+                  <div class="fav-title">add film</div>
+                  <div class="fav-author">director</div>
+                </div>
+              </div>
+              <div class="fav-face fav-back">
+                <div class="fav-back-title">add film</div>
+                <div class="fav-back-note">"your note here"</div>
+                <div class="fav-back-tag">film</div>
+              </div>
+            </div>
+          </div>
+          <div class="fav-card">
+            <div class="fav-card-inner">
+              <div class="fav-face fav-front">
+                <div class="fav-img">🎬</div>
+                <div class="fav-info">
+                  <div class="fav-star">★ favorite</div>
+                  <div class="fav-title">add film</div>
+                  <div class="fav-author">director</div>
+                </div>
+              </div>
+              <div class="fav-face fav-back">
+                <div class="fav-back-title">add film</div>
+                <div class="fav-back-note">"your note here"</div>
+                <div class="fav-back-tag">film</div>
+              </div>
+            </div>
+          </div>
+          <div class="fav-card">
+            <div class="fav-card-inner">
+              <div class="fav-face fav-front">
+                <div class="fav-img">🎬</div>
+                <div class="fav-info">
+                  <div class="fav-star">★ favorite</div>
+                  <div class="fav-title">add film</div>
+                  <div class="fav-author">director</div>
+                </div>
+              </div>
+              <div class="fav-face fav-back">
+                <div class="fav-back-title">add film</div>
+                <div class="fav-back-note">"your note here"</div>
+                <div class="fav-back-tag">film</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MUSIC -->
+        <div class="fav-grid" id="tab-music">
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
+          </div></div>
+        </div>
+
+        <!-- PLACES -->
+        <div class="fav-grid" id="tab-places">
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📍</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📍</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📍</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📍</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
+          </div></div>
+        </div>
+
+        <!-- READS -->
+        <div class="fav-grid" id="tab-reads">
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📚</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📚</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📚</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
+          </div></div>
+          <div class="fav-card"><div class="fav-card-inner">
+            <div class="fav-face fav-front"><div class="fav-img">📚</div>
+              <div class="fav-info"><div class="fav-star">★</div>
+                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
+            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
+              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
+          </div></div>
+        </div>
+      </section>
+
+      <!-- ── NOW PLAYING ── -->
+      <section class="section">
+        <div class="section-label">currently listening</div>
+        <a href="https://open.spotify.com" target="_blank"
+          rel="noopener" class="now-playing" style="display:flex;text-decoration:none">
+          <div class="np-icon">♫</div>
+          <div>
+            <div class="np-label">open in spotify</div>
+            <div class="np-track">add your current obsession here</div>
+          </div>
+          <span class="np-link">open spotify ↗</span>
+        </a>
+      </section>
+
+    </main>
+  </div><!-- /page-body -->
+
+  <script>
+    // ── cursor ──
+    const dot  = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx=-100,my=-100,rx=-100,ry=-100;
+
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+
+    document.querySelectorAll('a,.fav-card,.community-card,.fav-tab,.left-avatar')
+      .forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('show'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('show'));
+      });
+
+    (function loop() {
+      dot.style.left=mx+'px';  dot.style.top=my+'px';
+      rx+=(mx-rx)*0.12;        ry+=(my-ry)*0.12;
+      ring.style.left=rx+'px'; ring.style.top=ry+'px';
+      requestAnimationFrame(loop);
+    })();
+
+    // ── favorites tabs ──
+    document.querySelectorAll('.fav-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.fav-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.fav-grid').forEach(g => g.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
