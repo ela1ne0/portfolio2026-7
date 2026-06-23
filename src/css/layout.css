@@ -147,14 +147,14 @@ body {
   height: calc(100vh - 64px);
   display: grid;
   grid-template-columns: 280px 1fr;
-  padding: 0 36px 20px 0;
+  padding: 0 36px 32px 0;
   padding-left: 0;
   overflow: visible;
 }
 
 /* ── LEFT COLUMN ── */
 .left-col {
-  padding: 10px 16px 24px 10px;
+  padding: 20px 16px 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -201,12 +201,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 20px;
+  padding: 14px 36px 28px 8px;
   min-height: 0;
   height: 100%;
 }
 .row-top {
-  flex: 1.1;
+  flex: 1;
   min-height: 0;
   display: grid;
   grid-template-columns: 0.85fr 1fr;
@@ -214,7 +214,7 @@ body {
 }
 .row-top .panel { height: 100%; }
 .panel-bottom {
-  flex: 0.9;
+  flex: 0.8;
   min-height: 0;
 }
 .panel {
