@@ -23,9 +23,9 @@
   width: 78%;
   max-width: 340px;
   background: #fff;
-  border: 1.5px solid var(--blue);
-  border-radius: 4px;
-  overflow: visible;
+  border: 2px solid #1a52d4;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* scan */
@@ -71,6 +71,7 @@
 /* ticket content */
 .t-top {
   padding: 10px 12px 8px;
+  padding-right: 68px;
   border-bottom: 1px dashed rgba(26,82,212,0.22);
   display: flex;
   align-items: flex-start;
@@ -106,6 +107,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 6px;
   border-bottom: 1px dashed rgba(26,82,212,0.22);
+  padding-right: 68px;
 }
 .t-field-val {
   font-size: 10px;
@@ -116,9 +118,9 @@
 }
 .t-bold { font-weight: 700; }
 .t-bot {
-  padding: 7px 12px;
-  display: flex;
-  justify-content: space-between;
+  padding: 8px 12px;
+  display: grid;
+  grid-template-columns: 1fr 60px;
   align-items: center;
 }
 .t-name-italic {
@@ -127,16 +129,19 @@
   color: var(--blue);
 }
 .t-num {
-  font-size: 7px;
+  font-size: 8px;
   color: rgba(26,82,212,0.3);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  text-align: right;
+  padding-right: 4px;
   font-family: var(--font-mono);
 }
 
 /* perf stub */
 .t-stub {
   position: absolute;
-  right: 52px; top: 0; bottom: 0;
+  right: 52px;
+  top: 0; bottom: 0;
   width: 1px;
   background-image: repeating-linear-gradient(
     to bottom,
@@ -148,13 +153,17 @@
 }
 .t-notch {
   position: absolute;
-  right: 46px;
-  width: 13px; height: 13px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: var(--blue);
+  background: #1a52d4;
+  border: none;
+  z-index: 3;
+  right: -10px;
 }
-.t-notch.top { top: -6px; }
-.t-notch.bot { bottom: -6px; }
+.t-notch { right: 42px; }
+.t-notch.top { top: -10px; }
+.t-notch.bot { bottom: -10px; }
 
 /* stamp */
 .stamp-overlay {

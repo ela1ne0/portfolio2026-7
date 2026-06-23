@@ -30,10 +30,7 @@ function updateTime() {
   const minutes  = String(now.getMinutes()).padStart(2,'0');
   const ampm     = hours24 >= 12 ? 'PM' : 'AM';
   const hours12  = hours24 % 12 || 12;
-  //est vs edt toggle 
-  const tz = now.toLocaleTimeString('en-US', { timeZoneName: 'short' })
-  .split(' ')[2]; // extracts 'EST' or 'EDT' from the locale string
-  const timeStr = `${String(hours12).padStart(2,'0')}:${minutes} ${ampm} ${tz}`;
+  const timeStr = `${String(hours12).padStart(2,'0')}:${minutes} ${ampm}`;
   const timeEl = document.getElementById('ticket-departs');
   if (timeEl) timeEl.textContent = timeStr;
 
