@@ -590,8 +590,19 @@ body {
 .footer-ascii {
   width: 100%;
   overflow: hidden;
-  height: 32px;
+  height: 36px;
   position: relative;
+}
+.footer-train-svg {
+  height: 24px;
+  width: auto;
+  position: absolute;
+  bottom: 0;
+  animation: footerTrain 14s linear infinite;
+}
+@keyframes footerTrain {
+  0%   { left: -140px; }
+  100% { left: 105%;   }
 }
 .footer-track-line {
   position: absolute;
@@ -599,22 +610,6 @@ body {
   left: 0; right: 0;
   height: 1px;
   background: rgba(255,255,255,0.08);
-}
-.footer-ascii pre {
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  line-height: 1.4;
-  color: rgba(255,255,255,0.12);
-  white-space: pre;
-  letter-spacing: 0.02em;
-  position: absolute;
-  /* train moves left to right continuously */
-  animation: footerTrain 18s linear infinite;
-  bottom: 0;
-}
-@keyframes footerTrain {
-  0%   { left: -180px; }
-  100% { left: 105%;   }
 }
 
 /* ── IDENTITY ── */

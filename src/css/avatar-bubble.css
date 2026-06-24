@@ -9,6 +9,8 @@
   display: inline-block;
   margin-bottom: 16px;
   cursor: none; /* use global cursor */
+  overflow: visible;
+  z-index: 20;
 }
 
 /* ── avatar itself ── */
@@ -32,6 +34,7 @@
   left: 84px;       /* sits to the right of the avatar */
   top: 50%;
   transform: translateY(-50%);
+  z-index: 20;
   background: #ffffff;
   border: 1.5px solid #1a52d4;
   border-radius: 4px;
