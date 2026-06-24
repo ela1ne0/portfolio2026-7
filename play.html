@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Play — Elaine Yu</title>
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  cursor: none !important;
+}
+:root {
+  --blue:  #1a52d4;
+  --ink:   #1a2744;
+  --white: #ffffff;
+  --font-display: 'Noto Serif JP', serif;
+  --font-mono:    'Space Mono', monospace;
+  --font-hand:    'Caveat', cursive;
+}
+html, body { height: 100%; overflow: hidden; background: var(--blue); }
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+}
+
+/* ── CURSOR ── */
+.cur-dot {
+  position: fixed; width: 7px; height: 7px;
+  border-radius: 50%; background: #fff;
+  box-shadow: 0 0 0 1.5px rgba(26,82,212,0.3);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  top: -100px; left: -100px;
+}
+.cur-ring {
+  position: fixed; width: 26px; height: 26px;
+  border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.55);
+  background: transparent; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  top: -100px; left: -100px;
+  opacity: 0;
+  transition: opacity 0.2s, width 0.25s cubic-bezier(0.34,1.56,0.64,1),
+              height 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.cur-ring.show { opacity: 1; width: 32px; height: 32px; }
+
+/* ── PAGE BODY ── */
+.page-body {
+  flex: 1; min-height: 0;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  overflow: hidden;
+}
+
+/* ── LEFT COL ── */
+.left-col {
+  width: 200px; flex-shrink: 0; height: 100%;
+  overflow: visible; position: relative;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding: 28px 16px 24px 28px;
+  display: flex; flex-direction: column; z-index: 50;
+}
+.left-avatar {
+  width: 56px; height: 56px; object-fit: contain;
+  display: block; margin-bottom: 14px;
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.avatar-link { display: inline-block; text-decoration: none; }
+.avatar-link:hover .left-avatar { transform: translateY(-3px) scale(1.05); }
+.left-name {
+  font-family: var(--font-display); font-size: 28px; font-weight: 300;
+  color: #fff; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 16px;
+}
+.left-caption { font-size: 11px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 16px; }
+.left-facts { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.95; }
+.left-facts span { display: block; }
+.left-contact {
+  margin-top: auto; padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 10px; color: rgba(255,255,255,0.38); line-height: 1.9;
+}
+.left-contact a { color: rgba(255,255,255,0.38); text-decoration: none; }
+.left-contact a:hover { color: rgba(255,255,255,0.8); }
+
+/* ── RIGHT: coming soon ── */
+.right-scroll {
+  height: 100%; overflow-y: auto; overflow-x: hidden;
+  display: flex; flex-direction: column;
+}
+.right-scroll::-webkit-scrollbar { width: 3px; }
+.right-scroll::-webkit-scrollbar-track { background: transparent; }
+.right-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+.coming-soon {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 44px;
+  text-align: center;
+  gap: 28px;
+}
+
+/* manga panel style box */
+.cs-panel {
+  background: #fff;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  width: 100%;
+  max-width: 560px;
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* panel number top left */
+.cs-panel-num {
+  position: absolute;
+  top: 14px; left: 16px;
+  font-size: 8px; letter-spacing: 0.12em;
+  color: rgba(26,82,212,0.25);
+  font-family: var(--font-mono);
+  border: 1px solid rgba(26,82,212,0.15);
+  padding: 2px 7px;
+}
+
+/* caption box inside panel */
+.cs-caption {
+  position: absolute;
+  bottom: 14px; left: 16px;
+  border: 1.5px solid var(--blue);
+  padding: 7px 12px;
+  font-size: 10px;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  background: #fff;
+  letter-spacing: 0.06em;
+}
+.cs-caption__cursor {
+  animation: blink 0.8s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* main content */
+.cs-stop {
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26,82,212,0.35);
+  margin-bottom: 14px;
+  font-family: var(--font-mono);
+}
+.cs-title {
+  font-family: var(--font-display);
+  font-size: 48px; font-weight: 300;
+  color: var(--ink); line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+.cs-desc {
+  font-size: 12px; color: rgba(26,82,212,0.55);
+  line-height: 1.85; max-width: 380px;
+  margin: 0 auto 28px;
+  font-family: var(--font-mono);
+}
+
+/* things coming tag list */
+.cs-tags {
+  display: flex; flex-wrap: wrap;
+  gap: 8px; justify-content: center;
+  margin-bottom: 8px;
+}
+.cs-tag {
+  font-size: 8px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(26,82,212,0.5);
+  border: 1px solid rgba(26,82,212,0.2);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+}
+
+/* hand-drawn asterisk doodles */
+.cs-doodle {
+  position: absolute;
+  font-family: var(--font-hand);
+  font-size: 13px;
+  color: rgba(26,82,212,0.18);
+  pointer-events: none;
+}
+
+/* back link */
+.cs-back {
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  transition: color 0.2s;
+}
+.cs-back:hover { color: #fff; }
+</style>
+<link rel="stylesheet" href="/src/css/layout.css"/>
+</head>
+<body>
+
+<div class="cur-dot" id="cur-dot"></div>
+<div class="cur-ring" id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="main-nav" class="train-nav" aria-label="Main">
+  <div class="train-nav__track">
+    <div class="train-nav__line" aria-hidden="true"></div>
+    <div class="train-nav__fill" style="width:100%"></div>
+    <ol class="train-nav__stops">
+      <li class="train-nav__stop">
+        <a href="/index.html" class="train-nav__dot">
+          <span class="train-nav__glow" aria-hidden="true"></span>
+          <span class="train-nav__label">home</span>
+        </a>
+      </li>
+      <li class="train-nav__stop">
+        <a href="/index.html#work" class="train-nav__dot">
+          <span class="train-nav__glow" aria-hidden="true"></span>
+          <span class="train-nav__label">work</span>
+        </a>
+      </li>
+      <li class="train-nav__stop">
+        <a href="/about.html" class="train-nav__dot">
+          <span class="train-nav__glow" aria-hidden="true"></span>
+          <span class="train-nav__label">about</span>
+        </a>
+      </li>
+      <li class="train-nav__stop is-active">
+        <a href="/play.html" class="train-nav__dot">
+          <span class="train-nav__glow" aria-hidden="true"></span>
+          <span class="train-nav__label">play</span>
+        </a>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- LEFT COL -->
+  <aside class="left-col">
+    <a href="/index.html" class="avatar-link">
+      <img src="/updatedpfpicon.png" alt="Elaine Yu" class="left-avatar"/>
+    </a>
+    <div class="left-name">Elaine<br>Yu.</div>
+    <div class="left-caption">"i design things<br>people actually want to use."</div>
+    <div class="left-facts">
+      <span>CS + Visual Media @ Duke</span>
+      <span>Currently @ IBM Z DevOps</span>
+      <span>UI/UX Lead @ HackDuke</span>
+    </div>
+    <div class="left-contact">
+      <a href="#">linkedin</a> · <a href="#">resume</a><br>
+      elaineyustudio@gmail.com
+    </div>
+  </aside>
+
+  <!-- RIGHT -->
+  <div class="right-scroll">
+    <div class="coming-soon">
+
+      <!-- manga panel -->
+      <div class="cs-panel">
+        <div class="cs-panel-num">stop 04</div>
+
+        <!-- scattered doodles -->
+        <div class="cs-doodle" style="top:18px;right:22px;transform:rotate(12deg)">✦ coming soon</div>
+        <div class="cs-doodle" style="top:60px;right:40px;transform:rotate(-6deg)font-size:11px">still drawing...</div>
+        <div class="cs-doodle" style="bottom:44px;right:24px;transform:rotate(8deg)">✦</div>
+
+        <div class="cs-stop">stop 04 · play</div>
+        <div class="cs-title">Under<br>construction.</div>
+        <div class="cs-desc">
+          This is where the fun stuff lives — side projects,
+          experiments, illustrations, and things made
+          just because. Currently being drawn.
+        </div>
+
+        <div class="cs-tags">
+          <span class="cs-tag">film photography</span>
+          <span class="cs-tag">procreate</span>
+          <span class="cs-tag">side projects</span>
+          <span class="cs-tag">experiments</span>
+          <span class="cs-tag">illustrations</span>
+          <span class="cs-tag">pinterest curation</span>
+        </div>
+
+        <!-- caption box -->
+        <div class="cs-caption">
+          — she's still drawing<span class="cs-caption__cursor">_</span>
+        </div>
+      </div>
+
+      <a href="/index.html" class="cs-back">← back to home</a>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // cursor
+  const dot  = document.getElementById('cur-dot');
+  const ring = document.getElementById('cur-ring');
+  let mx=-100,my=-100,rx=-100,ry=-100;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  document.querySelectorAll('a, .cs-tag')
+    .forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('show'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('show'));
+    });
+  (function loop() {
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  })();
+</script>
+
+</body>
+</html>

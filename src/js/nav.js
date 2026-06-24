@@ -15,6 +15,25 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
+const workLink = document.getElementById('nav-work-link');
+if (workLink) {
+  workLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    const workSection = document.getElementById('work');
+    const rightScroll = document.querySelector('.right-scroll');
+
+    if (workSection && rightScroll) {
+      // scroll the right panel, not window
+      // since only .right-scroll scrolls
+      const offset = workSection.offsetTop;
+      rightScroll.scrollTo({
+        top: offset,
+        behavior: 'smooth'
+      });
+    }
+  });
+}
+
 export function initNav() {
   const nav = document.getElementById('main-nav')
   if (!nav) return
