@@ -1,9 +1,17 @@
 const yr = document.getElementById('footer-year');
 if (yr) yr.textContent = new Date().getFullYear();
 
-document.getElementById('scroll-up')
-  ?.addEventListener('click', () =>
-    window.scrollTo({ top: 0, behavior: 'smooth' }));
+const scrollUpBtn = document.getElementById('scroll-up');
+if (scrollUpBtn) {
+  scrollUpBtn.addEventListener('click', () => {
+    const rightScroll = document.querySelector('.right-scroll');
+    if (rightScroll) {
+      rightScroll.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+}
 
 window.addEventListener('scroll', () => {
   const caption = document.getElementById('scroll-caption');
