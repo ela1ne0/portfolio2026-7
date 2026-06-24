@@ -1,3 +1,10 @@
+const yr = document.getElementById('footer-year');
+if (yr) yr.textContent = new Date().getFullYear();
+
+document.getElementById('scroll-up')
+  ?.addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: 'smooth' }));
+
 export function initNav() {
   const nav = document.getElementById('main-nav')
   if (!nav) return
