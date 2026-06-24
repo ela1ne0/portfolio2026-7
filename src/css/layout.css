@@ -586,30 +586,38 @@ body {
   text-align: center;
 }
 
-/* ── ASCII TRAIN ── */
 .footer-ascii {
   width: 100%;
   overflow: hidden;
-  height: 36px;
+  height: 40px;
   position: relative;
 }
-.footer-train-svg {
-  height: 28px;
-  width: auto;
-  position: absolute;
-  bottom: 2px;
-  animation: footerTrain 14s linear infinite;
-}
-@keyframes footerTrain {
-  0%   { left: -140px; }
-  100% { left: 105%;   }
-}
+
 .footer-track-line {
   position: absolute;
   bottom: 8px;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   height: 1px;
   background: rgba(255,255,255,0.08);
+}
+
+.footer-train-svg {
+  position: absolute;
+  height: 22px;
+  width: auto;
+  /* bottom: 8px puts the SVG baseline on the track line
+     the SVG viewBox is 0 0 100 20
+     wheel centers are at cy=17 r=3 so bottom of wheels = y20
+     setting bottom: 8px means y20 of SVG = 8px from container bottom
+     track line is also at bottom: 8px = they meet exactly */
+  bottom: 8px;
+  animation: footerTrain 14s linear infinite;
+}
+
+@keyframes footerTrain {
+  0%   { left: -120px; }
+  100% { left: 105%;   }
 }
 
 /* ── IDENTITY ── */
