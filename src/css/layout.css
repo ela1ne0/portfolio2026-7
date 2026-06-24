@@ -44,23 +44,26 @@ body {
 
 .train-nav__line {
   position: absolute;
-  top: calc(var(--nav-dot) / 2);
-  left: 0;
-  right: 0;
-  height: var(--nav-line);
-  background: var(--blue-faint);
-  transform: translateY(-50%);
-  pointer-events: none;
+  top: 8px; left: 0; right: 0;
+  height: 1.5px;
+  background: rgba(255,255,255,0.22);
+}
+
+.train-nav__fill {
+  position: absolute;
+  top: 8px; left: 0;
+  height: 1.5px;
+  background: #fff;
+  transition: width 0.8s ease;
 }
 
 .train-nav__stops {
-  position: relative;
+  list-style: none;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin: 0;
+  position: relative;
   padding: 0;
-  list-style: none;
+  transform: translateY(0px);
 }
 
 .train-nav__stop {
@@ -114,7 +117,8 @@ body {
   pointer-events: none;
 }
 
-.train-nav__stop.is-active .train-nav__glow {
+.train-nav__stop.is-active .train-nav__glow,
+.train-nav__stop.active .train-nav__glow {
   opacity: 0.55;
   animation: nav-dot-pulse 1.2s var(--ease-out);
 }
@@ -136,6 +140,15 @@ body {
 
 .train-nav__label {
   white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1;
+}
+
+.train-nav__stop.is-active .train-nav__label,
+.train-nav__stop.active .train-nav__label {
+  color: var(--white);
 }
 
 /* ── PAGE BODY ── */

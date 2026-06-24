@@ -65,72 +65,6 @@
       opacity: 1; width: 32px; height: 32px;
     }
 
-    /* ── TRAIN NAV — sticky at top ── */
-    .train-nav {
-      padding: 20px 44px 10px 216px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      flex-shrink: 0;
-    }
-    .train-nav__track {
-      position: relative;
-      padding-top: 9.5px;
-    }
-    .train-nav__line {
-      position: absolute;
-      top: 17px;
-      left: 0;
-      right: 0;
-      height: 1.5px;
-      background: rgba(255,255,255,0.25);
-      z-index: 0;
-    }
-    .train-nav__stops {
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      z-index: 1;
-    }
-    .train-nav__stop {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-    .train-nav__stop a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .train-nav__dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.15);
-      position: relative;
-      z-index: 2;
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-    }
-    .train-nav__stop.active .train-nav__dot {
-      background: #fff;
-      border-color: #fff;
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
-    }
-    .train-nav__label {
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-      font-family: 'Space Mono', monospace;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .train-nav__stop.active .train-nav__label {
-      color: #fff;
-    }
-
     /* ── PAGE LAYOUT ── */
     .page-body {
       display: grid;
@@ -652,32 +586,32 @@
   <div class="cur-dot" id="cur-dot"></div>
   <div class="cur-ring" id="cur-ring"></div>
 
-  <!-- ══ TRAIN NAV — sticky top, same language as landing ══ -->
-  <nav class="train-nav" aria-label="Main navigation">
+  <nav id="main-nav" class="train-nav" aria-label="Main">
     <div class="train-nav__track">
-      <div class="train-nav__line"></div>
+      <div class="train-nav__line" aria-hidden="true"></div>
+      <div class="train-nav__fill" style="width:66%"></div>
       <ol class="train-nav__stops">
         <li class="train-nav__stop">
-          <a href="/index.html">
-            <span class="train-nav__dot"></span>
+          <a href="/index.html" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
             <span class="train-nav__label">home</span>
           </a>
         </li>
         <li class="train-nav__stop">
-          <a href="/work/">
-            <span class="train-nav__dot"></span>
+          <a href="/work/" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
             <span class="train-nav__label">work</span>
           </a>
         </li>
-        <li class="train-nav__stop active">
-          <a href="/about.html">
-            <span class="train-nav__dot"></span>
+        <li class="train-nav__stop is-active">
+          <a href="/about.html" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
             <span class="train-nav__label">about</span>
           </a>
         </li>
         <li class="train-nav__stop">
-          <a href="/play.html">
-            <span class="train-nav__dot"></span>
+          <a href="/play.html" class="train-nav__dot">
+            <span class="train-nav__glow" aria-hidden="true"></span>
             <span class="train-nav__label">play</span>
           </a>
         </li>
