@@ -34,9 +34,10 @@ body {
 .cursor.show { opacity: 1; }
 
 /* ── NAV ── */
-.train-nav {
+#main-nav {
   flex-shrink: 0;
-  padding: 22px 36px 0 260px;
+  padding: 20px 44px 0 200px;
+  padding-bottom: 10px;
 }
 
 .train-nav__track {
@@ -141,62 +142,96 @@ body {
 
 /* ── PAGE BODY ── */
 .page-body {
-  height: calc(100vh - 64px);
   display: grid;
   grid-template-columns: 200px 1fr;
+  height: calc(100vh - 64px);
   overflow: hidden;
   flex-shrink: 0;
-  position: relative;
 }
 
 /* ── LEFT COLUMN ── */
 .left-col {
-  padding: 20px 16px 24px 20px;
+  padding: 28px 16px 24px 28px;
   display: flex;
   flex-direction: column;
-  gap: 0;
   overflow: visible;
 }
 .left-avatar {
-  width: 65px;
-  height: 65px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
-  margin-bottom: 16px;
   display: block;
+  margin-bottom: 14px;
 }
 .left-name {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 4vw, 44px);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 28px;
   font-weight: 300;
   color: #fff;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -0.01em;
-  margin-bottom: 18px;
-  white-space: nowrap;
-  overflow: visible;
+  margin-bottom: 16px;
+  white-space: normal;  /* allow wrapping at smaller size */
 }
 .left-caption {
-  font-size: 14px;
-  color: rgba(255,255,255,0.82);
-  line-height: 1.65;
-  margin-bottom: 18px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 16px;
 }
 .left-facts {
-  font-size: 13px;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.9;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.95;
 }
 .left-facts span { display: block; }
+
+.scroll-caption {
+  margin-top: 20px;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  padding: 7px 11px;
+  font-size: 9px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  width: fit-content;
+  animation: captionPulse 2.5s ease-in-out infinite;
+  transition: opacity 0.4s ease;
+}
+.scroll-caption.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.scroll-caption__arrow {
+  display: block;
+  margin-top: 2px;
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+@keyframes captionPulse {
+  0%,100% {
+    border-color: rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.35);
+  }
+  50% {
+    border-color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.75);
+  }
+}
+@keyframes arrowBounce {
+  0%,100% { transform: translateY(0);   }
+  50%      { transform: translateY(3px); }
+}
+
 .left-contact {
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  font-size: 11px;
-  color: rgba(255,255,255,0.45);
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 10px;
+  color: rgba(255,255,255,0.38);
   line-height: 1.9;
 }
 .left-contact a {
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.38);
   text-decoration: none;
 }
 
@@ -511,9 +546,9 @@ body {
   gap: 20px;
 }
 .work-footer__link {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 18px;
-  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
   color: rgba(255,255,255,0.6);
   text-decoration: none;
   transition: color 0.2s;
@@ -555,6 +590,15 @@ body {
 .footer-ascii {
   width: 100%;
   overflow: hidden;
+  height: 32px;
+  position: relative;
+}
+.footer-track-line {
+  position: absolute;
+  bottom: 6px;
+  left: 0; right: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
 }
 .footer-ascii pre {
   font-family: 'Space Mono', monospace;
@@ -562,16 +606,15 @@ body {
   line-height: 1.4;
   color: rgba(255,255,255,0.12);
   white-space: pre;
-  text-align: center;
   letter-spacing: 0.02em;
-  /* subtle animation — train drifts left very slowly */
-  animation: trainDrift 30s linear infinite;
-  display: inline-block;
+  position: absolute;
+  /* train moves left to right continuously */
+  animation: footerTrain 18s linear infinite;
+  bottom: 0;
 }
-@keyframes trainDrift {
-  0%   { transform: translateX(4%);  }
-  50%  { transform: translateX(-4%); }
-  100% { transform: translateX(4%);  }
+@keyframes footerTrain {
+  0%   { left: -180px; }
+  100% { left: 105%;   }
 }
 
 /* ── IDENTITY ── */
@@ -595,8 +638,8 @@ body {
 
 /* ── TAGLINE ── */
 .footer-tagline {
-  font-family: 'Caveat', cursive;
-  font-size: 19px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
   color: rgba(255,255,255,0.55);
   display: flex;
   align-items: center;

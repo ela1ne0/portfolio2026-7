@@ -5,6 +5,16 @@ document.getElementById('scroll-up')
   ?.addEventListener('click', () =>
     window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+window.addEventListener('scroll', () => {
+  const caption = document.getElementById('scroll-caption');
+  if (!caption) return;
+  if (window.scrollY > window.innerHeight * 0.2) {
+    caption.classList.add('hidden');
+  } else {
+    caption.classList.remove('hidden');
+  }
+}, { passive: true });
+
 export function initNav() {
   const nav = document.getElementById('main-nav')
   if (!nav) return
