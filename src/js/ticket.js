@@ -109,6 +109,45 @@ function doStamp() {
   }, 2400);
 
   setTimeout(() => {
+    const indicator = document.createElement('div');
+    indicator.id = 'explore-indicator';
+    indicator.innerHTML = `
+      <span class="explore-text">explore the portfolio</span>
+      <span class="explore-dots">
+        <span></span><span></span><span></span>
+      </span>
+    `;
+    indicator.style.cssText = `
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(26,82,212,0.45);
+      white-space: nowrap;
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    `;
+
+    const panelBottom = document.getElementById('panel-bottom');
+    if (panelBottom) {
+      panelBottom.style.position = 'relative';
+      panelBottom.appendChild(indicator);
+      requestAnimationFrame(() => {
+        indicator.style.opacity = '1';
+      });
+    }
+  }, 4800);
+
+  setTimeout(() => {
     const resetEl = document.createElement('div');
     resetEl.id = 'ticket-reset';
     resetEl.textContent = '↺ reset';
