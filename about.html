@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="/favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/src/css/avatar-bubble.css"/>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -555,9 +556,13 @@
   <div class="page-body">
 
     <!-- LEFT — sticky identity column -->
-    <aside class="left-col">
+    <aside class="left-col" style="position:relative;z-index:100;">
       <!-- replace path with your actual icon path -->
-      <img src="/updatedpfpicon.png" alt="Elaine Yu" class="left-avatar"/>
+      <a href="/index.html" class="avatar-link">
+        <img src="/updatedpfpicon.png"
+          alt="Elaine Yu"
+          class="left-avatar"/>
+      </a>
       <div class="left-name">Elaine<br>Yu.</div>
       <div class="left-caption">"i design things<br>people actually want to use."</div>
       <div class="left-facts">
@@ -923,6 +928,8 @@
       });
     });
   </script>
+
+  <script type="module" src="/src/js/avatar-bubble.js"></script>
 
 </body>
 </html>

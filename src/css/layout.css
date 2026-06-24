@@ -156,6 +156,14 @@ body {
   flex-direction: column;
   overflow: visible;
 }
+
+.avatar-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.avatar-link:hover { opacity: 0.7; }
+
 .left-avatar {
   width: 56px;
   height: 56px;
