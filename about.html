@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About — Elaine Yu</title>
-  <link rel="icon" type="image/png" href="/favicon.png"/>
+  <link rel="icon" type="image/png" href="updatedfavicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/src/css/avatar-bubble.css"/>
@@ -67,13 +67,9 @@
 
     /* ── TRAIN NAV — sticky at top ── */
     .train-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: #1a52d4;
-      padding: 20px 44px 0 44px;
-      padding-bottom: 10px;
+      padding: 20px 44px 10px 216px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
     }
     .train-nav__track {
       position: relative;
@@ -198,16 +194,9 @@
     }
     .left-contact a:hover { color: rgba(255,255,255,0.8); }
 
-    /* mini train map in left col */
-    .left-map {
-      margin-top: 18px;
-      opacity: 0.3;
-    }
-
     /* ── MAIN SCROLL CONTENT ── */
     .main-content {
       padding: 40px 44px 80px 36px;
-      overflow-y: auto;
     }
 
     /* ── PAGE HEADER ── */
@@ -504,6 +493,149 @@
     }
     .np-link:hover { color: #fff; }
 
+    /* ── FOOTER ── */
+    .site-footer {
+      background: #1a2744;
+      border-top: 2px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+    .footer-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      padding: 40px 44px 32px;
+      text-align: center;
+    }
+    .footer-ascii {
+      width: 100%;
+      overflow: hidden;
+      height: 40px;
+      position: relative;
+    }
+    .footer-track-line {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .footer-train-svg {
+      position: absolute;
+      height: 22px;
+      width: auto;
+      bottom: 8px;
+      animation: footerTrain 14s linear infinite;
+    }
+    @keyframes footerTrain {
+      0%   { left: -120px; }
+      100% { left: 105%;   }
+    }
+    .footer-identity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-avatar {
+      width: 36px; height: 36px;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+    .footer-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 20px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .footer-tagline {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: center;
+      line-height: 1.5;
+    }
+    .footer-heart {
+      color: #c8001e;
+      font-size: 17px;
+      animation: hb 2s ease-in-out infinite;
+    }
+    @keyframes hb {
+      0%,100% { transform: scale(1);    }
+      15%      { transform: scale(1.28); }
+      30%      { transform: scale(1);    }
+      45%      { transform: scale(1.14); }
+      60%      { transform: scale(1);    }
+    }
+    .footer-playlist-link {
+      color: rgba(255,255,255,0.85);
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.3);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+      white-space: nowrap;
+    }
+    .footer-playlist-link:hover {
+      text-decoration-color: rgba(255,255,255,0.9);
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-link {
+      color: rgba(255,255,255,0.38);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s, transform 0.18s;
+    }
+    .footer-link:hover {
+      color: rgba(255,255,255,0.85);
+      transform: translateY(-2px);
+    }
+    .footer-link--text {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      width: 100%;
+      justify-content: center;
+    }
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 8.5px;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.18);
+      text-transform: uppercase;
+    }
+    .footer-top-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 8.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+    .footer-top-btn:hover {
+      color: rgba(255,255,255,0.6);
+    }
+
     /* scrollbar */
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -512,6 +644,7 @@
       border-radius: 2px;
     }
   </style>
+  <link rel="stylesheet" href="/src/css/layout.css"/>
 </head>
 <body>
 
@@ -555,9 +688,7 @@
   <!-- ══ PAGE BODY ══ -->
   <div class="page-body">
 
-    <!-- LEFT — sticky identity column -->
-    <aside class="left-col" style="position:relative;z-index:100;">
-      <!-- replace path with your actual icon path -->
+    <aside class="left-col">
       <a href="/index.html" class="avatar-link">
         <img src="/updatedpfpicon.png"
           alt="Elaine Yu"
@@ -571,38 +702,13 @@
         <span>UI/UX Lead @ HackDuke</span>
       </div>
 
-      <!-- mini route map showing current stop -->
-      <div class="left-map">
-        <svg viewBox="0 0 140 30" fill="none">
-          <line x1="8" y1="12" x2="132" y2="12"
-            stroke="white" stroke-width="1.5"/>
-          <circle cx="8"   cy="12" r="4" fill="white" opacity="0.35"/>
-          <circle cx="52"  cy="12" r="4" fill="white" opacity="0.35"/>
-          <!-- about = current stop, filled -->
-          <circle cx="96"  cy="12" r="5.5" fill="white"/>
-          <circle cx="132" cy="12" r="4" fill="white" opacity="0.35"/>
-          <text x="8"   y="26" text-anchor="middle"
-            font-size="6" font-family="Space Mono, monospace"
-            fill="white" opacity="0.35">home</text>
-          <text x="52"  y="26" text-anchor="middle"
-            font-size="6" font-family="Space Mono, monospace"
-            fill="white" opacity="0.35">work</text>
-          <text x="96"  y="26" text-anchor="middle"
-            font-size="6" font-family="Space Mono, monospace"
-            fill="white">about</text>
-          <text x="132" y="26" text-anchor="middle"
-            font-size="6" font-family="Space Mono, monospace"
-            fill="white" opacity="0.35">play</text>
-        </svg>
-      </div>
-
       <div class="left-contact">
         <a href="#">linkedin</a> · <a href="#">resume</a><br>
         elaineyustudio@gmail.com
       </div>
     </aside>
 
-    <!-- ══ SCROLLING CONTENT ══ -->
+    <div class="right-scroll">
     <main class="main-content">
 
       <!-- header -->
@@ -895,6 +1001,122 @@
       </section>
 
     </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      <!-- ASCII train art — decorative, aria-hidden -->
+      <div class="footer-ascii" aria-hidden="true">
+        <div class="footer-track-line"></div>
+        <svg class="footer-train-svg"
+          viewBox="0 0 100 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <!-- train body -->
+          <rect x="1" y="1" width="88" height="13"
+            rx="3" stroke="white" stroke-width="1.2"
+            opacity="0.35"/>
+          <!-- windows -->
+          <rect x="6"  y="4" width="13" height="6"
+            rx="1.5" stroke="white" stroke-width="1"
+            opacity="0.35"/>
+          <rect x="24" y="4" width="13" height="6"
+            rx="1.5" stroke="white" stroke-width="1"
+            opacity="0.35"/>
+          <rect x="42" y="4" width="13" height="6"
+            rx="1.5" stroke="white" stroke-width="1"
+            opacity="0.35"/>
+          <rect x="60" y="4" width="13" height="6"
+            rx="1.5" stroke="white" stroke-width="1"
+            opacity="0.35"/>
+          <!-- wheels sit flush with bottom of body -->
+          <circle cx="16" cy="17" r="3"
+            stroke="white" stroke-width="1.2"
+            opacity="0.35"/>
+          <circle cx="74" cy="17" r="3"
+            stroke="white" stroke-width="1.2"
+            opacity="0.35"/>
+        </svg>
+      </div>
+
+      <!-- identity -->
+      <div class="footer-identity">
+        <img src="/updatedpfpicon.png" alt="Elaine Yu" class="footer-avatar"/>
+        <div class="footer-name">Elaine 俞.</div>
+      </div>
+
+      <!-- personality line -->
+      <div class="footer-tagline">
+        made <span class="footer-heart">♥</span> while listening to
+        <a href="https://open.spotify.com/playlist/7yMoUp0jc4P6jhtd92jAb2?si=505ede79e90547ba"
+          target="_blank" rel="noopener"
+          class="footer-playlist-link">
+          this playlist
+          <svg width="9" height="9" viewBox="0 0 10 10" fill="none"
+            style="display:inline;vertical-align:middle;margin-left:2px">
+            <path d="M1 9L9 1M9 1H3M9 1V7"
+              stroke="currentColor" stroke-width="1.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        and too many open tabs
+      </div>
+
+      <!-- links -->
+      <div class="footer-links">
+        <a href="https://linkedin.com/in/elaineyuu"
+          target="_blank" rel="noopener"
+          class="footer-link">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="2" y="9" width="4" height="12"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="4" cy="4" r="2"
+              stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </a>
+        <a href="mailto:elaineyustudio@gmail.com"
+          class="footer-link">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 6l-10 7L2 6"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="https://github.com/elaineyuu"
+          target="_blank" rel="noopener"
+          class="footer-link">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+              stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="/resume.pdf"
+          target="_blank" rel="noopener"
+          class="footer-link footer-link--text">resume ↗</a>
+      </div>
+
+      <!-- bottom row: copyright + back to top -->
+      <div class="footer-bottom">
+        <span class="footer-copy">
+          © <span id="footer-year"></span> elaine yu · designed &amp; built by me
+        </span>
+        <button class="footer-top-btn" id="scroll-up">
+          ↑ back to top
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+    </div><!-- /right-scroll -->
   </div><!-- /page-body -->
 
   <script>
