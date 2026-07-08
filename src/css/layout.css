@@ -304,6 +304,27 @@ body {
 }
 
 /* ── CAPTION BOXES ── */
+.panel-illustration {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+}
+
+/* platform art is in the upper portion of its image —
+   anchor to top so the drawing stays in frame */
+.panel-illustration--platform {
+  object-position: center top;
+}
+
+/* train interior art is centered in its image */
+.panel-illustration--train {
+  object-position: center 40%;
+}
+
 .caption-box {
   position: absolute;
   border: 1.5px solid var(--blue);
