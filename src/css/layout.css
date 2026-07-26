@@ -317,12 +317,15 @@ body {
 /* platform art is in the upper portion of its image —
    anchor to top so the drawing stays in frame */
 .panel-illustration--platform {
+  object-fit: contain;
   object-position: center top;
+  background: #fff;
 }
 
 /* train interior art is centered in its image */
 .panel-illustration--train {
-  object-position: center 40%;
+  object-fit: cover;
+  object-position: center 65%;
 }
 
 .caption-box {
