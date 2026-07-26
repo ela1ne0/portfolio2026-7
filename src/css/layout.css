@@ -273,6 +273,27 @@ body {
   text-decoration: none;
 }
 
+.sidebar-walk {
+  margin-top: 20px;
+  width: 100%;
+  overflow: visible;
+  height: 120px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.walk-animation {
+  height: 120px;
+  width: auto;
+  display: block;
+  /* the character is center-right in the canvas
+     shift left to compensate for empty canvas space */
+  transform: translateX(-15%);
+  image-rendering: auto;
+}
+
 /* ── PANELS ── */
 .panels {
   display: flex;
