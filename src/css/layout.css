@@ -276,21 +276,47 @@ body {
 .sidebar-walk {
   margin-top: 20px;
   width: 100%;
-  overflow: visible;
-  height: 120px;
+  height: 160px;
+  position: relative;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.cityscape-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cityscape-track {
   display: flex;
+  flex-direction: row;
   align-items: flex-end;
-  justify-content: center;
+  height: 100%;
+  animation: cityScroll 18s linear infinite;
+  width: 200%;
+}
+
+.city-block {
+  flex-shrink: 0;
+  width: 50%;
+  height: 130px;
+  display: block;
+}
+
+@keyframes cityScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .walk-animation {
-  height: 120px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 130px;
   width: auto;
-  display: block;
-  /* the character is center-right in the canvas
-     shift left to compensate for empty canvas space */
-  transform: translateX(-15%);
+  z-index: 2;
   image-rendering: auto;
 }
 
