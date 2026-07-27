@@ -276,7 +276,7 @@ body {
 .sidebar-walk {
   margin-top: 20px;
   width: 100%;
-  height: 160px;
+  height: 140px;
   position: relative;
   flex-shrink: 0;
   overflow: hidden;
@@ -286,6 +286,8 @@ body {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  display: flex;
+  align-items: flex-end;
 }
 
 .cityscape-track {
@@ -295,29 +297,31 @@ body {
   height: 100%;
   animation: cityScroll 18s linear infinite;
   width: 200%;
+  transform-origin: bottom left;
+  transform: scale(2.2);
 }
 
 .city-block {
   flex-shrink: 0;
   width: 50%;
-  height: 130px;
+  height: 90px;
   display: block;
 }
 
 @keyframes cityScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0%   { transform: translateX(0) scale(1.8); }
+  100% { transform: translateX(-50%) scale(1.8); }
 }
 
 .walk-animation {
   position: absolute;
-  bottom: 0;
+  bottom: -10px;
   left: 50%;
-  transform: translateX(-50%);
-  height: 130px;
+  transform: translateX(-25%) scale(2.2);
+  transform-origin: bottom center;
+  height: 90px;
   width: auto;
   z-index: 2;
-  image-rendering: auto;
 }
 
 /* ── PANELS ── */
