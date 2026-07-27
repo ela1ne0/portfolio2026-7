@@ -694,52 +694,48 @@ body {
 
 .station-scene {
   font-family: 'Space Mono', monospace;
-  font-size: 10px;
+  font-size: 9px;
   line-height: 1.55;
-  color: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.1);
   white-space: pre;
   text-align: center;
   letter-spacing: 0.04em;
   display: block;
-  margin-bottom: 4px;
+  flex-shrink: 0;
+  margin-bottom: 16px;
 }
 
 .footer-ascii {
   width: 100%;
   overflow: hidden;
-  height: 120px;
+  height: 180px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  gap: 0;
 }
 
 .footer-track-line {
   position: absolute;
   bottom: 8px;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   height: 1px;
   background: rgba(255,255,255,0.08);
 }
 
 .footer-train-svg {
   position: absolute;
-  height: 22px;
+  height: 36px;
   width: auto;
-  /* bottom: 8px puts the SVG baseline on the track line
-     the SVG viewBox is 0 0 100 20
-     wheel centers are at cy=17 r=3 so bottom of wheels = y20
-     setting bottom: 8px means y20 of SVG = 8px from container bottom
-     track line is also at bottom: 8px = they meet exactly */
   bottom: 8px;
   animation: footerTrain 14s linear infinite;
 }
 
 @keyframes footerTrain {
-  0%   { left: -120px; }
-  100% { left: 105%;   }
+  0%   { left: -260px; }
+  100% { left: 105%; }
 }
 
 /* ── IDENTITY ── */
