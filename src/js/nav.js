@@ -75,3 +75,45 @@ export function initNav() {
     })
   })
 }
+
+// recruiter mode
+const recruiterPanel  = document.getElementById('recruiter-panel');
+const rightScroll     = document.querySelector('.right-scroll');
+const panels          = document.querySelector('.panels');
+const recruiterToggle = document.getElementById('recruiter-toggle');
+
+function enableRecruiterMode() {
+  recruiterPanel?.classList.add('visible');
+  if (panels) panels.style.display = 'none';
+  recruiterToggle?.classList.add('active');
+  if (recruiterToggle) recruiterToggle.textContent = 'exit recruiter mode';
+  // update URL without reload
+  const url = new URL(window.location);
+  url.searchParams.set('recruiter', 'true');
+  window.history.replaceState({}, '', url);
+}
+
+function disableRecruiterMode() {
+  recruiterPanel?.classList.remove('visible');
+  if (panels) panels.style.display = '';
+  recruiterToggle?.classList.remove('active');
+  if (recruiterToggle) recruiterToggle.textContent = 'recruiter mode';
+  const url = new URL(window.location);
+  url.searchParams.delete('recruiter');
+  window.history.replaceState({}, '', url);
+}
+
+// check URL param on load
+if (new URLSearchParams(window.location.search)
+  .get('recruiter') === 'true') {
+  enableRecruiterMode();
+}
+
+// toggle on click
+recruiterToggle?.addEventListener('click', () => {
+  if (recruiterPanel?.classList.contains('visible')) {
+    disableRecruiterMode();
+  } else {
+    enableRecruiterMode();
+  }
+});
