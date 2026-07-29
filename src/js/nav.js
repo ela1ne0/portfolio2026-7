@@ -117,3 +117,22 @@ recruiterToggle?.addEventListener('click', () => {
     enableRecruiterMode();
   }
 });
+
+function updateRecClock() {
+  const el = document.getElementById('rec-clock');
+  if (!el) return;
+  const now = new Date();
+  const h   = now.getHours() % 12 || 12;
+  const m   = String(now.getMinutes()).padStart(2,'0');
+  const s   = String(now.getSeconds()).padStart(2,'0');
+  const ap  = now.getHours() >= 12 ? 'PM' : 'AM';
+  const tz  = now.toLocaleTimeString('en-US',
+    { timeZoneName: 'short' }).split(' ')[2];
+  const mo  = now.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  const d   = String(now.getDate()).padStart(2,'0');
+  el.textContent =
+    `${String(h).padStart(2,'0')}:${m}:${s} ${ap} ${tz} · ${d} ${mo} ${now.getFullYear()}`;
+}
+
+updateRecClock();
+setInterval(updateRecClock, 1000);

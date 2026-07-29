@@ -970,6 +970,13 @@ body {
   color: rgba(255,255,255,0.55);
   line-height: 1.8;
 }
+.rec-clock {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 10px;
+  letter-spacing: 0.08em;
+}
 
 /* sections */
 .rec-section {
