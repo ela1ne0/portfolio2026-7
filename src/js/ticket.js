@@ -101,14 +101,14 @@ function doStamp() {
     dotHome.querySelector('.train-nav__dot')?.setAttribute('aria-current', 'page');
     capPlatform.classList.add('visible');
     typeText(capPlatform,
-      'platform 01... this is it', 42);
+      'always drawing, always building. somehow both at once.', 42);
   }, 350);
 
   //dialogue 2
   setTimeout(() => {
     capTrain.classList.add('visible');
     typeText(capTrain,
-      "okay, let's go on this journey together", 48);
+      "thanks for boarding! let's go somewhere good.", 48);
   }, 2400);
 
   setTimeout(() => {
