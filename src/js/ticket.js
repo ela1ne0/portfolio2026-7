@@ -50,13 +50,17 @@ document.addEventListener('mousemove', e => {
 
 // hover → scan
 panelTicket.addEventListener('mouseenter', () => {
-  if (stamped) return;
   cursorEl.classList.add('show');
+  if (stamped) return;
   if (!scanned && !scanning) startScan();
 });
 
 panelTicket.addEventListener('mouseleave', () => {
   cursorEl.classList.remove('show');
+});
+
+panelTicket.addEventListener('mousemove', () => {
+  if (stamped) cursorEl.classList.add('show');
 });
 
 // click → stamp
@@ -92,8 +96,11 @@ function doStamp() {
 
   setTimeout(() => {
     instruction.classList.add('hide');
-    cursorEl.classList.remove('show');
   }, 100);
+
+  setTimeout(() => {
+    cursorEl.classList.remove('show');
+  }, 300);
 
   //dialogue 1
   setTimeout(() => {
@@ -149,6 +156,29 @@ function doStamp() {
       });
     }
   }, 4800);
+
+  setTimeout(() => {
+    const rightScroll = document.querySelector('.right-scroll');
+    const workSection = document.getElementById('work');
+    if (rightScroll && workSection) {
+      rightScroll.scrollTo({
+        top: workSection.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+
+    const dotWork = document.getElementById('dot-work');
+    const lblWork = document.getElementById('lbl-work');
+    if (dotWork) {
+      document.querySelectorAll('.train-nav__stop').forEach((s) => {
+        s.classList.remove('is-active');
+        s.querySelector('.train-nav__dot')?.removeAttribute('aria-current');
+      });
+      dotWork.classList.add('is-active', 'lit');
+      dotWork.querySelector('.train-nav__dot')?.setAttribute('aria-current', 'page');
+    }
+    if (lblWork) lblWork.classList.add('lit');
+  }, 5500);
 
   setTimeout(() => {
     const resetEl = document.createElement('div');
