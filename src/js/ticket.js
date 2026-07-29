@@ -30,14 +30,17 @@ function updateTime() {
   const minutes  = String(now.getMinutes()).padStart(2,'0');
   const ampm     = hours24 >= 12 ? 'PM' : 'AM';
   const hours12  = hours24 % 12 || 12;
-  const timeStr = `${String(hours12).padStart(2,'0')}:${minutes} ${ampm}`;
+  const seconds = String(now.getSeconds()).padStart(2,'0');
+  const tz = now.toLocaleTimeString('en-US', { timeZoneName: 'short' })
+    .split(' ')[2];
+  const timeStr = `${String(hours12).padStart(2,'0')}:${minutes}:${seconds} ${ampm} ${tz}`;
   const timeEl = document.getElementById('ticket-departs');
   if (timeEl) timeEl.textContent = timeStr;
 
-  
+
 }
 updateTime();
-setInterval(updateTime, 60000);
+setInterval(updateTime, 1000);
 
 // cursor tracking
 document.addEventListener('mousemove', e => {
