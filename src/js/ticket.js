@@ -23,7 +23,7 @@ function updateTime() {
   // date
   const dateEl = document.getElementById('ticket-date');
   if (dateEl) dateEl.textContent =
-    String(now.getDate()).padStart(2,'0') + months[now.getMonth()];
+    String(now.getDate()).padStart(2,'0') + ' ' + months[now.getMonth()];
 
   // time — 12hr with AM/PM and EST
   const hours24  = now.getHours();

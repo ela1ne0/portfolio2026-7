@@ -125,6 +125,22 @@
   font-family: var(--font-mono);
   line-height: 1.2;
 }
+.live-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #1a52d4;
+  margin-right: 4px;
+  animation: livePulse 2s ease-in-out infinite;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+@keyframes livePulse {
+  0%,100% { opacity: 0.3; }
+  50%      { opacity: 1;   }
+}
 .t-bold { font-weight: 700; }
 .t-bot {
   padding: 8px 12px;
