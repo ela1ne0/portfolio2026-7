@@ -29,9 +29,7 @@ window.addEventListener('scroll', () => {
 // helper: light up work dot
 function lightWorkDot() {
   const dotWork = document.getElementById('dot-work');
-  const lblWork = document.getElementById('lbl-work');
   if (dotWork) dotWork.classList.add('lit');
-  if (lblWork) lblWork.classList.add('lit');
 }
 
 // helper: scroll right panel to work section
