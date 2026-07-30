@@ -179,6 +179,9 @@ body {
 .sweat-drop:hover {
   transform: translateY(10px);
 }
+.sweat-drop.intro-slide {
+  transform: translateY(10px);
+}
 
 /* panel number top left */
 .cs-panel-num {
@@ -562,5 +565,13 @@ body {
 
 <script type="module" src="/src/js/cursor.js"></script>
 <script type="module" src="/src/js/avatar-bubble.js"></script>
+<script>
+  (function () {
+    const drop = document.querySelector('.sweat-drop');
+    if (!drop) return;
+    setTimeout(() => drop.classList.add('intro-slide'), 400);
+    setTimeout(() => drop.classList.remove('intro-slide'), 1300);
+  })();
+</script>
 </body>
 </html>
