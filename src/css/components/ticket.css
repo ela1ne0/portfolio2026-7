@@ -29,6 +29,16 @@
   background: #fff;
   animation: ticketPulse 2s ease-in-out infinite;
 }
+.ticket-card::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 2px solid var(--blue);
+  border-radius: inherit;
+  filter: url(#roughen);
+  pointer-events: none;
+  z-index: -1;
+}
 .ticket-card:hover {
   animation: none;
 }
@@ -196,25 +206,23 @@
   inset: 0;
   pointer-events: none;
   z-index: 8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .stamp-mark {
+  position: absolute;
   opacity: 0;
-  transform: rotate(-14deg) scale(1.4);
+  transform: translate(-50%, -50%) rotate(-14deg) scale(1.4);
   pointer-events: none;
 }
 .stamp-mark.stamped {
   animation: inkStamp 0.32s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 @keyframes inkStamp {
-  0%   { opacity: 0; transform: rotate(-14deg) scale(1.5);
+  0%   { opacity: 0; transform: translate(-50%, -50%) rotate(-14deg) scale(1.5);
          filter: blur(3px); }
-  40%  { opacity: 0.92; transform: rotate(-14deg) scale(0.96);
+  40%  { opacity: 0.92; transform: translate(-50%, -50%) rotate(-14deg) scale(0.96);
          filter: blur(0); }
-  65%  { opacity: 1; transform: rotate(-14deg) scale(1.02); }
-  100% { opacity: 1; transform: rotate(-14deg) scale(1); }
+  65%  { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(1.02); }
+  100% { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
 }
 .stamp-ring {
   width: 80px; height: 80px;

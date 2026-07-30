@@ -64,9 +64,9 @@ panelTicket.addEventListener('mousemove', () => {
 });
 
 // click → stamp
-panelTicket.addEventListener('click', () => {
+panelTicket.addEventListener('click', (e) => {
   if (stamped) return;
-  doStamp();
+  doStamp(e);
 });
 
 function startScan() {
@@ -86,9 +86,15 @@ function startScan() {
   }, 880);
 }
 
-function doStamp() {
+function doStamp(e) {
   if (stamped) return;
   stamped = true;
+
+  const rect = ticketCard.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  stampMark.style.left = x + 'px';
+  stampMark.style.top  = y + 'px';
 
   stampMark.classList.add('stamped');
   for (let i = 0; i < 10; i++) setTimeout(spawnSplat, i * 14);
