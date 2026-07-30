@@ -666,7 +666,7 @@ span.train-nav__label {
 /* ── FOOTER STRIP ── */
 .work-footer-strip {
   grid-column: 1 / -1;
-  background: #1a2744;
+  background: var(--blue-dark);
   margin: 0 -44px;
   padding: 18px 44px;
   display: flex;
@@ -709,7 +709,7 @@ span.train-nav__label {
 .work-back-top:hover { color: rgba(255,255,255,0.7); }
 
 .site-footer {
-  background: #1a2744;
+  background: var(--blue-dark);
   border-top: 2px solid rgba(255,255,255,0.08);
   overflow: hidden;
   position: relative;
