@@ -162,7 +162,7 @@ function doStamp() {
     const workSection = document.getElementById('work');
     if (rightScroll && workSection) {
       rightScroll.scrollTo({
-        top: workSection.offsetTop,
+        top: workSection.offsetTop + 8,
         behavior: 'smooth'
       });
     }

@@ -527,8 +527,8 @@ span.train-nav__label {
 /* ── EQUAL 3-COL GRID ── */
 .work-grid-equal {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
   align-items: start;
 }
 
@@ -555,7 +555,7 @@ span.train-nav__label {
 .work-panel__img {
   width: 100%;
   /* 4:3 gives a good tall card — change to 16:9 if you prefer wider */
-  aspect-ratio: 3/2;
+  aspect-ratio: 4/3;
   overflow: hidden;
   position: relative;
   background: rgba(26,82,212,0.04);
