@@ -54,6 +54,21 @@ if (workLink) {
   });
 }
 
+document.querySelectorAll('.train-nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault(); // stop native hash jump + URL change
+
+    const targetId = link.getAttribute('href').slice(1); // "work"
+    const target = document.getElementById(targetId);
+
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      // Replace URL with clean path, no hash, no new history entry
+      history.replaceState(null, '', window.location.pathname);
+    }
+  });
+});
+
 // Add this to nav.js — scroll observer for work section
 const workSection = document.getElementById('work');
 
