@@ -257,17 +257,20 @@ body {
 /* back link */
 .cs-illustration-caption {
   position: absolute;
-  bottom: 30px;
-  left: 14px;
-  right: 14px;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: calc(100% - 28px);
   border: 1.5px solid var(--blue);
-  padding: 10px 16px;
+  padding: 8px 14px;
   font-size: 13px;
   color: var(--blue);
   font-family: var(--font-mono);
   background: #fff;
-  line-height: 1.6;
+  line-height: 1.5;
   text-align: center;
+  white-space: nowrap;
   z-index: 2;
 }
 .cs-back {
