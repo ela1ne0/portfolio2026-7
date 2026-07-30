@@ -80,22 +80,44 @@ body {
   text-decoration: none;
 }
 
-span.train-nav__dot {
-  display: block;
-  width: 16px;
-  height: 16px;
+.train-nav__dot {
+  position: relative;
+  width: 18px;              /* was 14px — bigger dot */
+  height: 18px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  border: 1.5px solid rgba(255,255,255,0.45);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
+  background-color: var(--blue);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-sizing: border-box;
+  transform: translateY(0px); /* nudges dot down to center on the line */
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.train-nav__stop:hover span.train-nav__dot {
-  width: 20px;
-  height: 20px;
-  background: rgba(255,255,255,0.3);
+/* any inner/hover indicator must be centered via transform, not top/left alone */
+.train-nav__dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease;
+}
+
+.train-nav__dot:hover {
   border-color: rgba(255,255,255,0.7);
+  transform: translateY(2px) scale(1.15); /* keep the translateY when scaling on hover */
+}
+
+.train-nav__dot:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.train-nav__dot--active {
+  background-color: #fff;
+  border-color: #fff;
 }
 
 .train-nav__stop.is-active span.train-nav__dot,
@@ -104,8 +126,6 @@ span.train-nav__dot {
   background: #fff;
   border-color: #fff;
   box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
-  width: 16px;
-  height: 16px;
 }
 
 span.train-nav__label {
