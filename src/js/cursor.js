@@ -12,14 +12,25 @@
 
 // ── Create cursor elements ──────────────────────────────────────────────────
 
-const cursorDot  = document.createElement('div');
-const cursorRing = document.createElement('div');
+const cursorDot   = document.createElement('div');
+const cursorRing  = document.createElement('div');
+const cursorLabel = document.createElement('div');
 
-cursorDot.className  = 'cur-dot';
-cursorRing.className = 'cur-ring';
+cursorDot.className   = 'cur-dot';
+cursorRing.className  = 'cur-ring';
+cursorLabel.className = 'cur-label';
+cursorLabel.innerHTML = `
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"
+      stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+  </svg>
+  <span>coming soon</span>
+`;
 
 document.body.appendChild(cursorDot);
 document.body.appendChild(cursorRing);
+document.body.appendChild(cursorLabel);
 
 // ── State ───────────────────────────────────────────────────────────────────
 
@@ -27,6 +38,7 @@ let mouseX = -100, mouseY = -100;  // start off screen
 let ringX  = -100, ringY  = -100;  // ring lags behind
 let isHovering  = false;
 let isOnTicket  = false;
+let isOnWork    = false;
 let rafId       = null;
 
 // ── Mouse tracking ──────────────────────────────────────────────────────────
@@ -80,6 +92,21 @@ if (ticketPanel) {
   });
 }
 
+document.querySelectorAll('.work-panel').forEach(panel => {
+  panel.addEventListener('mouseenter', () => {
+    isOnWork = true;
+    cursorDot.classList.add('hidden');
+    cursorRing.classList.add('hidden');
+    cursorLabel.classList.add('visible');
+  });
+  panel.addEventListener('mouseleave', () => {
+    isOnWork = false;
+    cursorDot.classList.remove('hidden');
+    cursorRing.classList.remove('hidden');
+    cursorLabel.classList.remove('visible');
+  });
+});
+
 // nav dots: extra pulse on hover (station-passing feel)
 document.querySelectorAll('.dot, .stop').forEach(dot => {
   dot.addEventListener('mouseenter', () => {
@@ -126,6 +153,10 @@ function animate() {
   ringY = lerp(ringY, mouseY, LERP);
   cursorRing.style.left = ringX + 'px';
   cursorRing.style.top  = ringY + 'px';
+
+  // label snaps directly to mouse, same as dot
+  cursorLabel.style.left = mouseX + 'px';
+  cursorLabel.style.top  = mouseY + 'px';
 
   rafId = requestAnimationFrame(animate);
 }
