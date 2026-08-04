@@ -184,7 +184,7 @@ function doStamp(e) {
       dotWork.querySelector('.train-nav__dot')?.setAttribute('aria-current', 'page');
     }
     if (lblWork) lblWork.classList.add('lit');
-  }, 5500);
+  }, 7000);
 
   setTimeout(() => {
     const resetEl = document.createElement('div');
