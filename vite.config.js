@@ -8,6 +8,7 @@ export default defineConfig({
         main:  resolve(__dirname, 'index.html'),
         about: resolve(__dirname, 'about.html'),
         play:  resolve(__dirname, 'play.html'),
+        work:  resolve(__dirname, 'work/coming-soon.html'),
       }
     }
   }
