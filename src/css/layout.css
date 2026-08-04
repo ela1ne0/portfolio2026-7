@@ -214,6 +214,16 @@ span.train-nav__label {
   line-height: 1.95;
 }
 .left-facts span { display: block; }
+.left-facts__link {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+.left-facts__link:hover {
+  text-decoration-color: rgba(255,255,255,0.8);
+}
 
 .scroll-caption {
   margin-top: 20px;
@@ -903,13 +913,13 @@ span.train-nav__label {
 /* ── RECRUITER MODE ── */
 .recruiter-toggle {
   font-family: 'Space Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 6px 14px;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  padding: 7px 16px;
   border-radius: 2px;
   cursor: none;
   width: fit-content;

@@ -112,6 +112,16 @@
       line-height: 1.95;
     }
     .left-facts span { display: block; }
+    .left-facts__link {
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.35);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+    .left-facts__link:hover {
+      text-decoration-color: rgba(255,255,255,0.8);
+    }
     .left-contact {
       margin-top: auto;
       padding-top: 14px;
@@ -630,8 +640,8 @@
       <div class="left-name">Elaine<br>Yu.</div>
       <div class="left-caption">"always on the next train somewhere."</div>
       <div class="left-facts">
-        <span>CS + Visual Media @ Duke</span>
-        <span>Currently @ IBM</span>
+        <span>CS + Visual Media @ <a href="https://www.duke.edu" target="_blank" rel="noopener" class="left-facts__link">Duke</a></span>
+        <span>Currently @ <a href="https://www.ibm.com" target="_blank" rel="noopener" class="left-facts__link">IBM</a></span>
       </div>
 
       <div class="sidebar-walk">
