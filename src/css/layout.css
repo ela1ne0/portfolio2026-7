@@ -345,6 +345,26 @@ span.train-nav__label {
   border: none;
 }
 
+.panel-num {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--blue);
+  background: #fff;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
 /* ── CAPTION BOXES ── */
 .panel-illustration {
   position: absolute;
