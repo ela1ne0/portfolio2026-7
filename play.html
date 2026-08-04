@@ -298,7 +298,7 @@ body {
 <nav id="main-nav" class="train-nav" aria-label="Main">
   <div class="train-nav__track">
     <div class="train-nav__line" aria-hidden="true"></div>
-    <div class="train-nav__fill" style="width:100%"></div>
+    <div class="train-nav__fill" style="width:0%"></div>
     <ol class="train-nav__stops">
       <li class="train-nav__stop">
         <a href="/index.html">
@@ -572,6 +572,22 @@ body {
     if (!drop) return;
     setTimeout(() => drop.classList.add('intro-slide'), 400);
     setTimeout(() => drop.classList.remove('intro-slide'), 1300);
+  })();
+</script>
+<script>
+  (function () {
+    const fill = document.querySelector('.train-nav__fill');
+    const track = document.querySelector('.train-nav__track');
+    const activeDot = document.querySelector('.train-nav__stop.is-active .train-nav__dot');
+    if (!fill || !track || !activeDot) return;
+    requestAnimationFrame(() => {
+      const trackRect = track.getBoundingClientRect();
+      const dotRect = activeDot.getBoundingClientRect();
+      const widthPx = (dotRect.left + dotRect.width / 2) - trackRect.left;
+      requestAnimationFrame(() => {
+        fill.style.width = widthPx + 'px';
+      });
+    });
   })();
 </script>
 </body>

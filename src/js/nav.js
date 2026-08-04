@@ -42,6 +42,19 @@ function setActiveSection(activeDot) {
     if (isActive) link?.setAttribute('aria-current', 'page');
     else link?.removeAttribute('aria-current');
   });
+
+  syncNavFill(activeDot);
+}
+
+function syncNavFill(activeDotStop) {
+  const fill = document.querySelector('.train-nav__fill');
+  const track = document.querySelector('.train-nav__track');
+  const dotCircle = activeDotStop?.querySelector('.train-nav__dot');
+  if (!fill || !track || !dotCircle) return;
+  const trackRect = track.getBoundingClientRect();
+  const dotRect = dotCircle.getBoundingClientRect();
+  const widthPx = (dotRect.left + dotRect.width / 2) - trackRect.left;
+  fill.style.width = widthPx + 'px';
 }
 
 // helper: light up work dot (kept for the ticket-stamp flow, which calls this directly)
