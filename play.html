@@ -586,7 +586,19 @@ body {
 </script>
 <script>
   (function () {
-    const STOP_WIDTHS = ['0%', '33.3333%', '66.6667%', '100%'];
+    const STOP_WIDTHS = (function () {
+      const track = document.querySelector('.train-nav__track');
+      const stops = document.querySelectorAll('.train-nav__stops > .train-nav__stop');
+      if (!track || !stops.length) return ['0%', '33.3333%', '66.6667%', '100%'];
+      const trackRect = track.getBoundingClientRect();
+      return Array.from(stops).map((stop) => {
+        const dot = stop.querySelector('.train-nav__dot');
+        if (!dot) return '0%';
+        const dotRect = dot.getBoundingClientRect();
+        const fraction = ((dotRect.left + dotRect.width / 2) - trackRect.left) / trackRect.width;
+        return (fraction * 100) + '%';
+      });
+    })();
     const fill = document.querySelector('.train-nav__fill');
     if (!fill) return;
     const stored = sessionStorage.getItem('navStopIndex');
@@ -597,8 +609,10 @@ body {
       fill.style.transition = '';
     }
     requestAnimationFrame(() => {
-      fill.style.width = STOP_WIDTHS[3];
-      sessionStorage.setItem('navStopIndex', 3);
+      requestAnimationFrame(() => {
+        fill.style.width = STOP_WIDTHS[3];
+        sessionStorage.setItem('navStopIndex', 3);
+      });
     });
   })();
 </script>

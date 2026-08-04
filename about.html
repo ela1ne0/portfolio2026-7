@@ -1277,35 +1277,36 @@
   <script type="module" src="/src/js/avatar-bubble.js"></script>
 
 <script>
-  window.addEventListener('load', () => {
-    const fill = document.querySelector('.train-nav__fill');
-    const track = document.querySelector('.train-nav__track');
-    const activeDot = document.querySelector('.train-nav__stop.is-active .train-nav__dot');
-    if (!fill || !track || !activeDot) return;
-
-    function fraction() {
+  (function () {
+    const STOP_WIDTHS = (function () {
+      const track = document.querySelector('.train-nav__track');
+      const stops = document.querySelectorAll('.train-nav__stops > .train-nav__stop');
+      if (!track || !stops.length) return ['0%', '33.3333%', '66.6667%', '100%'];
       const trackRect = track.getBoundingClientRect();
-      const dotRect = activeDot.getBoundingClientRect();
-      return ((dotRect.left + dotRect.width / 2) - trackRect.left) / trackRect.width;
+      return Array.from(stops).map((stop) => {
+        const dot = stop.querySelector('.train-nav__dot');
+        if (!dot) return '0%';
+        const dotRect = dot.getBoundingClientRect();
+        const fraction = ((dotRect.left + dotRect.width / 2) - trackRect.left) / trackRect.width;
+        return (fraction * 100) + '%';
+      });
+    })();
+    const fill = document.querySelector('.train-nav__fill');
+    if (!fill) return;
+    const stored = sessionStorage.getItem('navStopIndex');
+    if (stored !== null && STOP_WIDTHS[stored] !== undefined) {
+      fill.style.transition = 'none';
+      fill.style.width = STOP_WIDTHS[stored];
+      void fill.offsetWidth;
+      fill.style.transition = '';
     }
-
-    const stored = parseFloat(sessionStorage.getItem('navFraction'));
-    const startFraction = isNaN(stored) ? 0 : stored;
-    fill.style.transition = 'none';
-    fill.style.width = (startFraction * 100) + '%';
-    void fill.offsetWidth;
-    fill.style.transition = '';
-
     requestAnimationFrame(() => {
-      const endFraction = fraction();
-      fill.style.width = (endFraction * 100) + '%';
-      sessionStorage.setItem('navFraction', endFraction);
+      requestAnimationFrame(() => {
+        fill.style.width = STOP_WIDTHS[2];
+        sessionStorage.setItem('navStopIndex', 2);
+      });
     });
-
-    window.addEventListener('beforeunload', () => {
-      sessionStorage.setItem('navFraction', fraction());
-    });
-  });
+  })();
 </script>
 </body>
 </html>

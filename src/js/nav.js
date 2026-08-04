@@ -32,14 +32,21 @@ const workSectionEl = document.getElementById('work');
 const dotHomeEl = document.getElementById('dot-home');
 const dotWorkEl = document.getElementById('dot-work');
 
-function getDotFraction(dotStopEl) {
+function computeStopWidths() {
   const track = document.querySelector('.train-nav__track');
-  const dotCircle = dotStopEl?.querySelector('.train-nav__dot');
-  if (!track || !dotCircle) return 0;
+  const stops = document.querySelectorAll('.train-nav__stops > .train-nav__stop');
+  if (!track || !stops.length) return ['0%', '33.3333%', '66.6667%', '100%'];
   const trackRect = track.getBoundingClientRect();
-  const dotRect = dotCircle.getBoundingClientRect();
-  return ((dotRect.left + dotRect.width / 2) - trackRect.left) / trackRect.width;
+  return Array.from(stops).map((stop) => {
+    const dot = stop.querySelector('.train-nav__dot');
+    if (!dot) return '0%';
+    const dotRect = dot.getBoundingClientRect();
+    const fraction = ((dotRect.left + dotRect.width / 2) - trackRect.left) / trackRect.width;
+    return (fraction * 100) + '%';
+  });
 }
+
+const STOP_WIDTHS = computeStopWidths();
 
 function setActiveSection(activeDot) {
   [dotHomeEl, dotWorkEl].forEach((dot) => {
@@ -52,10 +59,10 @@ function setActiveSection(activeDot) {
     else link?.removeAttribute('aria-current');
   });
 
-  const fraction = getDotFraction(activeDot);
+  const stopIndex = activeDot === dotWorkEl ? 1 : 0;
   const fill = document.querySelector('.train-nav__fill');
-  if (fill) fill.style.width = (fraction * 100) + '%';
-  sessionStorage.setItem('navFraction', fraction);
+  if (fill) fill.style.width = STOP_WIDTHS[stopIndex];
+  sessionStorage.setItem('navStopIndex', stopIndex);
 }
 
 // helper: light up work dot (kept for the ticket-stamp flow, which calls this directly)
@@ -102,11 +109,11 @@ document.querySelectorAll('.train-nav a[href^="#"]').forEach(link => {
 
 // scroll observer — watches both home and work, activates whichever is in view
 window.addEventListener('load', () => {
-  const stored = parseFloat(sessionStorage.getItem('navFraction'));
+  const stored = sessionStorage.getItem('navStopIndex');
   const fill = document.querySelector('.train-nav__fill');
-  if (fill && !isNaN(stored)) {
+  if (fill && stored !== null && STOP_WIDTHS[stored] !== undefined) {
     fill.style.transition = 'none';
-    fill.style.width = (stored * 100) + '%';
+    fill.style.width = STOP_WIDTHS[stored];
     void fill.offsetWidth;
     fill.style.transition = '';
   }
@@ -132,9 +139,8 @@ window.addEventListener('load', () => {
 
 window.addEventListener('beforeunload', () => {
   const currentActive = document.querySelector('.train-nav__stop.is-active');
-  if (currentActive) {
-    sessionStorage.setItem('navFraction', getDotFraction(currentActive));
-  }
+  const stopIndex = currentActive === dotWorkEl ? 1 : 0;
+  sessionStorage.setItem('navStopIndex', stopIndex);
 });
 
 export function initNav() {
