@@ -100,6 +100,16 @@ body {
   line-height: 1.95;
 }
 .left-facts span { display: block; }
+.left-facts__link {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+.left-facts__link:hover {
+  text-decoration-color: rgba(255,255,255,0.8);
+}
 .left-contact {
   margin-top: auto;
   padding-top: 14px;
@@ -296,9 +306,9 @@ body {
 
 <!-- NAV -->
 <nav id="main-nav" class="train-nav" aria-label="Main">
-  <div class="train-nav__track">
+  <div class="train-nav__track" data-active-stop="3">
     <div class="train-nav__line" aria-hidden="true"></div>
-    <div class="train-nav__fill" style="width:0%"></div>
+    <div class="train-nav__fill"></div>
     <ol class="train-nav__stops">
       <li class="train-nav__stop">
         <a href="/index.html">
@@ -341,8 +351,8 @@ body {
     <div class="left-name">Elaine<br>Yu.</div>
     <div class="left-caption">"always on the next train somewhere."</div>
     <div class="left-facts">
-      <span>CS + Visual Media @ Duke</span>
-      <span>Currently @ IBM</span>
+      <span>CS + Visual Media @ <a href="https://www.duke.edu" target="_blank" rel="noopener" class="left-facts__link">Duke</a></span>
+      <span>Currently @ <a href="https://www.ibm.com" target="_blank" rel="noopener" class="left-facts__link">IBM</a></span>
     </div>
 
     <div class="sidebar-walk">
@@ -576,17 +586,19 @@ body {
 </script>
 <script>
   (function () {
+    const STOP_WIDTHS = ['0%', '33.3333%', '66.6667%', '100%'];
     const fill = document.querySelector('.train-nav__fill');
-    const track = document.querySelector('.train-nav__track');
-    const activeDot = document.querySelector('.train-nav__stop.is-active .train-nav__dot');
-    if (!fill || !track || !activeDot) return;
+    if (!fill) return;
+    const stored = sessionStorage.getItem('navStopIndex');
+    if (stored !== null && STOP_WIDTHS[stored] !== undefined) {
+      fill.style.transition = 'none';
+      fill.style.width = STOP_WIDTHS[stored];
+      void fill.offsetWidth;
+      fill.style.transition = '';
+    }
     requestAnimationFrame(() => {
-      const trackRect = track.getBoundingClientRect();
-      const dotRect = activeDot.getBoundingClientRect();
-      const widthPx = (dotRect.left + dotRect.width / 2) - trackRect.left;
-      requestAnimationFrame(() => {
-        fill.style.width = widthPx + 'px';
-      });
+      fill.style.width = STOP_WIDTHS[3];
+      sessionStorage.setItem('navStopIndex', 3);
     });
   })();
 </script>

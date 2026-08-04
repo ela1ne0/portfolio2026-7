@@ -57,6 +57,11 @@ body {
   transition: width 0.8s ease;
 }
 
+.train-nav__track[data-active-stop="0"] .train-nav__fill { width: 0%; }
+.train-nav__track[data-active-stop="1"] .train-nav__fill { width: 33.3333%; }
+.train-nav__track[data-active-stop="2"] .train-nav__fill { width: 66.6667%; }
+.train-nav__track[data-active-stop="3"] .train-nav__fill { width: 100%; }
+
 .train-nav__stops {
   list-style: none;
   display: flex;

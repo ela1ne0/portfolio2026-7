@@ -32,6 +32,15 @@ const workSectionEl = document.getElementById('work');
 const dotHomeEl = document.getElementById('dot-home');
 const dotWorkEl = document.getElementById('dot-work');
 
+function getDotFraction(dotStopEl) {
+  const track = document.querySelector('.train-nav__track');
+  const dotCircle = dotStopEl?.querySelector('.train-nav__dot');
+  if (!track || !dotCircle) return 0;
+  const trackRect = track.getBoundingClientRect();
+  const dotRect = dotCircle.getBoundingClientRect();
+  return ((dotRect.left + dotRect.width / 2) - trackRect.left) / trackRect.width;
+}
+
 function setActiveSection(activeDot) {
   [dotHomeEl, dotWorkEl].forEach((dot) => {
     if (!dot) return;
@@ -43,18 +52,10 @@ function setActiveSection(activeDot) {
     else link?.removeAttribute('aria-current');
   });
 
-  syncNavFill(activeDot);
-}
-
-function syncNavFill(activeDotStop) {
+  const fraction = getDotFraction(activeDot);
   const fill = document.querySelector('.train-nav__fill');
-  const track = document.querySelector('.train-nav__track');
-  const dotCircle = activeDotStop?.querySelector('.train-nav__dot');
-  if (!fill || !track || !dotCircle) return;
-  const trackRect = track.getBoundingClientRect();
-  const dotRect = dotCircle.getBoundingClientRect();
-  const widthPx = (dotRect.left + dotRect.width / 2) - trackRect.left;
-  fill.style.width = widthPx + 'px';
+  if (fill) fill.style.width = (fraction * 100) + '%';
+  sessionStorage.setItem('navFraction', fraction);
 }
 
 // helper: light up work dot (kept for the ticket-stamp flow, which calls this directly)
@@ -100,23 +101,41 @@ document.querySelectorAll('.train-nav a[href^="#"]').forEach(link => {
 });
 
 // scroll observer — watches both home and work, activates whichever is in view
-if (homeSection && workSectionEl) {
-  const spyObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        if (entry.target === workSectionEl) setActiveSection(dotWorkEl);
-        else if (entry.target === homeSection) setActiveSection(dotHomeEl);
-      });
-    },
-    {
-      root: document.querySelector('.right-scroll'),
-      threshold: 0.15,
-    }
-  );
-  spyObserver.observe(homeSection);
-  spyObserver.observe(workSectionEl);
-}
+window.addEventListener('load', () => {
+  const stored = parseFloat(sessionStorage.getItem('navFraction'));
+  const fill = document.querySelector('.train-nav__fill');
+  if (fill && !isNaN(stored)) {
+    fill.style.transition = 'none';
+    fill.style.width = (stored * 100) + '%';
+    void fill.offsetWidth;
+    fill.style.transition = '';
+  }
+
+  if (homeSection && workSectionEl) {
+    const spyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          if (entry.target === workSectionEl) setActiveSection(dotWorkEl);
+          else if (entry.target === homeSection) setActiveSection(dotHomeEl);
+        });
+      },
+      {
+        root: document.querySelector('.right-scroll'),
+        threshold: 0.15,
+      }
+    );
+    spyObserver.observe(homeSection);
+    spyObserver.observe(workSectionEl);
+  }
+});
+
+window.addEventListener('beforeunload', () => {
+  const currentActive = document.querySelector('.train-nav__stop.is-active');
+  if (currentActive) {
+    sessionStorage.setItem('navFraction', getDotFraction(currentActive));
+  }
+});
 
 export function initNav() {
   const nav = document.getElementById('main-nav');

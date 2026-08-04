@@ -296,9 +296,9 @@ body {
 
 <!-- NAV -->
 <nav id="main-nav" class="train-nav" aria-label="Main">
-  <div class="train-nav__track">
+  <div class="train-nav__track" data-active-stop="1">
     <div class="train-nav__line" aria-hidden="true"></div>
-    <div class="train-nav__fill" style="width:100%"></div>
+    <div class="train-nav__fill"></div>
     <ol class="train-nav__stops">
       <li class="train-nav__stop">
         <a href="/index.html">
@@ -572,6 +572,24 @@ body {
     if (!drop) return;
     setTimeout(() => drop.classList.add('intro-slide'), 400);
     setTimeout(() => drop.classList.remove('intro-slide'), 1300);
+  })();
+</script>
+<script>
+  (function () {
+    const STOP_WIDTHS = ['0%', '33.3333%', '66.6667%', '100%'];
+    const fill = document.querySelector('.train-nav__fill');
+    if (!fill) return;
+    const stored = sessionStorage.getItem('navStopIndex');
+    if (stored !== null && STOP_WIDTHS[stored] !== undefined) {
+      fill.style.transition = 'none';
+      fill.style.width = STOP_WIDTHS[stored];
+      void fill.offsetWidth;
+      fill.style.transition = '';
+    }
+    requestAnimationFrame(() => {
+      fill.style.width = STOP_WIDTHS[1];
+      sessionStorage.setItem('navStopIndex', 1);
+    });
   })();
 </script>
 </body>

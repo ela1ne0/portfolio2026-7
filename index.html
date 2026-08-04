@@ -43,6 +43,20 @@
     <div class="train-nav__track">
       <div class="train-nav__line" aria-hidden="true"></div>
       <div class="train-nav__fill" style="width:0%"></div>
+      <script>
+        (function () {
+          const STOP_WIDTHS = ['0%', '33.3333%', '66.6667%', '100%'];
+          const fill = document.querySelector('.train-nav__fill');
+          if (!fill) return;
+          const stored = sessionStorage.getItem('navStopIndex');
+          if (stored !== null && STOP_WIDTHS[stored] !== undefined) {
+            fill.style.transition = 'none';
+            fill.style.width = STOP_WIDTHS[stored];
+            void fill.offsetWidth;
+            fill.style.transition = '';
+          }
+        })();
+      </script>
       <ol class="train-nav__stops">
         <li class="train-nav__stop is-active" id="dot-home">
           <a href="/">
