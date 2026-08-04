@@ -26,10 +26,27 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// helper: light up work dot
+// scroll-spy: keep exactly one of home/work marked active based on what's actually in view
+const homeSection = document.getElementById('home');
+const workSectionEl = document.getElementById('work');
+const dotHomeEl = document.getElementById('dot-home');
+const dotWorkEl = document.getElementById('dot-work');
+
+function setActiveSection(activeDot) {
+  [dotHomeEl, dotWorkEl].forEach((dot) => {
+    if (!dot) return;
+    const isActive = dot === activeDot;
+    dot.classList.toggle('is-active', isActive);
+    dot.classList.toggle('lit', isActive);
+    const link = dot.querySelector('.train-nav__dot');
+    if (isActive) link?.setAttribute('aria-current', 'page');
+    else link?.removeAttribute('aria-current');
+  });
+}
+
+// helper: light up work dot (kept for the ticket-stamp flow, which calls this directly)
 function lightWorkDot() {
-  const dotWork = document.getElementById('dot-work');
-  if (dotWork) dotWork.classList.add('lit');
+  setActiveSection(dotWorkEl);
 }
 
 // helper: scroll right panel to work section
@@ -69,25 +86,23 @@ document.querySelectorAll('.train-nav a[href^="#"]').forEach(link => {
   });
 });
 
-// Add this to nav.js — scroll observer for work section
-const workSection = document.getElementById('work');
-
-if (workSection) {
-  const observer = new IntersectionObserver(
+// scroll observer — watches both home and work, activates whichever is in view
+if (homeSection && workSectionEl) {
+  const spyObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          lightWorkDot();
-        }
+        if (!entry.isIntersecting) return;
+        if (entry.target === workSectionEl) setActiveSection(dotWorkEl);
+        else if (entry.target === homeSection) setActiveSection(dotHomeEl);
       });
     },
     {
-      // trigger when 10% of work section is visible
       root: document.querySelector('.right-scroll'),
-      threshold: 0.1,
+      threshold: 0.15,
     }
   );
-  observer.observe(workSection);
+  spyObserver.observe(homeSection);
+  spyObserver.observe(workSectionEl);
 }
 
 export function initNav() {
