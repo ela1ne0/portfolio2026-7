@@ -194,7 +194,7 @@ span.train-nav__label {
 }
 .left-name {
   font-family: 'Noto Serif JP', serif;
-  font-size: 28px;
+  font-size: 31px;
   font-weight: 300;
   color: #fff;
   line-height: 1.1;
@@ -203,13 +203,13 @@ span.train-nav__label {
   white-space: normal;  /* allow wrapping at smaller size */
 }
 .left-caption {
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(255,255,255,0.65);
   line-height: 1.7;
   margin-bottom: 16px;
 }
 .left-facts {
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(255,255,255,0.5);
   line-height: 1.95;
 }
@@ -998,7 +998,7 @@ span.train-nav__label {
 }
 .rec-section-label {
   font-family: 'Space Mono', monospace;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.28);
@@ -1030,7 +1030,7 @@ span.train-nav__label {
 }
 .rec-row__year {
   font-family: 'Space Mono', monospace;
-  font-size: 10px;
+  font-size: 11px;
   color: rgba(255,255,255,0.3);
   flex-shrink: 0;
   margin-left: 16px;
