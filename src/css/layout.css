@@ -204,13 +204,13 @@ span.train-nav__label {
 }
 .left-name {
   font-family: 'Noto Serif JP', serif;
-  font-size: 31px;
+  font-size: 40px;
   font-weight: 300;
   color: #fff;
   line-height: 1.1;
   letter-spacing: -0.01em;
-  margin-bottom: 16px;
-  white-space: normal;  /* allow wrapping at smaller size */
+  margin-bottom: 18px;
+  white-space: normal;
 }
 .left-caption {
   font-size: 13px;
