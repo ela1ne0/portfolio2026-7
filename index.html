@@ -16,7 +16,7 @@
   <!-- SVG filter for stamp roughen effect -->
   <svg style="position:absolute;width:0;height:0">
     <defs>
-      <filter id="roughen">
+      <filter id="roughen" x="-20%" y="-20%" width="140%" height="140%">
         <feTurbulence type="turbulence" baseFrequency="0.045"
           numOctaves="4" result="noise"/>
         <feDisplacementMap in="SourceGraphic" in2="noise"
@@ -27,11 +27,12 @@
 
   <!-- Custom stamp cursor -->
   <div class="cursor" id="cursor">
-    <img src="/boarding-stamp.png" alt="" width="132" height="92" />
+    <img src="/boarding-stamp.png" alt="" width="135" height="92" />
   </div>
 
   <!-- NAV -->
   <nav id="main-nav" class="train-nav" aria-label="Main">
+    <img src="/nav-bar-train-stop.png" alt="" class="train-nav__decor" />
     <div class="train-nav__track">
       <div class="train-nav__line" aria-hidden="true"></div>
       <div class="train-nav__fill" style="width:0%"></div>
@@ -429,9 +430,7 @@
             <div class="stamp-overlay">
               <div class="stamp-mark" id="stamp-mark">
                 <div class="stamp-ring">
-                  <div class="stamp-top-txt">passenger</div>
-                  <div class="stamp-main-txt">搭乗<br>OK</div>
-                  <div class="stamp-sub-txt">boarding</div>
+                  <img src="/boarding-stamp-art.jpeg" alt="" class="stamp-ring__img" />
                 </div>
               </div>
             </div>
