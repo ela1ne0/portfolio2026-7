@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Play — Elaine Yu</title>
-<link rel="icon" type="image/png" href="public/updatedfavicon.png"/>
+<title>About — Elaine Yu</title>
+<link rel="icon" type="image/png" href="/updatedfavicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/src/css/cursor.css">
@@ -306,7 +306,7 @@ body {
 
 <!-- NAV -->
 <nav id="main-nav" class="train-nav" aria-label="Main">
-  <div class="train-nav__track" data-active-stop="3">
+  <div class="train-nav__track" data-active-stop="2">
     <div class="train-nav__line" aria-hidden="true"></div>
     <div class="train-nav__fill"></div>
     <ol class="train-nav__stops">
@@ -322,13 +322,13 @@ body {
           <span class="train-nav__label">work</span>
         </a>
       </li>
-      <li class="train-nav__stop">
-        <a href="/about-coming-soon.html">
+      <li class="train-nav__stop is-active">
+        <a href="/about.html">
           <span class="train-nav__dot"></span>
           <span class="train-nav__label">about</span>
         </a>
       </li>
-      <li class="train-nav__stop is-active">
+      <li class="train-nav__stop">
         <a href="/play.html">
           <span class="train-nav__dot"></span>
           <span class="train-nav__label">play</span>
@@ -533,7 +533,7 @@ body {
       <div class="cs-panel cs-panel--image">
         <div class="cs-illustration-wrap">
           <img
-            src="/404updated.jpeg"
+            src="/404blank.jpeg"
             alt="Illustration of a figure standing in front of caution tape reading 'under construction' at stop 4...04, with the message: looks like you got off at the wrong stop, come back later"
             class="cs-illustration"
           />
@@ -610,8 +610,8 @@ body {
     }
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        fill.style.width = STOP_WIDTHS[3];
-        sessionStorage.setItem('navStopIndex', 3);
+        fill.style.width = STOP_WIDTHS[2];
+        sessionStorage.setItem('navStopIndex', 2);
       });
     });
   })();
