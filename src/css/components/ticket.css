@@ -23,8 +23,29 @@
   animation: instructionPulse 2.4s ease-in-out infinite;
 }
 .ticket-instruction.hide {
-  opacity: 0;
-  animation: none;
+  animation: eraseWipe 0.5s ease forwards;
+}
+
+@keyframes eraseWipe {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(0) scale(0.95);
+    filter: blur(2px);
+  }
 }
 .ticket-instruction__img {
   display: inline-block;

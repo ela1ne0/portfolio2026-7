@@ -224,6 +224,33 @@ span.train-nav__label {
   line-height: 1.95;
 }
 .left-facts span { display: block; }
+.left-facts__item {
+  margin-bottom: 10px;
+}
+.left-facts__handle {
+  display: block;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.left-facts__handle:hover {
+  text-decoration: underline;
+}
+.left-facts__role {
+  display: block;
+  color: rgba(255,255,255,0.55);
+  margin-top: 1px;
+}
+.quote-mark {
+  display: block;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 30px;
+  line-height: 1;
+  color: rgba(255,255,255,0.35);
+}
+.quote-mark--open { margin-bottom: 2px; }
+.quote-mark--close { text-align: right; margin-top: 2px; }
 .left-facts__link {
   color: #fff;
   text-decoration: underline;
@@ -412,12 +439,12 @@ span.train-nav__label {
 
 .caption-box {
   position: absolute;
-  border: 1.5px solid var(--blue);
+  border: 1.5px solid #fff;
   padding: 10px 16px;
   font-size: 13px;
-  color: var(--blue);
+  color: #fff;
   font-family: var(--font-mono);
-  background: #fff;
+  background: var(--blue);
   line-height: 1.6;
   z-index: 5;
   min-width: 160px;
