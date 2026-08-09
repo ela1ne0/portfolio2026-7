@@ -1,5 +1,17 @@
 .panel-ticket { cursor: none; }
 
+.panel-ticket__hand {
+  position: absolute;
+  bottom: -172px;
+  right: -140px;
+  left: auto;
+  height: 850px;
+  width: auto;
+  transform: scaleX(-1);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .ticket-instruction {
   position: absolute;
   top: 70px;
