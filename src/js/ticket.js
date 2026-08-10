@@ -102,6 +102,11 @@ function doStamp(e) {
   if (stamped) return;
   stamped = true;
 
+  const trainLayer = document.getElementById('layer-train');
+  if (trainLayer) {
+    setTimeout(() => trainLayer.classList.add('arrived'), 400);
+  }
+
   const rect = ticketCard.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
@@ -248,6 +253,9 @@ function resetTicket() {
   capPlatform.classList.remove('visible');
   capTrain.textContent = '';
   capTrain.classList.remove('visible');
+
+  const trainLayer = document.getElementById('layer-train');
+  if (trainLayer) trainLayer.classList.remove('arrived');
 
   dotHome.classList.remove('is-active');
   dotHome.querySelector('.train-nav__dot')?.removeAttribute('aria-current');

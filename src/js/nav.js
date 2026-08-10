@@ -135,25 +135,6 @@ window.addEventListener('load', () => {
     spyObserver.observe(homeSection);
     spyObserver.observe(workSectionEl);
   }
-
-  const platformPanel = document.getElementById('panel-platform');
-  const trainLayer = document.getElementById('layer-train');
-  if (platformPanel && trainLayer) {
-    const trainObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              trainLayer.classList.add('arrived');
-            }, 700);
-            trainObserver.disconnect();
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    trainObserver.observe(platformPanel);
-  }
 });
 
 window.addEventListener('beforeunload', () => {

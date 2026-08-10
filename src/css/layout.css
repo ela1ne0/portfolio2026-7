@@ -453,12 +453,13 @@ span.train-nav__label {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   z-index: 1;
-  transform: translateX(-115%);
-  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate(115%, -6%) rotate(3deg);
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .layer-train.arrived {
-  transform: translateX(0);
+  transform: translate(0, 0) rotate(0deg);
 }
 .layer-girl {
   position: absolute;
@@ -466,7 +467,7 @@ span.train-nav__label {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 85%;
+  object-position: center 0%;
   z-index: 3;
   pointer-events: none;
 }
