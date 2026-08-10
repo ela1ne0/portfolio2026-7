@@ -63,9 +63,21 @@ panelTicket.addEventListener('mousemove', () => {
   if (stamped) cursorEl.classList.add('show');
 });
 
-// click → stamp
+// click → stamp (or shake if clicked outside the actual ticket)
 panelTicket.addEventListener('click', (e) => {
   if (stamped) return;
+
+  const rect = ticketCard.getBoundingClientRect();
+  const withinTicket =
+    e.clientX >= rect.left && e.clientX <= rect.right &&
+    e.clientY >= rect.top && e.clientY <= rect.bottom;
+
+  if (!withinTicket) {
+    cursorEl.classList.add('reject');
+    setTimeout(() => cursorEl.classList.remove('reject'), 350);
+    return;
+  }
+
   doStamp(e);
 });
 
@@ -97,7 +109,7 @@ function doStamp(e) {
   stampMark.style.top  = y + 'px';
 
   stampMark.classList.add('stamped');
-  for (let i = 0; i < 10; i++) setTimeout(spawnSplat, i * 14);
+  for (let i = 0; i < 22; i++) setTimeout(() => spawnSplat(x, y), i * 10);
   playThud();
 
   setTimeout(() => {
@@ -257,22 +269,22 @@ function typeText(el, text, delay) {
   }, delay);
 }
 
-function spawnSplat() {
+function spawnSplat(x, y) {
   const s = document.createElement('div');
   s.className = 'splat';
-  const size  = 2 + Math.random() * 5;
+  const size  = 3 + Math.random() * 8;
   const angle = Math.random() * Math.PI * 2;
-  const dist  = 25 + Math.random() * 55;
+  const dist  = 35 + Math.random() * 85;
   s.style.cssText = `
     width:${size}px; height:${size}px;
-    left:${20+Math.random()*60}%;
-    top:${20+Math.random()*60}%;
+    left:${x}px;
+    top:${y}px;
     --tx:${Math.cos(angle)*dist}px;
     --ty:${Math.sin(angle)*dist}px;
   `;
   splatter.appendChild(s);
   requestAnimationFrame(() => s.classList.add('burst'));
-  setTimeout(() => s.remove(), 550);
+  setTimeout(() => s.remove(), 650);
 }
 
 let audioCtx;
