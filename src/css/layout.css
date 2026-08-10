@@ -437,9 +437,38 @@ span.train-nav__label {
 /* platform art is in the upper portion of its image —
    anchor to top so the drawing stays in frame */
 .panel-illustration--platform {
-  object-fit: cover;
   object-position: center top;
-  background: #fff;
+}
+.layer-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+}
+.layer-train {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transform: translateX(-115%);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.layer-train.arrived {
+  transform: translateX(0);
+}
+.layer-girl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 85%;
+  z-index: 3;
+  pointer-events: none;
 }
 
 /* train interior art is centered in its image */
