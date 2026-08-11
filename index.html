@@ -381,12 +381,12 @@
 
         <!-- TICKET PANEL -->
         <div class="panel panel-ticket" id="panel-ticket">
-          <img src="/holding-hand.png" alt="" class="panel-ticket__hand" />
           <div class="panel-num">01</div>
           <div class="ticket-instruction" id="ticket-instruction">
             <img src="/clicktostamp.png" alt="Click to stamp" class="ticket-instruction__img" />
           </div>
 
+          <div class="ticket-anchor">
           <div class="ticket-card" id="ticket-card">
             <div class="scan-line" id="scan-line"></div>
             <div class="scan-glow" id="scan-glow"></div>
@@ -444,7 +444,9 @@
 
             <!-- splatter -->
             <div class="splatter" id="splatter"></div>
-          </div>
+          </div><!-- /ticket-card -->
+            <img src="/holding-hand.png" alt="" class="panel-ticket__hand" />
+          </div><!-- /ticket-anchor -->
         </div>
 
         <!-- PLATFORM PANEL -->

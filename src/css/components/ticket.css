@@ -2,11 +2,11 @@
 
 .panel-ticket__hand {
   position: absolute;
-  bottom: -172px;
-  right: -140px;
+  bottom: -235%;
+  right: -51%;
   left: auto;
-  height: 850px;
-  width: auto;
+  width: 180%;
+  height: auto;
   transform: scaleX(-1);
   pointer-events: none;
   z-index: 1;
@@ -58,13 +58,20 @@
   50%      { opacity: 0.45; }
 }
 
-.ticket-card {
+.ticket-anchor {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
   top: 50%;
   transform: translate(-50%, -40%);
   width: 70%;
+}
+
+.ticket-card {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  width: 100%;
   max-width: none;
   border: 2px solid #1a52d4;
   border-radius: 8px;
