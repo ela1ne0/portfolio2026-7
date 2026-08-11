@@ -1,15 +1,18 @@
-.panel-ticket { cursor: none; }
+.panel-ticket {
+  cursor: none;
+  overflow: hidden;
+}
 
 .panel-ticket__hand {
   position: absolute;
-  bottom: -235%;
-  right: -51%;
-  left: auto;
-  width: 180%;
+  bottom: 0;
+  right: 0;
+  width: 45%;
   height: auto;
-  transform: scaleX(-1);
+  transform: translate(78%, 70%);
+  transform-origin: bottom right;
   pointer-events: none;
-  z-index: 1;
+  z-index: 9;
 }
 
 .ticket-instruction {
@@ -68,11 +71,6 @@
 
 .ticket-card {
   position: relative;
-  left: auto;
-  top: auto;
-  transform: none;
-  width: 100%;
-  max-width: none;
   border: 2px solid #1a52d4;
   border-radius: 8px;
   overflow: hidden;
