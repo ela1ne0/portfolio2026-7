@@ -107,6 +107,12 @@ function doStamp(e) {
     setTimeout(() => trainLayer.classList.add('arrived'), 400);
   }
 
+  const passengerLayer = document.getElementById('layer-passenger');
+  if (passengerLayer) {
+    // 400ms delay before the train starts + 1100ms slide duration + a longer pause before she appears
+    setTimeout(() => passengerLayer.classList.add('revealed'), 400 + 1100 + 1200);
+  }
+
   const rect = ticketCard.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
@@ -256,6 +262,9 @@ function resetTicket() {
 
   const trainLayer = document.getElementById('layer-train');
   if (trainLayer) trainLayer.classList.remove('arrived');
+
+  const passengerLayer = document.getElementById('layer-passenger');
+  if (passengerLayer) passengerLayer.classList.remove('revealed');
 
   dotHome.classList.remove('is-active');
   dotHome.querySelector('.train-nav__dot')?.removeAttribute('aria-current');

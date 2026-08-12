@@ -477,6 +477,21 @@ span.train-nav__label {
   object-fit: cover;
   object-position: center 65%;
 }
+.layer-passenger {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+.layer-passenger.revealed {
+  opacity: 1;
+}
 
 .caption-box {
   position: absolute;
