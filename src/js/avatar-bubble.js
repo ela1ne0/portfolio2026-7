@@ -12,7 +12,7 @@ const LINES = [
   { 
     text: 'I also make playlists',
     sub: 'open spotify ↗',
-    link: 'https://open.spotify.com'
+    link: 'https://open.spotify.com/user/q0xzx8ebk5ji1hvc369yhy34q?si=a9cac26f54324047'
   },
   { 
     text: 'currently @ibm,',
@@ -70,23 +70,36 @@ function renderLine(index) {
 }
 
 // ── Hover ──
-if (avatar) {
-  avatar.addEventListener('mouseenter', () => {
-    positionBubble();
-    renderLine(currentIndex);
-    bubble.classList.add('visible');
+let hideTimeout = null;
+
+function showBubble() {
+  clearTimeout(hideTimeout);
+  positionBubble();
+  renderLine(currentIndex);
+  bubble.classList.add('visible');
+  if (!rotateInterval) {
     rotateInterval = setInterval(() => {
       currentIndex = (currentIndex + 1) % LINES.length;
       renderLine(currentIndex);
     }, 2200);
-  });
+  }
+}
 
-  avatar.addEventListener('mouseleave', () => {
+function hideBubble() {
+  hideTimeout = setTimeout(() => {
     bubble.classList.remove('visible');
     clearInterval(rotateInterval);
     rotateInterval = null;
-  });
+  }, 150);
 }
+
+if (avatar) {
+  avatar.addEventListener('mouseenter', showBubble);
+  avatar.addEventListener('mouseleave', hideBubble);
+}
+
+bubble.addEventListener('mouseenter', showBubble);
+bubble.addEventListener('mouseleave', hideBubble);
 
 // reposition on scroll/resize so it stays attached to avatar
 window.addEventListener('scroll',  positionBubble, { passive: true });

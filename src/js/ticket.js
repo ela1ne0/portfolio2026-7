@@ -102,15 +102,23 @@ function doStamp(e) {
   if (stamped) return;
   stamped = true;
 
+  const STAMP_TO_TRAIN_DELAY = 400;
+  const TRAIN_SLIDE_DURATION = 1100;
+  const TRAIN_TO_PASSENGER_PAUSE = 1200;
+  const PASSENGER_TO_EXPLORE_PAUSE = 700;
+
+  const trainArrivedAt = STAMP_TO_TRAIN_DELAY + TRAIN_SLIDE_DURATION;
+  const passengerRevealAt = trainArrivedAt + TRAIN_TO_PASSENGER_PAUSE;
+  const exploreIndicatorAt = passengerRevealAt + PASSENGER_TO_EXPLORE_PAUSE;
+
   const trainLayer = document.getElementById('layer-train');
   if (trainLayer) {
-    setTimeout(() => trainLayer.classList.add('arrived'), 400);
+    setTimeout(() => trainLayer.classList.add('arrived'), STAMP_TO_TRAIN_DELAY);
   }
 
   const passengerLayer = document.getElementById('layer-passenger');
   if (passengerLayer) {
-    // 400ms delay before the train starts + 1100ms slide duration + a longer pause before she appears
-    setTimeout(() => passengerLayer.classList.add('revealed'), 400 + 1100 + 1200);
+    setTimeout(() => passengerLayer.classList.add('revealed'), passengerRevealAt);
   }
 
   const rect = ticketCard.getBoundingClientRect();
@@ -184,7 +192,7 @@ function doStamp(e) {
         indicator.style.opacity = '1';
       });
     }
-  }, 4800);
+  }, exploreIndicatorAt);
 
   setTimeout(() => {
     const rightScroll = document.querySelector('.right-scroll');
@@ -265,6 +273,9 @@ function resetTicket() {
 
   const passengerLayer = document.getElementById('layer-passenger');
   if (passengerLayer) passengerLayer.classList.remove('revealed');
+
+  const exploreIndicator = document.getElementById('explore-indicator');
+  if (exploreIndicator) exploreIndicator.remove();
 
   dotHome.classList.remove('is-active');
   dotHome.querySelector('.train-nav__dot')?.removeAttribute('aria-current');
