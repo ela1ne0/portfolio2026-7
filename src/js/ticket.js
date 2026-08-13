@@ -105,28 +105,34 @@ function doStamp(e) {
   const STAMP_TO_TRAIN_DELAY = 400;
   const TRAIN_SLIDE_DURATION = 1100;
   const TRAIN_TO_PASSENGER_PAUSE = 1200;
+  const TRAIN_STOPPED_PAUSE = 1500;
   const PASSENGER_TO_EXPLORE_PAUSE = 700;
 
   const trainArrivedAt = STAMP_TO_TRAIN_DELAY + TRAIN_SLIDE_DURATION;
   const passengerRevealAt = trainArrivedAt + TRAIN_TO_PASSENGER_PAUSE;
+  const buildingsScrollAt = trainArrivedAt + TRAIN_STOPPED_PAUSE;
   const exploreIndicatorAt = passengerRevealAt + PASSENGER_TO_EXPLORE_PAUSE;
 
   const trainLayer = document.getElementById('layer-train');
   const buildingsLayer = document.getElementById('layer-buildings');
+  const passengerLayer = document.getElementById('layer-passenger');
+
   if (trainLayer) {
     setTimeout(() => {
       trainLayer.classList.add('arrived');
     }, STAMP_TO_TRAIN_DELAY);
   }
+
   if (buildingsLayer) {
     setTimeout(() => {
       buildingsLayer.classList.add('scrolling');
-    }, trainArrivedAt + 1500);
+    }, buildingsScrollAt);
   }
 
-  const passengerLayer = document.getElementById('layer-passenger');
   if (passengerLayer) {
-    setTimeout(() => passengerLayer.classList.add('revealed'), passengerRevealAt);
+    setTimeout(() => {
+      passengerLayer.classList.add('revealed');
+    }, passengerRevealAt);
   }
 
   const rect = ticketCard.getBoundingClientRect();

@@ -505,7 +505,7 @@ span.train-nav__label {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 65%;
   z-index: 3;
   opacity: 0;
   transition: opacity 0.8s ease;
