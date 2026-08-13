@@ -112,8 +112,16 @@ function doStamp(e) {
   const exploreIndicatorAt = passengerRevealAt + PASSENGER_TO_EXPLORE_PAUSE;
 
   const trainLayer = document.getElementById('layer-train');
+  const buildingsLayer = document.getElementById('layer-buildings');
   if (trainLayer) {
-    setTimeout(() => trainLayer.classList.add('arrived'), STAMP_TO_TRAIN_DELAY);
+    setTimeout(() => {
+      trainLayer.classList.add('arrived');
+    }, STAMP_TO_TRAIN_DELAY);
+  }
+  if (buildingsLayer) {
+    setTimeout(() => {
+      buildingsLayer.classList.add('scrolling');
+    }, trainArrivedAt + 1500);
   }
 
   const passengerLayer = document.getElementById('layer-passenger');
@@ -270,6 +278,9 @@ function resetTicket() {
 
   const trainLayer = document.getElementById('layer-train');
   if (trainLayer) trainLayer.classList.remove('arrived');
+
+  const buildingsLayer = document.getElementById('layer-buildings');
+  if (buildingsLayer) buildingsLayer.classList.remove('scrolling');
 
   const passengerLayer = document.getElementById('layer-passenger');
   if (passengerLayer) passengerLayer.classList.remove('revealed');

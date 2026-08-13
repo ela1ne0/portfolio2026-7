@@ -486,8 +486,12 @@ span.train-nav__label {
   background-image: url('/buildings-strip.png');
   background-repeat: repeat-x;
   background-position: center 15%;
-  background-size: auto 45%;
+  background-size: auto 50%;
   animation: buildingsScroll 25s linear infinite;
+  animation-play-state: paused;
+}
+.layer-buildings.scrolling {
+  animation-play-state: running;
 }
 
 @keyframes buildingsScroll {
