@@ -46,17 +46,8 @@ body {
 .train-nav {
   position: relative;
   flex-shrink: 0;
-  padding: 30px 44px 10px 216px;
+  padding: 30px 28px 10px 44px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.train-nav__decor {
-  position: absolute;
-  left: 180px;
-  top: 38px;
-  transform: translateY(-100%);
-  height: 22px;
-  width: auto;
-  pointer-events: none;
 }
 
 .train-nav__track {
@@ -190,6 +181,7 @@ span.train-nav__label {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 .right-scroll::-webkit-scrollbar { width: 3px; }
