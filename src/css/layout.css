@@ -46,7 +46,7 @@ body {
 .train-nav {
   position: relative;
   flex-shrink: 0;
-  padding: 30px 28px 10px 44px;
+  padding: 30px 0 10px 0;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -74,7 +74,7 @@ body {
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: 0;
+  padding: 0 28px 0 44px;
   transform: translateY(0px);
 }
 
@@ -662,18 +662,6 @@ span.train-nav__label {
   font-family: 'Space Mono', monospace;
   line-height: 1.7;
 }
-.work-view-all {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  text-decoration: none;
-  font-family: 'Space Mono', monospace;
-  transition: color 0.2s;
-  margin-top: auto;
-}
-.work-view-all:hover { color: #fff; }
-
 /* panels area */
 .work-panels {
   grid-column: 2;
