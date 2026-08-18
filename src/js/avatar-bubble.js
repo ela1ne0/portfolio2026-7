@@ -15,7 +15,7 @@ const LINES = [
     link: 'https://open.spotify.com/user/q0xzx8ebk5ji1hvc369yhy34q?si=a9cac26f54324047'
   },
   { 
-    text: 'currently @ibm,',
+    text: 'prev @ibm,',
     sub: 'next: you?',
     link: null
   },
