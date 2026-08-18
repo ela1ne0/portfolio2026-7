@@ -135,6 +135,23 @@ window.addEventListener('load', () => {
     spyObserver.observe(homeSection);
     spyObserver.observe(workSectionEl);
   }
+
+  const aboutParallax = document.getElementById('about-parallax');
+  const aboutTrain = document.getElementById('about-train');
+  if (aboutParallax && aboutTrain) {
+    const aboutTrainObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => aboutTrain.classList.add('arrived'), 300);
+            aboutTrainObserver.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    aboutTrainObserver.observe(aboutParallax);
+  }
 });
 
 window.addEventListener('beforeunload', () => {

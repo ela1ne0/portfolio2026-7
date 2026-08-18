@@ -613,6 +613,151 @@
       background: rgba(255,255,255,0.12);
       border-radius: 2px;
     }
+    .main-content {
+      max-width: 640px;
+    }
+    .about-hero {
+      padding: 100px 0 60px;
+    }
+    .about-hero__statement {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 42px;
+      font-weight: 300;
+      line-height: 1.3;
+      color: #fff;
+      max-width: 480px;
+    }
+    .about-intro {
+      padding-bottom: 40px;
+    }
+    .about-intro p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.85);
+      max-width: 480px;
+    }
+    .about-trains-link {
+      padding-bottom: 70px;
+    }
+    .about-trains-link a {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .about-trains-link a:hover { color: #fff; }
+    .about-section {
+      padding-bottom: 60px;
+    }
+    .about-section__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+    .about-exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 0;
+    }
+    .about-exp-list li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 14px;
+      max-width: 480px;
+    }
+    .about-exp-list__role {
+      color: rgba(255,255,255,0.6);
+    }
+    .about-interests {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0;
+    }
+    .about-interests li {
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+    }
+    .about-interests__icon {
+      margin-right: 10px;
+    }
+    .about-interests a {
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.35);
+      text-underline-offset: 3px;
+    }
+    .about-interests a:hover { text-decoration-color: #fff; }
+    .about-closing {
+      padding: 40px 0 100px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .about-closing__cta {
+      font-size: 17px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .about-closing__cta a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .about-closing__secondary {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .about-closing__secondary a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: underline;
+    }
+    .main-content {
+      position: relative;
+    }
+    .about-parallax {
+      position: absolute;
+      top: 40px;
+      right: -60px;
+      width: 460px;
+      aspect-ratio: 2360 / 1640;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .about-parallax__layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .about-parallax__behind {
+      z-index: 1;
+    }
+    .about-parallax__train {
+      z-index: 2;
+      transform: translateX(-110%);
+      transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .about-parallax__train.arrived {
+      transform: translateX(0);
+    }
+    .about-parallax__front {
+      z-index: 3;
+    }
+
+    @media (max-width: 1100px) {
+      .about-parallax {
+        display: none;
+      }
+    }
   </style>
   <link rel="stylesheet" href="/src/css/layout.css"/>
 </head>
@@ -844,293 +989,51 @@
     <div class="right-scroll">
     <main class="main-content">
 
-      <!-- header -->
-      <div class="page-header">
-        <div class="page-stop">stop 02 · about</div>
-        <div class="page-title">Hi, I'm Elaine.</div>
+      <div class="about-hero">
+        <p class="about-hero__statement">I care about design that feels fun.</p>
       </div>
 
-      <!-- ── WHO I AM ── -->
-      <section class="section">
-        <div class="section-label">who i am</div>
-        <div class="intro-grid">
-          <div>
-            <p class="intro-text">
-              I'm a <strong>designer-developer</strong> studying CS + Visual Media
-              Studies at Duke University, currently interning at
-              <strong>IBM</strong> as a Design Intern. I care about design that feels fun!
-              (the kind that makes you forget you're using software).
-            </p>
-            <p class="intro-text">
-              I come at it from both sides: the systems thinker who wants everything
-              to make sense, and the visual artist who wants it to feel like
-              <strong>something</strong>.
-            </p>
-            <p class="intro-text" style="margin-bottom:22px">
-              When I'm not in Figma or Cursor:
-            </p>
-            <ul class="intro-list">
-              <li>shooting on film somewhere with good light</li>
-              <li>making playlists for every conceivable occasion</li>
-              <li>drawing in Procreate at an unreasonable hour</li>
-              <li>eating my way through whatever city I'm in</li>
-              <li>curating Pinterest boards I'll never finish</li>
-            </ul>
-          </div>
-          <!-- swap .photo-hint divs for <img> when you have photos -->
-          <div class="photo-stack">
-            <div class="photo-slot">
-              <span class="photo-hint">photo here</span>
-            </div>
-            <div class="photo-slot">
-              <span class="photo-hint">photo here</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div class="about-parallax" id="about-parallax">
+        <img src="/about-station-behind.png" alt="" class="about-parallax__layer about-parallax__behind" />
+        <img src="/about-train-body.png" alt="" class="about-parallax__layer about-parallax__train" id="about-train" />
+        <img src="/about-station-front.png" alt="" class="about-parallax__layer about-parallax__front" />
+      </div>
 
-      <div class="manga-divider"><span>— the journey so far</span></div>
+      <div class="about-intro">
+        <p>Design comes first for me — the code follows, in service of making sure the thing actually feels the way it looked in my head. I'm studying CS + Visual Media at Duke, currently interning in product design at IBM.</p>
+      </div>
 
-      <!-- ── COMMUNITIES ── -->
-      <section class="section">
-        <div class="section-label">communities</div>
-        <div class="communities-list">
+      <div class="about-trains-link">
+        <a href="/about-the-trains.html">why does this whole site have trains? →</a>
+      </div>
 
-          <div class="community-card">
-            <div class="com-icon">🦆</div>
-            <div>
-              <div class="com-name">HackDuke</div>
-              <div class="com-role">UI/UX Lead · Organizer</div>
-              <div class="com-desc">
-                Leading design for Duke's annual hackathon. Responsible for
-                the full visual identity, participant experience, and design
-                system across all touchpoints.
-              </div>
-            </div>
-          </div>
+      <div class="about-section">
+        <div class="about-section__label">experience</div>
+        <ul class="about-exp-list">
+          <li><span class="about-exp-list__org">IBM</span><span class="about-exp-list__role">Product Design</span></li>
+          <li><span class="about-exp-list__org">HackDuke</span><span class="about-exp-list__role">UI/UX Lead</span></li>
+          <li><span class="about-exp-list__org">Catalyst Tech Society</span><span class="about-exp-list__role">Marketing Chair</span></li>
+          <li><span class="about-exp-list__org">Figma</span><span class="about-exp-list__role">Campus Ambassador</span></li>
+          <li><span class="about-exp-list__org">Gutter Studio</span><span class="about-exp-list__role">Design Fellow</span></li>
+          <li><span class="about-exp-list__org">Duke University</span><span class="about-exp-list__role">CS + Visual Media</span></li>
+        </ul>
+      </div>
 
-          <div class="community-card">
-            <div class="com-icon">💙</div>
-            <div>
-              <div class="com-name">IBM Z DevOps</div>
-              <div class="com-role">Design Intern · Summer 2025</div>
-              <div class="com-desc">
-                Working on the Z DevOps design team, focused on enterprise
-                developer tooling and systems design.
-              </div>
-            </div>
-          </div>
+      <div class="about-section">
+        <div class="about-section__label">outside of work</div>
+        <ul class="about-interests">
+          <li><span class="about-interests__icon">🎧</span> listening — <a href="PASTE_SPOTIFY_PLAYLIST_LINK_HERE" target="_blank" rel="noopener">this playlist</a></li>
+          <li><span class="about-interests__icon">🏃</span> moving — gymming, lifting, running, larping</li>
+          <li><span class="about-interests__icon">📸</span> shooting — photography, travel</li>
+          <li><span class="about-interests__icon">🎨</span> making — <a href="https://instagram.com/elaineyustudio" target="_blank" rel="noopener">@elaineyustudio</a></li>
+          <li><span class="about-interests__icon">🍽️</span> tracking — <a href="PASTE_BELI_LINK_HERE" target="_blank" rel="noopener">Beli</a>, <a href="PASTE_STRAVA_LINK_HERE" target="_blank" rel="noopener">Strava</a>, <a href="PASTE_DUOLINGO_LINK_HERE" target="_blank" rel="noopener">Duolingo</a></li>
+        </ul>
+      </div>
 
-          <div class="community-card">
-            <div class="com-icon">🎓</div>
-            <div>
-              <div class="com-name">Duke University</div>
-              <div class="com-role">CS + Visual Media Studies</div>
-              <div class="com-desc">
-                Studying at the intersection of computer science and visual
-                art — the place where all of this started.
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <div class="manga-divider"><span>— a few of my favorite things</span></div>
-
-      <!-- ── FAVORITES ── -->
-      <section class="section">
-        <div class="section-label">favorites · hover a card to flip</div>
-
-        <div class="fav-tabs">
-          <div class="fav-tab active" data-tab="food">food</div>
-          <div class="fav-tab" data-tab="music">music</div>
-          <div class="fav-tab" data-tab="places">places</div>
-          <div class="fav-tab" data-tab="reads">reads</div>
-        </div>
-
-        <!-- FOOD -->
-        <div class="fav-grid active" id="tab-food">
-          <div class="fav-card">
-            <div class="fav-card-inner">
-              <div class="fav-face fav-front">
-                <div class="fav-img">🍜</div>
-                <div class="fav-info">
-                  <div class="fav-star">★ favorite</div>
-                  <div class="fav-title">add dish</div>
-                  <div class="fav-author">city / restaurant</div>
-                </div>
-              </div>
-              <div class="fav-face fav-back">
-                <div class="fav-back-title">add dish</div>
-                <div class="fav-back-note">"your note here"</div>
-                <div class="fav-back-tag">food</div>
-              </div>
-            </div>
-          </div>
-          <div class="fav-card">
-            <div class="fav-card-inner">
-              <div class="fav-face fav-front">
-                <div class="fav-img">🍜</div>
-                <div class="fav-info">
-                  <div class="fav-star">★ favorite</div>
-                  <div class="fav-title">add dish</div>
-                  <div class="fav-author">city / restaurant</div>
-                </div>
-              </div>
-              <div class="fav-face fav-back">
-                <div class="fav-back-title">add dish</div>
-                <div class="fav-back-note">"your note here"</div>
-                <div class="fav-back-tag">food</div>
-              </div>
-            </div>
-          </div>
-          <div class="fav-card">
-            <div class="fav-card-inner">
-              <div class="fav-face fav-front">
-                <div class="fav-img">🍜</div>
-                <div class="fav-info">
-                  <div class="fav-star">★ favorite</div>
-                  <div class="fav-title">add dish</div>
-                  <div class="fav-author">city / restaurant</div>
-                </div>
-              </div>
-              <div class="fav-face fav-back">
-                <div class="fav-back-title">add dish</div>
-                <div class="fav-back-note">"your note here"</div>
-                <div class="fav-back-tag">food</div>
-              </div>
-            </div>
-          </div>
-          <div class="fav-card">
-            <div class="fav-card-inner">
-              <div class="fav-face fav-front">
-                <div class="fav-img">🍜</div>
-                <div class="fav-info">
-                  <div class="fav-star">★ favorite</div>
-                  <div class="fav-title">add dish</div>
-                  <div class="fav-author">city / restaurant</div>
-                </div>
-              </div>
-              <div class="fav-face fav-back">
-                <div class="fav-back-title">add dish</div>
-                <div class="fav-back-note">"your note here"</div>
-                <div class="fav-back-tag">food</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- MUSIC -->
-        <div class="fav-grid" id="tab-music">
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">🎵</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add track</div><div class="fav-author">artist</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add track</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">music</div></div>
-          </div></div>
-        </div>
-
-        <!-- PLACES -->
-        <div class="fav-grid" id="tab-places">
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📍</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📍</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📍</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📍</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add place</div><div class="fav-author">city</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add place</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">places</div></div>
-          </div></div>
-        </div>
-
-        <!-- READS -->
-        <div class="fav-grid" id="tab-reads">
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📚</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📚</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📚</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
-          </div></div>
-          <div class="fav-card"><div class="fav-card-inner">
-            <div class="fav-face fav-front"><div class="fav-img">📚</div>
-              <div class="fav-info"><div class="fav-star">★</div>
-                <div class="fav-title">add book</div><div class="fav-author">author</div></div></div>
-            <div class="fav-face fav-back"><div class="fav-back-title">add book</div>
-              <div class="fav-back-note">"your note"</div><div class="fav-back-tag">reads</div></div>
-          </div></div>
-        </div>
-      </section>
-
-      <!-- ── NOW PLAYING ── -->
-      <section class="section">
-        <div class="section-label">currently listening</div>
-        <a href="https://open.spotify.com" target="_blank"
-          rel="noopener" class="now-playing" style="display:flex;text-decoration:none">
-          <div class="np-icon">♫</div>
-          <div>
-            <div class="np-label">open in spotify</div>
-            <div class="np-track">add your current obsession here</div>
-          </div>
-          <span class="np-link">open spotify ↗</span>
-        </a>
-      </section>
+      <div class="about-closing">
+        <p class="about-closing__cta">want to see what I've built? <a href="/index.html#work">→ selected work</a></p>
+        <p class="about-closing__secondary">(and if you're still curious why any of this has trains in it, <a href="/about-the-trains.html">that's here too →</a>)</p>
+      </div>
 
     </main>
 
