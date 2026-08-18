@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Why Trains? — Elaine Yu</title>
+<link rel="icon" type="image/png" href="/updatedfavicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/src/css/cursor.css">
+<link rel="stylesheet" href="/src/css/avatar-bubble.css"/>
+<style>
+*, *::before, *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  cursor: none !important;
+}
+:root {
+  --blue:  #1a52d4;
+  --ink:   #1a2744;
+  --white: #ffffff;
+  --font-display: 'Noto Serif JP', serif;
+  --font-mono:    'Space Mono', monospace;
+  --font-hand:    'Caveat', cursive;
+}
+html, body { height: 100%; overflow: hidden; background: var(--blue); }
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+}
+
+/* ── CURSOR ── */
+.cur-dot {
+  position: fixed; width: 7px; height: 7px;
+  border-radius: 50%; background: #fff;
+  box-shadow: 0 0 0 1.5px rgba(26,82,212,0.3);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  top: -100px; left: -100px;
+}
+.cur-ring {
+  position: fixed; width: 26px; height: 26px;
+  border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.55);
+  background: transparent; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  top: -100px; left: -100px;
+  opacity: 0;
+  transition: opacity 0.2s, width 0.25s cubic-bezier(0.34,1.56,0.64,1),
+              height 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.cur-ring.show { opacity: 1; width: 32px; height: 32px; }
+
+/* ── PAGE BODY ── */
+.page-body {
+  flex: 1; min-height: 0;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  overflow: hidden;
+}
+
+/* ── LEFT COLUMN — sticky ── */
+.left-col {
+  position: sticky;
+  top: 64px; /* nav height */
+  height: calc(100vh - 64px);
+  padding: 36px 20px 28px 44px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.left-avatar {
+  width: 64px; height: 64px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 14px;
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.left-avatar:hover { transform: translateY(-3px) scale(1.05); }
+.avatar-link { display: inline-block; text-decoration: none; }
+.left-caption {
+  font-size: 11px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.left-facts {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.95;
+}
+.left-facts span { display: block; }
+.left-facts__item {
+  margin-bottom: 10px;
+}
+.left-facts__handle {
+  display: block;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.left-facts__handle:hover {
+  text-decoration: underline;
+}
+.left-facts__role {
+  display: block;
+  color: rgba(255,255,255,0.55);
+  margin-top: 1px;
+}
+.quote-mark {
+  display: block;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 30px;
+  line-height: 1;
+  color: rgba(255,255,255,0.35);
+}
+.quote-mark--open { margin-bottom: 2px; }
+.quote-mark--close { text-align: right; margin-top: 2px; }
+.left-facts__link {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.35);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+.left-facts__link:hover {
+  text-decoration-color: rgba(255,255,255,0.8);
+}
+.left-contact {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 10px;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.9;
+}
+.left-contact a {
+  color: rgba(255,255,255,0.38);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.left-contact a:hover { color: rgba(255,255,255,0.8); }
+
+/* ── RIGHT: coming soon ── */
+.right-scroll {
+  height: 100%; overflow-y: auto; overflow-x: hidden;
+  display: flex; flex-direction: column;
+}
+.right-scroll::-webkit-scrollbar { width: 3px; }
+.right-scroll::-webkit-scrollbar-track { background: transparent; }
+.right-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+.coming-soon {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 44px;
+  text-align: center;
+  gap: 28px;
+}
+
+/* manga panel style box */
+.cs-panel {
+  background: #fff;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  width: 100%;
+  max-width: 560px;
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* image variant: no text padding, let the illustration fill the frame */
+.cs-panel--image {
+  padding: 0;
+  line-height: 0;
+}
+.cs-illustration-wrap {
+  position: relative;
+  display: block;
+}
+.cs-illustration {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.sweat-drop {
+  position: absolute;
+  left: 25%;
+  top: 35%;
+  width: 2.5%;
+  min-width: 8px;
+  max-width: 10px;
+  transform: translateY(5px);
+  transition: transform 0.45s cubic-bezier(0.34, 1.15, 0.64, 1);
+}
+.sweat-drop svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(26, 82, 212, 0.2));
+}
+.sweat-drop:hover {
+  transform: translateY(10px);
+}
+.sweat-drop.intro-slide {
+  transform: translateY(10px);
+}
+
+/* panel number top left */
+.cs-panel-num {
+  position: absolute;
+  top: 14px; left: 16px;
+  font-size: 8px; letter-spacing: 0.12em;
+  color: rgba(26,82,212,0.25);
+  font-family: var(--font-mono);
+  border: 1px solid rgba(26,82,212,0.15);
+  padding: 2px 7px;
+}
+
+/* caption box inside panel */
+.cs-caption {
+  position: absolute;
+  bottom: 14px; left: 16px;
+  border: 1.5px solid var(--blue);
+  padding: 7px 12px;
+  font-size: 10px;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  background: #fff;
+  letter-spacing: 0.06em;
+}
+.cs-caption__cursor {
+  animation: blink 0.8s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* main content */
+.cs-stop {
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26,82,212,0.35);
+  margin-bottom: 14px;
+  font-family: var(--font-mono);
+}
+.cs-title {
+  font-family: var(--font-display);
+  font-size: 48px; font-weight: 300;
+  color: var(--ink); line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+.cs-desc {
+  font-size: 12px; color: rgba(26,82,212,0.55);
+  line-height: 1.85; max-width: 380px;
+  margin: 0 auto 28px;
+  font-family: var(--font-mono);
+}
+
+/* things coming tag list */
+.cs-tags {
+  display: flex; flex-wrap: wrap;
+  gap: 8px; justify-content: center;
+  margin-bottom: 8px;
+}
+.cs-tag {
+  font-size: 8px; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(26,82,212,0.5);
+  border: 1px solid rgba(26,82,212,0.2);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+}
+
+/* hand-drawn asterisk doodles */
+.cs-doodle {
+  position: absolute;
+  font-family: var(--font-hand);
+  font-size: 13px;
+  color: rgba(26,82,212,0.18);
+  pointer-events: none;
+}
+
+/* back link */
+.cs-illustration-caption {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: calc(100% - 28px);
+  border: 1.5px solid var(--blue);
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  background: #fff;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+}
+.cs-back {
+  font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  transition: color 0.2s;
+}
+.cs-back:hover { color: #fff; }
+.notes-page {
+  max-width: 620px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+.notes-page__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 12px;
+}
+.notes-page__title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 34px;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 28px;
+}
+.notes-page__body p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 20px;
+}
+</style>
+<link rel="stylesheet" href="/src/css/layout.css"/>
+</head>
+<body>
+
+<div class="cur-dot" id="cur-dot"></div>
+<div class="cur-ring" id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="main-nav" class="train-nav" aria-label="Main">
+  <div class="train-nav__track" data-active-stop="-1">
+    <div class="train-nav__line" aria-hidden="true"></div>
+    <div class="train-nav__fill"></div>
+    <ol class="train-nav__stops">
+      <li class="train-nav__stop">
+        <a href="/index.html">
+          <span class="train-nav__dot"></span>
+          <span class="train-nav__label">home</span>
+        </a>
+      </li>
+      <li class="train-nav__stop">
+        <a href="/index.html#work">
+          <span class="train-nav__dot"></span>
+          <span class="train-nav__label">work</span>
+        </a>
+      </li>
+      <li class="train-nav__stop">
+        <a href="/about-coming-soon.html">
+          <span class="train-nav__dot"></span>
+          <span class="train-nav__label">about</span>
+        </a>
+      </li>
+      <li class="train-nav__stop">
+        <a href="/play.html">
+          <span class="train-nav__dot"></span>
+          <span class="train-nav__label">play</span>
+        </a>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- LEFT COL -->
+  <aside class="left-col">
+    <a href="/index.html" class="avatar-link">
+      <img src="/updatedpfpicon.png"
+        alt="Elaine Yu"
+        class="left-avatar"/>
+    </a>
+    <img src="/elaine-yu-signature.png" alt="Elaine Yu" class="left-name-img"/>
+    <div class="left-caption">"I care about design that feels fun!"</div>
+    <div class="left-facts">
+      <div class="left-facts__item">
+        <a href="https://www.duke.edu" target="_blank" rel="noopener" class="left-facts__handle">@DUKE</a>
+        <span class="left-facts__role">CS & Visual Media</span>
+      </div>
+      <div class="left-facts__item">
+        <a href="https://www.ibm.com" target="_blank" rel="noopener" class="left-facts__handle">prev @IBM</a>
+        <span class="left-facts__role">Product Design</span>
+      </div>
+    </div>
+
+    <div class="sidebar-walk">
+      <div class="cityscape-wrap">
+        <div class="cityscape-track">
+
+          <!-- city SVG — appears twice for seamless loop -->
+          <svg class="city-block" viewBox="0 0 600 90" height="90" fill="none">
+            <!-- tall apartment -->
+            <rect x="10" y="20" width="28" height="70" rx="1" stroke="white" stroke-width="0.8" opacity="0.55"/>
+            <rect x="14" y="24" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="24" y="24" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="14" y="33" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="24" y="33" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="14" y="42" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="24" y="42" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="16" y="14" width="10" height="7" rx="1" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <line x1="21" y1="14" x2="21" y2="11" stroke="white" stroke-width="0.7" opacity="0.36"/>
+            <!-- convenience store -->
+            <rect x="44" y="52" width="36" height="38" rx="1" stroke="white" stroke-width="0.8" opacity="0.55"/>
+            <line x1="44" y1="58" x2="80" y2="58" stroke="white" stroke-width="1" opacity="0.5"/>
+            <rect x="50" y="60" width="24" height="8" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <rect x="57" y="74" width="10" height="16" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <!-- power pole -->
+            <line x1="88" y1="28" x2="88" y2="90" stroke="white" stroke-width="0.8" opacity="0.42"/>
+            <line x1="80" y1="34" x2="96" y2="34" stroke="white" stroke-width="0.8" opacity="0.42"/>
+            <line x1="0" y1="35" x2="120" y2="38" stroke="white" stroke-width="0.5" opacity="0.28"/>
+            <!-- vending machine -->
+            <rect x="84" y="62" width="12" height="28" rx="1.5" stroke="white" stroke-width="0.7" opacity="0.5"/>
+            <!-- office building -->
+            <rect x="115" y="30" width="40" height="60" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <rect x="120" y="35" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="131" y="35" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="142" y="35" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="120" y="45" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="131" y="45" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="142" y="45" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <line x1="135" y1="30" x2="135" y2="22" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <line x1="132" y1="24" x2="138" y2="24" stroke="white" stroke-width="0.5" opacity="0.34"/>
+            <!-- small house -->
+            <rect x="162" y="58" width="30" height="32" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <path d="M160 58 L177 44 L194 58" fill="none" stroke="white" stroke-width="0.8" opacity="0.48"/>
+            <rect x="168" y="63" width="8" height="7" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <rect x="172" y="74" width="8" height="16" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <!-- power pole 2 -->
+            <line x1="200" y1="22" x2="200" y2="90" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="192" y1="28" x2="208" y2="28" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="115" y1="36" x2="220" y2="40" stroke="white" stroke-width="0.5" opacity="0.28"/>
+            <!-- tall thin tower -->
+            <rect x="218" y="10" width="18" height="80" rx="1" stroke="white" stroke-width="0.8" opacity="0.48"/>
+            <rect x="221" y="14" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <rect x="229" y="14" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <rect x="221" y="22" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <rect x="229" y="22" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <rect x="221" y="30" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <line x1="227" y1="10" x2="227" y2="4" stroke="white" stroke-width="0.8" opacity="0.42"/>
+            <!-- wide building -->
+            <rect x="242" y="50" width="55" height="40" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <line x1="242" y1="58" x2="297" y2="58" stroke="white" stroke-width="0.6" opacity="0.34"/>
+            <rect x="252" y="60" width="35" height="8" rx="0.5" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="262" y="74" width="16" height="16" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <!-- bicycle -->
+            <ellipse cx="304" cy="84" rx="6" ry="6" fill="none" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <ellipse cx="318" cy="84" rx="6" ry="6" fill="none" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <line x1="304" y1="84" x2="318" y2="84" stroke="white" stroke-width="0.7" opacity="0.36"/>
+            <line x1="311" y1="84" x2="314" y2="76" stroke="white" stroke-width="0.7" opacity="0.36"/>
+            <!-- power pole 3 -->
+            <line x1="310" y1="24" x2="310" y2="90" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="302" y1="30" x2="318" y2="30" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="218" y1="32" x2="310" y2="36" stroke="white" stroke-width="0.5" opacity="0.28"/>
+            <!-- apartment complex -->
+            <rect x="328" y="25" width="45" height="65" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <rect x="330" y="32" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="346" y="32" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="330" y="44" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="346" y="44" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="330" y="56" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="346" y="56" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <!-- torii gate -->
+            <line x1="388" y1="90" x2="388" y2="52" stroke="white" stroke-width="1" opacity="0.48"/>
+            <line x1="408" y1="90" x2="408" y2="52" stroke="white" stroke-width="1" opacity="0.48"/>
+            <line x1="384" y1="52" x2="412" y2="52" stroke="white" stroke-width="1.2" opacity="0.5"/>
+            <line x1="386" y1="57" x2="410" y2="57" stroke="white" stroke-width="0.8" opacity="0.42"/>
+            <path d="M383 52 Q398 46 413 52" fill="none" stroke="white" stroke-width="1" opacity="0.48"/>
+            <!-- power pole 4 -->
+            <line x1="420" y1="26" x2="420" y2="90" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="412" y1="32" x2="428" y2="32" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="310" y1="34" x2="540" y2="38" stroke="white" stroke-width="0.5" opacity="0.28"/>
+            <!-- ground line -->
+            <line x1="0" y1="89" x2="600" y2="89" stroke="white" stroke-width="0.8" opacity="0.36"/>
+          </svg>
+
+          <!-- exact duplicate for seamless loop -->
+          <svg class="city-block" viewBox="0 0 600 90" height="90" fill="none">
+            <rect x="10" y="20" width="28" height="70" rx="1" stroke="white" stroke-width="0.8" opacity="0.55"/>
+            <rect x="14" y="24" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="24" y="24" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="14" y="33" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="24" y="33" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="14" y="42" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="24" y="42" width="6" height="5" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <rect x="16" y="14" width="10" height="7" rx="1" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <line x1="21" y1="14" x2="21" y2="11" stroke="white" stroke-width="0.7" opacity="0.36"/>
+            <rect x="44" y="52" width="36" height="38" rx="1" stroke="white" stroke-width="0.8" opacity="0.55"/>
+            <line x1="44" y1="58" x2="80" y2="58" stroke="white" stroke-width="1" opacity="0.5"/>
+            <rect x="50" y="60" width="24" height="8" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <rect x="57" y="74" width="10" height="16" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.48"/>
+            <line x1="88" y1="28" x2="88" y2="90" stroke="white" stroke-width="0.8" opacity="0.42"/>
+            <line x1="80" y1="34" x2="96" y2="34" stroke="white" stroke-width="0.8" opacity="0.42"/>
+            <line x1="0" y1="35" x2="120" y2="38" stroke="white" stroke-width="0.5" opacity="0.28"/>
+            <rect x="84" y="62" width="12" height="28" rx="1.5" stroke="white" stroke-width="0.7" opacity="0.5"/>
+            <rect x="115" y="30" width="40" height="60" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <rect x="120" y="35" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="131" y="35" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="142" y="35" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="120" y="45" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="131" y="45" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <rect x="142" y="45" width="7" height="6" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.42"/>
+            <line x1="135" y1="30" x2="135" y2="22" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <rect x="162" y="58" width="30" height="32" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <path d="M160 58 L177 44 L194 58" fill="none" stroke="white" stroke-width="0.8" opacity="0.48"/>
+            <rect x="168" y="63" width="8" height="7" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <rect x="172" y="74" width="8" height="16" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <line x1="200" y1="22" x2="200" y2="90" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="192" y1="28" x2="208" y2="28" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <rect x="218" y="10" width="18" height="80" rx="1" stroke="white" stroke-width="0.8" opacity="0.48"/>
+            <rect x="221" y="14" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <rect x="229" y="14" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <rect x="221" y="22" width="5" height="4" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.36"/>
+            <line x1="227" y1="10" x2="227" y2="4" stroke="white" stroke-width="0.8" opacity="0.42"/>
+            <rect x="242" y="50" width="55" height="40" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <line x1="242" y1="58" x2="297" y2="58" stroke="white" stroke-width="0.6" opacity="0.34"/>
+            <rect x="252" y="60" width="35" height="8" rx="0.5" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="262" y="74" width="16" height="16" rx="0.5" stroke="white" stroke-width="0.6" opacity="0.42"/>
+            <ellipse cx="304" cy="84" rx="6" ry="6" fill="none" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <ellipse cx="318" cy="84" rx="6" ry="6" fill="none" stroke="white" stroke-width="0.7" opacity="0.42"/>
+            <line x1="304" y1="84" x2="318" y2="84" stroke="white" stroke-width="0.7" opacity="0.36"/>
+            <line x1="311" y1="84" x2="314" y2="76" stroke="white" stroke-width="0.7" opacity="0.36"/>
+            <line x1="310" y1="24" x2="310" y2="90" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="302" y1="30" x2="318" y2="30" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <rect x="328" y="25" width="45" height="65" rx="1" stroke="white" stroke-width="0.8" opacity="0.5"/>
+            <rect x="330" y="32" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="346" y="32" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="330" y="44" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="346" y="44" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="330" y="56" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <rect x="346" y="56" width="12" height="8" rx="0.3" stroke="white" stroke-width="0.5" opacity="0.38"/>
+            <line x1="388" y1="90" x2="388" y2="52" stroke="white" stroke-width="1" opacity="0.48"/>
+            <line x1="408" y1="90" x2="408" y2="52" stroke="white" stroke-width="1" opacity="0.48"/>
+            <line x1="384" y1="52" x2="412" y2="52" stroke="white" stroke-width="1.2" opacity="0.5"/>
+            <path d="M383 52 Q398 46 413 52" fill="none" stroke="white" stroke-width="1" opacity="0.48"/>
+            <line x1="420" y1="26" x2="420" y2="90" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="412" y1="32" x2="428" y2="32" stroke="white" stroke-width="0.8" opacity="0.38"/>
+            <line x1="0" y1="89" x2="600" y2="89" stroke="white" stroke-width="0.8" opacity="0.36"/>
+          </svg>
+
+        </div>
+      </div>
+
+      <img
+        src="/walking-updated.gif"
+        alt="walking character"
+        class="walk-animation"
+      />
+    </div>
+
+    <div class="left-contact">
+      <a href="#">linkedin</a> · <a href="/resume.pdf" target="_blank">resume</a><br>
+      elaineyustudio@gmail.com
+    </div>
+  </aside>
+
+  <!-- RIGHT -->
+  <div class="right-scroll">
+    <div class="coming-soon">
+
+      <div class="notes-page">
+        <div class="notes-page__label">a small aside</div>
+        <h1 class="notes-page__title">why trains?</h1>
+
+        <div class="notes-page__body">
+          <p>Some of my best memories are on public transit — the kind of small, shared moments that happen when you're packed into a train car with strangers. A laugh at something on someone's phone screen. The particular quiet of a late-night ride home.</p>
+
+          <p>I think about the Spirited Away train scene a lot — how much feeling gets packed into something as simple as a train moving through water, no dialogue at all. And I think about something smaller and stranger: every train line in Japan has its own unique departure jingle. A few notes, gone in seconds, easy to miss entirely. But they're there — someone decided that even the sound of a train leaving deserved a little bit of care.</p>
+
+          <p>That's the thing I wanted this portfolio to hold onto. Not the big sweeping metaphor, but the small delightful detail that didn't have to be there — the stamp that lands exactly where you click, the cursor that changes when you're near the ticket, the little "no" shake if you press somewhere you shouldn't. None of it is necessary. All of it is the point.</p>
+
+          <p>I've also always wanted to make games — something about Gorogoa stuck with me, the way it tells a whole story through interaction instead of explaining itself. I wanted this site to work a little like that too: less "here's my portfolio," more "here, try this."</p>
+        </div>
+      </div>
+
+      <a href="/index.html" class="cs-back">← back to home</a>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // cursor
+  const dot  = document.getElementById('cur-dot');
+  const ring = document.getElementById('cur-ring');
+  let mx=-100,my=-100,rx=-100,ry=-100;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  document.querySelectorAll('a, .cs-tag')
+    .forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('show'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('show'));
+    });
+  (function loop() {
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  })();
+</script>
+
+<script type="module" src="/src/js/cursor.js"></script>
+<script type="module" src="/src/js/avatar-bubble.js"></script>
+<script>
+  (function () {
+    const drop = document.querySelector('.sweat-drop');
+    if (!drop) return;
+    setTimeout(() => drop.classList.add('intro-slide'), 400);
+    setTimeout(() => drop.classList.remove('intro-slide'), 1300);
+  })();
+</script>
+<script>
+  (function () {
+    const STOP_WIDTHS = (function () {
+      const track = document.querySelector('.train-nav__track');
+      const stops = document.querySelectorAll('.train-nav__stops > .train-nav__stop');
+      if (!track || !stops.length) return ['0%', '33.3333%', '66.6667%', '100%'];
+      const trackRect = track.getBoundingClientRect();
+      return Array.from(stops).map((stop) => {
+        const dot = stop.querySelector('.train-nav__dot');
+        if (!dot) return '0%';
+        const dotRect = dot.getBoundingClientRect();
+        const fraction = ((dotRect.left + dotRect.width / 2) - trackRect.left) / trackRect.width;
+        return (fraction * 100) + '%';
+      });
+    })();
+    const fill = document.querySelector('.train-nav__fill');
+    if (!fill) return;
+    const stored = sessionStorage.getItem('navStopIndex');
+    if (stored !== null && STOP_WIDTHS[stored] !== undefined) {
+      fill.style.transition = 'none';
+      fill.style.width = STOP_WIDTHS[stored];
+      void fill.offsetWidth;
+      fill.style.transition = '';
+    }
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        fill.style.width = STOP_WIDTHS[3];
+        sessionStorage.setItem('navStopIndex', 3);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
