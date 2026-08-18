@@ -122,6 +122,7 @@ window.addEventListener('load', () => {
     const spyObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          console.log('about-train observer fired, isIntersecting:', entry.isIntersecting);
           if (!entry.isIntersecting) return;
           if (entry.target === workSectionEl) setActiveSection(dotWorkEl);
           else if (entry.target === homeSection) setActiveSection(dotHomeEl);

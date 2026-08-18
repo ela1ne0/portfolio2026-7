@@ -723,10 +723,13 @@
     .main-content {
       position: relative;
     }
+    .right-scroll {
+      position: relative;
+    }
     .about-parallax {
       position: absolute;
       top: 40px;
-      right: -60px;
+      right: 200px;
       width: 460px;
       aspect-ratio: 2360 / 1640;
       pointer-events: none;
@@ -987,16 +990,15 @@
     </aside>
 
     <div class="right-scroll">
-    <main class="main-content">
-
-      <div class="about-hero">
-        <p class="about-hero__statement">I care about design that feels fun.</p>
-      </div>
-
       <div class="about-parallax" id="about-parallax">
         <img src="/about-station-behind.png" alt="" class="about-parallax__layer about-parallax__behind" />
         <img src="/about-train-body.png" alt="" class="about-parallax__layer about-parallax__train" id="about-train" />
         <img src="/about-station-front.png" alt="" class="about-parallax__layer about-parallax__front" />
+      </div>
+    <main class="main-content">
+
+      <div class="about-hero">
+        <p class="about-hero__statement">I care about design that feels fun.</p>
       </div>
 
       <div class="about-intro">
@@ -1204,6 +1206,7 @@
     });
   </script>
 
+  <script type="module" src="/src/js/nav.js"></script>
   <script type="module" src="/src/js/avatar-bubble.js"></script>
 
 <script>
