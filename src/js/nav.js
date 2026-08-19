@@ -153,6 +153,21 @@ window.addEventListener('load', () => {
     );
     aboutTrainObserver.observe(aboutParallax);
   }
+
+  const footerCat = document.getElementById('footer-cat');
+  const rightScrollEl = document.querySelector('.right-scroll');
+  if (footerCat && rightScrollEl) {
+    const checkFooterCatReveal = () => {
+      const distanceFromBottom =
+        rightScrollEl.scrollHeight - rightScrollEl.scrollTop - rightScrollEl.clientHeight;
+      if (distanceFromBottom <= 4) {
+        footerCat.classList.add('revealed');
+        rightScrollEl.removeEventListener('scroll', checkFooterCatReveal);
+      }
+    };
+    rightScrollEl.addEventListener('scroll', checkFooterCatReveal, { passive: true });
+    checkFooterCatReveal();
+  }
 });
 
 window.addEventListener('beforeunload', () => {

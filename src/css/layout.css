@@ -829,12 +829,34 @@ span.train-nav__label {
   text-align: center;
 }
 
+.footer-platform-wrap {
+  position: relative;
+  display: inline-block;
+}
+
 .footer-platform-img {
-  width: 400px;
+  width: 480px;
   max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+.footer-cat {
+  position: absolute;
+  left: -10%;
+  bottom: 0%;
+  width: 48px;
+  height: auto;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.footer-cat.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 /* ── IDENTITY ── */
 .footer-identity {
