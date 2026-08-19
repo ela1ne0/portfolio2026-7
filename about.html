@@ -480,31 +480,6 @@
       padding: 40px 44px 32px;
       text-align: center;
     }
-    .footer-ascii {
-      width: 100%;
-      overflow: hidden;
-      height: 40px;
-      position: relative;
-    }
-    .footer-track-line {
-      position: absolute;
-      bottom: 8px;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(255,255,255,0.08);
-    }
-    .footer-train-svg {
-      position: absolute;
-      height: 22px;
-      width: auto;
-      bottom: 8px;
-      animation: footerTrain 14s linear infinite;
-    }
-    @keyframes footerTrain {
-      0%   { left: -120px; }
-      100% { left: 105%;   }
-    }
     .footer-identity {
       display: flex;
       align-items: center;
@@ -1042,60 +1017,8 @@
   <footer class="site-footer">
     <div class="footer-inner">
 
-      <!-- ASCII train art — decorative, aria-hidden -->
-      <div class="footer-ascii" aria-hidden="true">
-        <div class="footer-track-line"></div>
-        <pre class="station-scene">
-     東   京      駅
-  ┌─────────────────────────────────────────┐
-  │  ≡≡  次の電車  ≡≡                        │
-  │  NEXT TRAIN ·· PLT-01 · ALL STOPS       │
-  └─────────────────────────────────────────┘
-        |           |           |
-  ______|___________|___________|________
-  ▌  ▌  ▌   PLATFORM  01   ▌  ▌  ▌  ▌
-  ══════════════════════════════════════
-</pre>
-        <svg class="footer-train-svg" style="transform: scaleX(-1);"
-          viewBox="0 0 220 46" height="36" fill="none">
-          <rect x="0" y="4" width="220" height="28" rx="5"
-            stroke="white" stroke-width="1.3" opacity="0.4"/>
-          <rect x="4" y="8" width="28" height="16" rx="3"
-            stroke="white" stroke-width="1" opacity="0.38"/>
-          <circle cx="3" cy="26" r="2.5"
-            stroke="white" stroke-width="1" opacity="0.3"/>
-          <rect x="40"  y="9" width="18" height="12" rx="2"
-            stroke="white" stroke-width="1" opacity="0.28"/>
-          <rect x="64"  y="9" width="18" height="12" rx="2"
-            stroke="white" stroke-width="1" opacity="0.28"/>
-          <rect x="88"  y="9" width="18" height="12" rx="2"
-            stroke="white" stroke-width="1" opacity="0.28"/>
-          <rect x="112" y="9" width="18" height="12" rx="2"
-            stroke="white" stroke-width="1" opacity="0.28"/>
-          <rect x="136" y="9" width="18" height="12" rx="2"
-            stroke="white" stroke-width="1" opacity="0.28"/>
-          <rect x="160" y="9" width="18" height="12" rx="2"
-            stroke="white" stroke-width="1" opacity="0.28"/>
-          <rect x="184" y="9" width="18" height="12" rx="2"
-            stroke="white" stroke-width="1" opacity="0.28"/>
-          <line x1="36"  y1="4" x2="36"  y2="32"
-            stroke="white" stroke-width="0.8" opacity="0.12"/>
-          <line x1="84"  y1="4" x2="84"  y2="32"
-            stroke="white" stroke-width="0.8" opacity="0.12"/>
-          <line x1="132" y1="4" x2="132" y2="32"
-            stroke="white" stroke-width="0.8" opacity="0.12"/>
-          <line x1="180" y1="4" x2="180" y2="32"
-            stroke="white" stroke-width="0.8" opacity="0.12"/>
-          <circle cx="22"  cy="42" r="4.5"
-            stroke="white" stroke-width="1.2" opacity="0.38"/>
-          <circle cx="70"  cy="42" r="4.5"
-            stroke="white" stroke-width="1.2" opacity="0.38"/>
-          <circle cx="132" cy="42" r="4.5"
-            stroke="white" stroke-width="1.2" opacity="0.38"/>
-          <circle cx="198" cy="42" r="4.5"
-            stroke="white" stroke-width="1.2" opacity="0.38"/>
-        </svg>
-      </div>
+      <!-- footer platform illustration -->
+      <img src="/footer-platform.png" alt="Train platform, end of the line" class="footer-platform-img" />
 
       <!-- identity -->
       <div class="footer-identity">
