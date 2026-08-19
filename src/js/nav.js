@@ -160,10 +160,7 @@ window.addEventListener('load', () => {
     const checkFooterCatReveal = () => {
       const distanceFromBottom =
         rightScrollEl.scrollHeight - rightScrollEl.scrollTop - rightScrollEl.clientHeight;
-      if (distanceFromBottom <= 4) {
-        footerCat.classList.add('revealed');
-        rightScrollEl.removeEventListener('scroll', checkFooterCatReveal);
-      }
+      footerCat.classList.toggle('revealed', distanceFromBottom <= 4);
     };
     rightScrollEl.addEventListener('scroll', checkFooterCatReveal, { passive: true });
     checkFooterCatReveal();

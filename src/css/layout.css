@@ -844,10 +844,11 @@ span.train-nav__label {
 
 .footer-cat {
   position: absolute;
-  left: -10%;
-  bottom: 0%;
+  left: 6%;
+  bottom: 10%;
   width: 48px;
   height: auto;
+  z-index: 2;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.6s ease, transform 0.6s ease;
