@@ -3,7 +3,12 @@ const CAT_LINES = [
   "you've reached the end",
   '...of the line, technically',
   'no more stops after this',
-  "please don't tell the mta",
+  'maybe you should get a bus',
+  "come back soon!",
+  "meow meow meow",
+  "miao miao miao",
+  "喵喵喵",
+
 ];
 
 let catLineIndex = 0;
