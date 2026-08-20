@@ -702,14 +702,30 @@
     .right-scroll {
       position: relative;
     }
-    .about-parallax {
+    .about-sketchbook {
       position: absolute;
       top: 40px;
       right: 200px;
-      width: 460px;
-      aspect-ratio: 2360 / 1640;
+      width: 520px;
+      aspect-ratio: 911 / 715;
       pointer-events: none;
+    }
+    .about-sketchbook__page {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .about-sketchbook__panel {
+      position: absolute;
+      left: 52%;
+      top: 8%;
+      width: 44%;
+      height: 60%;
+      border: 2px solid var(--blue);
       overflow: hidden;
+      z-index: 2;
     }
     .about-parallax__layer {
       position: absolute;
@@ -733,7 +749,7 @@
     }
 
     @media (max-width: 1100px) {
-      .about-parallax {
+      .about-sketchbook {
         display: none;
       }
     }
@@ -966,10 +982,13 @@
     </aside>
 
     <div class="right-scroll">
-      <div class="about-parallax" id="about-parallax">
-        <img src="/about-station-behind.png" alt="" class="about-parallax__layer about-parallax__behind" />
-        <img src="/about-train-body.png" alt="" class="about-parallax__layer about-parallax__train" id="about-train" />
-        <img src="/about-station-front.png" alt="" class="about-parallax__layer about-parallax__front" />
+      <div class="about-sketchbook" id="about-parallax">
+        <img src="/about-sketchbook.png" alt="" class="about-sketchbook__page" />
+        <div class="about-sketchbook__panel">
+          <img src="/about-station-behind.png" alt="" class="about-parallax__layer about-parallax__behind" />
+          <img src="/about-train-body.png" alt="" class="about-parallax__layer about-parallax__train" id="about-train" />
+          <img src="/about-station-front.png" alt="" class="about-parallax__layer about-parallax__front" />
+        </div>
       </div>
     <main class="main-content">
 
@@ -986,7 +1005,7 @@
       </div>
 
       <div class="about-section">
-        <div class="about-section__label">experience</div>
+        <div class="about-section__label">experience  + communities</div>
         <ul class="about-exp-list">
           <li><span class="about-exp-list__org">IBM</span><span class="about-exp-list__role">Product Design</span></li>
           <li><span class="about-exp-list__org">HackDuke</span><span class="about-exp-list__role">UI/UX Lead</span></li>
@@ -1000,11 +1019,11 @@
       <div class="about-section">
         <div class="about-section__label">outside of work</div>
         <ul class="about-interests">
-          <li><span class="about-interests__icon">🎧</span> listening — <a href="PASTE_SPOTIFY_PLAYLIST_LINK_HERE" target="_blank" rel="noopener">this playlist</a></li>
+          <li><span class="about-interests__icon">🎧</span> listening — <a href="https://open.spotify.com/user/q0xzx8ebk5ji1hvc369yhy34q?si=979d3c50380a4f20" target="_blank" rel="noopener">my spotify</a></li>
           <li><span class="about-interests__icon">🏃</span> moving — gymming, lifting, running, larping</li>
           <li><span class="about-interests__icon">📸</span> shooting — photography, travel</li>
           <li><span class="about-interests__icon">🎨</span> making — <a href="https://instagram.com/elaineyustudio" target="_blank" rel="noopener">@elaineyustudio</a></li>
-          <li><span class="about-interests__icon">🍽️</span> tracking — <a href="PASTE_BELI_LINK_HERE" target="_blank" rel="noopener">Beli</a>, <a href="PASTE_STRAVA_LINK_HERE" target="_blank" rel="noopener">Strava</a>, <a href="PASTE_DUOLINGO_LINK_HERE" target="_blank" rel="noopener">Duolingo</a></li>
+          <li><span class="about-interests__icon">🍽️</span> tracking — Beli (@ela1ne), <a href="https://www.strava.com/athletes/773052493" target="_blank" rel="noopener">Strava</a>, <a href="https://www.duolingo.com/profile/Elaine_.yu" target="_blank" rel="noopener">Duolingo</a></li>
         </ul>
       </div>
 
