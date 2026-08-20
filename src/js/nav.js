@@ -139,22 +139,23 @@ window.addEventListener('load', () => {
 
   const aboutParallax = document.getElementById('about-parallax');
   const aboutTrain = document.getElementById('about-train');
-  if (aboutParallax && aboutTrain) {
-    const aboutTrainObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => aboutTrain.classList.add('arrived'), 300);
-            aboutTrainObserver.disconnect();
-          }
-        });
-      },
-      {
-        root: document.querySelector('.right-scroll'),
-        threshold: 0.3,
-      }
-    );
-    aboutTrainObserver.observe(aboutParallax);
+  const rightScrollForTrain = document.querySelector('.right-scroll');
+  if (aboutTrain && rightScrollForTrain) {
+    let lastScrollTop = rightScrollForTrain.scrollTop;
+    let trainOffset = 0;
+    const TRAIN_MIN = -140;
+    const TRAIN_MAX = 140;
+    const SCROLL_FACTOR = 0.3;
+
+    const updateTrainPosition = () => {
+      const currentScrollTop = rightScrollForTrain.scrollTop;
+      const delta = currentScrollTop - lastScrollTop;
+      trainOffset = Math.max(TRAIN_MIN, Math.min(TRAIN_MAX, trainOffset + delta * SCROLL_FACTOR));
+      aboutTrain.style.transform = `translateX(${trainOffset}px)`;
+      lastScrollTop = currentScrollTop;
+    };
+
+    rightScrollForTrain.addEventListener('scroll', updateTrainPosition, { passive: true });
   }
 
   const footerCat = document.getElementById('footer-cat');
