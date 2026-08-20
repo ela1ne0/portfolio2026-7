@@ -149,7 +149,10 @@ window.addEventListener('load', () => {
           }
         });
       },
-      { threshold: 0.3 }
+      {
+        root: document.querySelector('.right-scroll'),
+        threshold: 0.3,
+      }
     );
     aboutTrainObserver.observe(aboutParallax);
   }

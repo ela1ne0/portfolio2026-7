@@ -1172,10 +1172,10 @@ span.train-nav__label {
   text-align: center;
   padding-top: 6px;
 }
-.about-polaroid--1 { top: 470px; transform: rotate(-4deg); }
-.about-polaroid--2 { top: 800px; transform: rotate(3deg); right: 150px; }
-.about-polaroid--3 { top: 1150px; transform: rotate(-2deg); }
-.about-polaroid--4 { top: 1500px; transform: rotate(4deg); right: 150px; }
+.about-polaroid--1 { top: 200px; transform: rotate(-4deg); }
+.about-polaroid--2 { top: 700px; transform: rotate(3deg); right: 150px; }
+.about-polaroid--3 { top: 1000px; transform: rotate(-2deg); right:100px}
+.about-polaroid--4 { top: 1000px; transform: rotate(4deg); right: 450px; }
 
 @media (max-width: 1100px) {
   .about-polaroid { display: none; }
