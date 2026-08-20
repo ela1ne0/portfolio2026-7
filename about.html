@@ -704,7 +704,7 @@
     }
     .about-sketchbook {
       position: absolute;
-      top: 40px;
+      top: 340px;
       right: 200px;
       width: 520px;
       aspect-ratio: 911 / 715;
@@ -726,6 +726,15 @@
       border: 2px solid var(--blue);
       overflow: hidden;
       z-index: 2;
+    }
+    .about-popup {
+      position: absolute;
+      top: 40px;
+      right: 200px;
+      width: 420px;
+      height: auto;
+      z-index: 2;
+      pointer-events: none;
     }
     .about-parallax__layer {
       position: absolute;
@@ -982,6 +991,7 @@
     </aside>
 
     <div class="right-scroll">
+      <img src="/about-popup.png" alt="" class="about-popup" />
       <div class="about-sketchbook" id="about-parallax">
         <img src="/about-sketchbook.png" alt="" class="about-sketchbook__page" />
         <div class="about-sketchbook__panel">
@@ -989,6 +999,22 @@
           <img src="/about-train-body.png" alt="" class="about-parallax__layer about-parallax__train" id="about-train" />
           <img src="/about-station-front.png" alt="" class="about-parallax__layer about-parallax__front" />
         </div>
+      </div>
+      <div class="about-polaroid about-polaroid--1">
+        <div class="about-polaroid__placeholder"><span>PHOTO 1</span></div>
+        <div class="about-polaroid__caption">caption here</div>
+      </div>
+      <div class="about-polaroid about-polaroid--2">
+        <div class="about-polaroid__placeholder"><span>PHOTO 2</span></div>
+        <div class="about-polaroid__caption">caption here</div>
+      </div>
+      <div class="about-polaroid about-polaroid--3">
+        <div class="about-polaroid__placeholder"><span>PHOTO 3</span></div>
+        <div class="about-polaroid__caption">caption here</div>
+      </div>
+      <div class="about-polaroid about-polaroid--4">
+        <div class="about-polaroid__placeholder"><span>PHOTO 4</span></div>
+        <div class="about-polaroid__caption">caption here</div>
       </div>
     <main class="main-content">
 
