@@ -1143,7 +1143,7 @@ span.train-nav__label {
 .about-polaroid {
   position: absolute;
   right: 90px;
-  width: 190px;
+  width: 220px;
   background: #fff;
   padding: 12px 12px 28px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.25);
@@ -1179,8 +1179,8 @@ span.train-nav__label {
   padding-top: 6px;
 }
 .about-polaroid--1 { top: 200px; transform: rotate(-4deg); }
-.about-polaroid--2 { top: 700px; transform: rotate(3deg); right: 150px; }
-.about-polaroid--3 { top: 1000px; transform: rotate(-2deg); right:100px}
+.about-polaroid--2 { top: 700px; transform: rotate(3deg); right: 120px; }
+.about-polaroid--3 { top: 1000px; transform: rotate(-2deg); right:110px}
 .about-polaroid--4 { top: 1000px; transform: rotate(4deg); right: 450px; }
 
 @media (max-width: 1100px) {
