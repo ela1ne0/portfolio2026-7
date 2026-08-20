@@ -5,6 +5,8 @@ const CAT_LINES = [
   'no more stops after this',
   'maybe you should get a bus',
   "come back soon!",
+  "glad we could cross paths!",
+  "til next time!",
   "meow meow meow",
   "miao miao miao",
   "喵喵喵",
