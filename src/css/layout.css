@@ -1158,6 +1158,12 @@ span.train-nav__label {
   align-items: center;
   justify-content: center;
 }
+.about-polaroid__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
 .about-polaroid__placeholder span {
   font-family: 'Space Mono', monospace;
   font-size: 9px;
