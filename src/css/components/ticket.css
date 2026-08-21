@@ -17,7 +17,7 @@
 
 .ticket-instruction {
   position: absolute;
-  top: 70px;
+  top: clamp(24px, 8%, 70px);
   left: 0; right: 0;
   text-align: center;
   z-index: 3;
@@ -52,8 +52,9 @@
 }
 .ticket-instruction__img {
   display: inline-block;
-  height: 30px;
+  height: clamp(16px, 3.2vw, 30px);
   width: auto;
+  max-width: 90%;
 }
 
 @keyframes instructionPulse {
