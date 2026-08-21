@@ -13,6 +13,12 @@
   padding: 32px;
 }
 
+.desktop-gate__walker {
+  height: 100px;
+  width: auto;
+  margin-bottom: 24px;
+}
+
 .desktop-gate__label {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -38,18 +44,4 @@
   color: rgba(255, 255, 255, 0.7);
   max-width: 320px;
   margin-bottom: 28px;
-}
-
-.desktop-gate__continue {
-  background: none;
-  border: none;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: #fff;
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  text-underline-offset: 4px;
-  cursor: pointer;
-  padding: 8px;
 }
