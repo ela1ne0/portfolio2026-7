@@ -343,6 +343,7 @@ span.train-nav__label {
   width: 50%;
   height: 85px;
   display: block;
+  object-fit: contain;
 }
 
 @keyframes cityScroll {
