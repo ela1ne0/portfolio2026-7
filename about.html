@@ -762,6 +762,33 @@
         display: none;
       }
     }
+    #fun-word {
+      cursor: default;
+      position: relative;
+      text-decoration: underline;
+      text-decoration-style: dashed;
+      text-underline-offset: 10px;
+      text-decoration-color: rgba(255,255,255,0.4);
+      animation: fun-word-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes fun-word-pulse {
+      0%, 50% { text-decoration-color: rgba(255,255,255,0.35); }
+      50%      { text-decoration-color: rgba(255,255,255,0.9); }
+    }
+    .fun-trail-symbol {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-family: var(--font-hand);
+      font-size: 20px;
+      color: #fff;
+      transform: translate(-50%, -50%);
+      animation: fun-trail-float 0.7s ease-out forwards;
+    }
+    @keyframes fun-trail-float {
+      0%   { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      100% { opacity: 0; transform: translate(-50%, -160%) scale(0.6) rotate(20deg); }
+    }
   </style>
   <link rel="stylesheet" href="/src/css/layout.css"/>
 </head>
@@ -1026,7 +1053,7 @@
 
       <div class="about-hero">
         <div class="work-stop-label">stop 02</div>
-        <p class="about-hero__statement">Design should be fun!</p>
+        <p class="about-hero__statement">Design should be <span id="fun-word">fun</span>!</p>
       </div>
 
       <div class="about-intro">
@@ -1183,6 +1210,25 @@
         document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
       });
     });
+
+    // ── "fun" hover trail ──
+    const funWord = document.getElementById('fun-word');
+    if (funWord) {
+      const FUN_SYMBOLS = ['✦', '✧', '★', '♪'];
+      let lastSpawn = 0;
+      funWord.addEventListener('mousemove', e => {
+        const now = Date.now();
+        if (now - lastSpawn < 70) return;
+        lastSpawn = now;
+        const symbol = document.createElement('span');
+        symbol.className = 'fun-trail-symbol';
+        symbol.textContent = FUN_SYMBOLS[Math.floor(Math.random() * FUN_SYMBOLS.length)];
+        symbol.style.left = e.clientX + 'px';
+        symbol.style.top = e.clientY + 'px';
+        document.body.appendChild(symbol);
+        symbol.addEventListener('animationend', () => symbol.remove());
+      });
+    }
   </script>
 
   <script type="module" src="/src/js/nav.js"></script>
