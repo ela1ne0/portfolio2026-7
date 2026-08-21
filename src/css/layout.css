@@ -1183,6 +1183,6 @@ span.train-nav__label {
 .about-polaroid--3 { top: 1000px; transform: rotate(-2deg); right:110px}
 .about-polaroid--4 { top: 1000px; transform: rotate(4deg); right: 450px; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1400px) {
   .about-polaroid { display: none; }
 }
