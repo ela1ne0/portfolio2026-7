@@ -4,7 +4,7 @@ Personal portfolio website.
 
 ## Stack
 
-Vite + Vanilla JS + GSAP
+Vite + Vanilla JS (no animation library — cursor/scroll effects are hand-rolled with requestAnimationFrame, IntersectionObserver, and CSS keyframes)
 
 ## Design tokens
 
