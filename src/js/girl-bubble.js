@@ -33,16 +33,15 @@ const WAITING_LINES = [
   'almost missed this one',
   'hope you brought snacks',
   'this is the calm before the scroll',
-  'yes, I designed this outfit too',
-  'next stop: the good stuff',
-  "don't mind me, just vibing",
+  
+  
 ];
 
 const BOARDED_LINES = [
-  "well, that one's gone",
-  "guess I'll catch the next one",
+  "that was fast",
+  "I guess I'll catch the next one",
   "hope they enjoy the ride",
-  "still here, still waiting",
+
   "typical, right on time for once",
   "reset the ticket and I'll wait for you instead",
 ];
@@ -67,8 +66,8 @@ if (girlHotspot) {
 
   function positionGirlBubble() {
     const rect = girlHotspot.getBoundingClientRect();
-    bubble.style.left = (rect.right + 10) + 'px';
-    bubble.style.top = (rect.top + rect.height / 2) + 'px';
+    bubble.style.left = (rect.right + 34) + 'px';
+    bubble.style.top = (rect.top + rect.height / 2 + 10) + 'px';
   }
 
   function showGirlBubble() {
