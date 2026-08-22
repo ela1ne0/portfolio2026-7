@@ -28,11 +28,12 @@ function nearestHalfHourLine() {
 const WAITING_LINES = [
   nearestHalfHourLine,
   'just waiting for my train...',
+  "you should try stamping your ticket",
   "you can scroll ahead, I'll catch up",
   'great place to people-watch',
-  'almost missed this one',
+  "I'm waiting...",
   'hope you brought snacks',
-  'this is the calm before the scroll',
+
   
   
 ];
