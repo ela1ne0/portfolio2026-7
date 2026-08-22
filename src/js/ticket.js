@@ -101,6 +101,7 @@ function startScan() {
 function doStamp(e) {
   if (stamped) return;
   stamped = true;
+  document.dispatchEvent(new CustomEvent('ticket:stamped'));
 
   const STAMP_TO_TRAIN_DELAY = 400;
   const TRAIN_SLIDE_DURATION = 1100;
@@ -271,6 +272,7 @@ function resetTicket() {
   stamped  = false;
   scanned  = false;
   scanning = false;
+  document.dispatchEvent(new CustomEvent('ticket:reset'));
 
   stampMark.classList.remove('stamped');
   stampMark.style.opacity = '';

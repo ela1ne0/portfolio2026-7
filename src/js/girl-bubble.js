@@ -25,7 +25,7 @@ function nearestHalfHourLine() {
     : `the ${timeStr} is always late`;
 }
 
-const GIRL_LINES = [
+const WAITING_LINES = [
   nearestHalfHourLine,
   'just waiting for my train...',
   "you can scroll ahead, I'll catch up",
@@ -38,7 +38,21 @@ const GIRL_LINES = [
   "don't mind me, just vibing",
 ];
 
-let girlLineIndex = 0;
+const BOARDED_LINES = [
+  "well, that one's gone",
+  "guess I'll catch the next one",
+  "hope they enjoy the ride",
+  "still here, still waiting",
+  "typical, right on time for once",
+  "reset the ticket and I'll wait for you instead",
+];
+
+let isStamped = false;
+document.addEventListener('ticket:stamped', () => { isStamped = true; });
+document.addEventListener('ticket:reset',   () => { isStamped = false; });
+
+let waitingIndex = 0;
+let boardedIndex = 0;
 let hideTimeout = null;
 
 const girlHotspot = document.getElementById('girl-hotspot');
@@ -53,16 +67,23 @@ if (girlHotspot) {
 
   function positionGirlBubble() {
     const rect = girlHotspot.getBoundingClientRect();
-    bubble.style.left = (rect.left + rect.width / 2) + 'px';
-    bubble.style.top = rect.top + 'px';
+    bubble.style.left = (rect.right + 10) + 'px';
+    bubble.style.top = (rect.top + rect.height / 2) + 'px';
   }
 
   function showGirlBubble() {
     clearTimeout(hideTimeout);
     positionGirlBubble();
-    const line = GIRL_LINES[girlLineIndex];
+
+    let line;
+    if (isStamped) {
+      line = BOARDED_LINES[boardedIndex];
+      boardedIndex = (boardedIndex + 1) % BOARDED_LINES.length;
+    } else {
+      line = WAITING_LINES[waitingIndex];
+      waitingIndex = (waitingIndex + 1) % WAITING_LINES.length;
+    }
     bubbleText.textContent = typeof line === 'function' ? line() : line;
-    girlLineIndex = (girlLineIndex + 1) % GIRL_LINES.length;
     bubble.classList.add('visible');
   }
 
