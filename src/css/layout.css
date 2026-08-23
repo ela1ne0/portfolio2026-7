@@ -740,6 +740,84 @@ span.train-nav__label {
   color: rgba(26,82,212,0.18);
 }
 
+/* ── HackDuke animated thumbnail (motion tester — Figma assets, CSS-animated) ── */
+.hackduke-motion {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transition: transform 0.4s ease; /* same hover-zoom the plain <img> cards get */
+}
+.work-panel:hover .hackduke-motion {
+  transform: scale(1.03);
+}
+.hd-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* soft warm pulse in the upper-right (clear of the caption card) — reads as train
+   light washing past off-frame */
+.hd-glow {
+  position: absolute;
+  right: -10%;
+  top: -12%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(circle, rgba(255,176,89,0.65) 0%, rgba(255,176,89,0) 70%);
+  mix-blend-mode: screen;
+  opacity: 0.2;
+  animation: hd-glow-pulse 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes hd-glow-pulse {
+  0%, 100% { opacity: 0.16; transform: translateX(0); }
+  50%      { opacity: 0.4;  transform: translateX(4%); }
+}
+/* the shop's middle window — doors slide open to reveal the waving cat already
+   baked into the backdrop art, then slide shut again */
+.hd-window {
+  position: absolute;
+  left: 39%;
+  top: 43%;
+  width: 37.5%;
+  height: 43.5%;
+  overflow: hidden;
+}
+.hd-door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hd-door--left {
+  left: 0;
+  transform-origin: left center;
+  animation: hd-door-left 7s ease-in-out infinite;
+}
+.hd-door--right {
+  right: 0;
+  transform-origin: right center;
+  animation: hd-door-right 7s ease-in-out infinite;
+}
+@keyframes hd-door-left {
+  0%, 22%  { transform: translateX(0); }
+  45%, 68% { transform: translateX(-100%); }
+  90%,100% { transform: translateX(0); }
+}
+@keyframes hd-door-right {
+  0%, 22%  { transform: translateX(0); }
+  45%, 68% { transform: translateX(100%); }
+  90%,100% { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hd-door, .hd-glow { animation: none; }
+}
+
 /* caption box — exact match to landing page .caption-box */
 .work-panel__caption {
   position: absolute;

@@ -400,8 +400,15 @@
         <div class="work-panel">
           <a href="/work/coming-soon.html" class="work-panel__link">
             <div class="work-panel__img">
-              <div class="work-panel__placeholder">
-                <span>HackDuke</span>
+              <!-- motion-thumbnail tester: real Figma storefront art, animated with CSS
+                   (doors slide open/closed, slight warm glow) -->
+              <div class="hackduke-motion" role="img" aria-label="Animated HackDuke 2026 storefront illustration">
+                <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
+                <div class="hd-glow" aria-hidden="true"></div>
+                <div class="hd-window" aria-hidden="true">
+                  <img class="hd-door hd-door--left" src="/hackduke-motion-left-door.png" alt="" />
+                  <img class="hd-door hd-door--right" src="/hackduke-motion-right-door.png" alt="" />
+                </div>
               </div>
             </div>
             <div class="work-panel__caption">
