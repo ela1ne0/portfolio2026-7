@@ -40,9 +40,8 @@ const WAITING_LINES = [
 
 const BOARDED_LINES = [
   "that was fast",
-  "I guess I'll catch the next one",
+  "yippee",
   "hope they enjoy the ride",
-
   "typical, right on time for once",
   "reset the ticket and I'll wait for you instead",
 ];
