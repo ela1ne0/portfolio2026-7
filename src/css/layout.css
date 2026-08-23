@@ -450,7 +450,7 @@ span.train-nav__label {
 .layer-train.arrived {
   transform: translate(0, 0) rotate(0deg);
 }
-.layer-girl {
+.layer-girl-shadow {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -465,6 +465,21 @@ span.train-nav__label {
 @keyframes girlIdleSway {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-3px); }
+}
+.layer-girl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 0%;
+  z-index: 4;
+  pointer-events: none;
+  animation: girl-idle-bob 2.6s ease-in-out infinite;
+}
+@keyframes girl-idle-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
 }
 
 /* train interior art is centered in its image */
