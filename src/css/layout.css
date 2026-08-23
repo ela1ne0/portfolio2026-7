@@ -780,9 +780,9 @@ span.train-nav__label {
    baked into the backdrop art, then slide shut again */
 .hd-window {
   position: absolute;
-  left: 39%;
+  left: 42%;
   top: 44%;
-  width: 37.5%;
+  width: 33%;
   height: 43%;
   overflow: hidden;
 }
@@ -799,17 +799,18 @@ span.train-nav__label {
   object-fit: cover;
   display: block;
 }
-/* diagonal sheen, echoing the glass-highlight streak already in the backdrop art,
-   so the plain door fill doesn't read as a flat placeholder block */
+/* diagonal band, matching the matte technique actually used on the window glass
+   in the Figma file: a hard-edged stripe close to the door's own hue (warm tan,
+   rgb(196,161,95)), not a glossy white gradient — reads as flat-illustration
+   shading rather than a shiny reflection */
 .hd-door::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg,
-    rgba(255,255,255,0.28) 0%,
-    rgba(255,255,255,0.04) 32%,
-    rgba(10,20,30,0) 55%,
-    rgba(10,20,30,0.14) 100%);
+    transparent 0%, transparent 34%,
+    rgba(255,225,175,0.4) 34%, rgba(255,225,175,0.4) 56%,
+    transparent 56%, transparent 100%);
   pointer-events: none;
 }
 /* small door handle */
