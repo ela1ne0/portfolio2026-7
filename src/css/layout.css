@@ -750,6 +750,20 @@ span.train-nav__label {
 .work-panel:hover .hackduke-motion {
   transform: scale(1.03);
 }
+/* grayscale goes on the art itself, BEFORE the blend-mode tint composites over it —
+   filter on the parent would run after compositing and wipe the tint back to grey */
+.hd-backdrop,
+.hd-door img {
+  filter: grayscale(1) contrast(1.08);
+}
+.hd-tint {
+  position: absolute;
+  inset: 0;
+  background: var(--blue);
+  mix-blend-mode: color;
+  pointer-events: none;
+  z-index: 5;
+}
 .hd-backdrop {
   position: absolute;
   inset: 0;
