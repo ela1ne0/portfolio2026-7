@@ -1008,11 +1008,12 @@ span.train-nav__label {
 .recruiter-toggle {
   font-family: 'Space Mono', monospace;
   font-size: 10px;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.12);
-  border: 1.5px solid rgba(255,255,255,0.5);
+  color: #fff;
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.7);
   padding: 7px 16px;
   border-radius: 2px;
   cursor: none;
@@ -1023,8 +1024,8 @@ span.train-nav__label {
 }
 .recruiter-toggle:hover {
   color: #fff;
-  border-color: rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.14);
+  border-color: #fff;
+  background: rgba(255,255,255,0.24);
 }
 .recruiter-toggle.active {
   color: #fff;
