@@ -750,10 +750,29 @@ span.train-nav__label {
 .work-panel:hover .hackduke-motion {
   transform: scale(1.03);
 }
+.hd-color-layer,
+.hd-tint-layer {
+  position: absolute;
+  inset: 0;
+}
+/* the tint layer is a full grayscale+blue-tinted duplicate of the color layer,
+   painted on top of it. A radial-gradient mask punches a soft hole at the cursor
+   position (hackduke-thumbnail-reveal.js writes --hd-mx/--hd-my on mousemove), so
+   hovering "erases" the tint locally and reveals the true-color layer underneath.
+   isolation:isolate keeps the blend-mode below contained to this layer's own
+   content, so it doesn't also try to blend with the color layer beneath it. */
+.hd-tint-layer {
+  isolation: isolate;
+  -webkit-mask-image: radial-gradient(circle 70px at var(--hd-mx, -200px) var(--hd-my, -200px),
+    transparent 0%, transparent 72%, black 100%);
+  mask-image: radial-gradient(circle 70px at var(--hd-mx, -200px) var(--hd-my, -200px),
+    transparent 0%, transparent 72%, black 100%);
+}
 /* grayscale goes on the art itself, BEFORE the blend-mode tint composites over it —
-   filter on the parent would run after compositing and wipe the tint back to grey */
-.hd-backdrop,
-.hd-door img {
+   filter on the parent would run after compositing and wipe the tint back to grey.
+   Scoped to the tint layer only — the color layer's copies stay full color. */
+.hd-tint-layer .hd-backdrop,
+.hd-tint-layer .hd-door img {
   filter: grayscale(1) contrast(1.08);
 }
 .hd-tint {

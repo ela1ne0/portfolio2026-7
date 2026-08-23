@@ -403,17 +403,34 @@
               <!-- motion-thumbnail tester: real Figma storefront art, animated with CSS
                    (doors slide open/closed, slight warm glow) -->
               <div class="hackduke-motion" role="img" aria-label="Animated HackDuke 2026 storefront illustration">
-                <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
-                <div class="hd-glow" aria-hidden="true"></div>
-                <div class="hd-window" aria-hidden="true">
-                  <div class="hd-door hd-door--left">
-                    <img src="/hackduke-motion-left-door.png" alt="" />
-                  </div>
-                  <div class="hd-door hd-door--right">
-                    <img src="/hackduke-motion-right-door.png" alt="" />
+                <!-- true-color layer, always underneath -->
+                <div class="hd-color-layer">
+                  <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
+                  <div class="hd-glow" aria-hidden="true"></div>
+                  <div class="hd-window" aria-hidden="true">
+                    <div class="hd-door hd-door--left">
+                      <img src="/hackduke-motion-left-door.png" alt="" />
+                    </div>
+                    <div class="hd-door hd-door--right">
+                      <img src="/hackduke-motion-right-door.png" alt="" />
+                    </div>
                   </div>
                 </div>
-                <div class="hd-tint" aria-hidden="true"></div>
+                <!-- grayscale + blue-tint layer on top, masked with a hole that follows the
+                     cursor (hackduke-thumbnail-reveal.js) so hovering "erases" the tint locally
+                     and reveals the true color underneath -->
+                <div class="hd-tint-layer">
+                  <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
+                  <div class="hd-window" aria-hidden="true">
+                    <div class="hd-door hd-door--left">
+                      <img src="/hackduke-motion-left-door.png" alt="" />
+                    </div>
+                    <div class="hd-door hd-door--right">
+                      <img src="/hackduke-motion-right-door.png" alt="" />
+                    </div>
+                  </div>
+                  <div class="hd-tint" aria-hidden="true"></div>
+                </div>
               </div>
             </div>
             <div class="work-panel__caption">
@@ -546,5 +563,6 @@
   <script type="module" src="/src/js/footer-cat-bubble.js"></script>
   <script type="module" src="/src/js/girl-bubble.js"></script>
   <script type="module" src="/src/js/mobile-gate.js"></script>
+  <script type="module" src="/src/js/hackduke-thumbnail-reveal.js"></script>
 </body>
 </html>
