@@ -780,10 +780,10 @@ span.train-nav__label {
    baked into the backdrop art, then slide shut again */
 .hd-window {
   position: absolute;
-  left: 42%;
-  top: 44%;
-  width: 33%;
-  height: 43%;
+  left: 43%;
+  top: 45%;
+  width: 35%;
+  height: 42%;
   overflow: hidden;
 }
 .hd-door {
