@@ -459,13 +459,8 @@ span.train-nav__label {
   object-position: center 0%;
   z-index: 3;
   pointer-events: none;
-  animation: girlIdleSway 3s ease-in-out infinite;
 }
 
-@keyframes girlIdleSway {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-3px); }
-}
 .layer-girl {
   position: absolute;
   inset: 0;
