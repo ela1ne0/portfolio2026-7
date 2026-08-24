@@ -92,12 +92,17 @@ if (ticketPanel) {
   });
 }
 
+const cursorLabelText = cursorLabel.querySelector('span');
+
 document.querySelectorAll('.work-panel').forEach(panel => {
   panel.addEventListener('mouseenter', () => {
     isOnWork = true;
     cursorDot.classList.add('hidden');
     cursorRing.classList.add('hidden');
     cursorLabel.classList.add('visible');
+    // each panel can set its own cursor copy, e.g. "view case study →" for a
+    // live page vs. "coming soon" for one that isn't published yet
+    cursorLabelText.textContent = panel.dataset.cursorLabel || 'coming soon';
   });
   panel.addEventListener('mouseleave', () => {
     isOnWork = false;

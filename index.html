@@ -216,7 +216,7 @@
           <div class="rec-project__tag">Case study ↗</div>
         </a>
 
-        <a href="/work/coming-soon.html" class="rec-project">
+        <a href="/hackduke-2026" class="rec-project">
           <div class="rec-project__left">
             <div class="rec-project__name">HackDuke 2026</div>
             <div class="rec-project__type">Brand · Design Systems</div>
@@ -381,7 +381,7 @@
     <div class="work-panels">
       <div class="work-grid-equal">
 
-        <a href="#" class="work-panel">
+        <a href="#" class="work-panel" data-cursor-label="coming soon">
           <div class="work-panel__img">
             <img src="/ibm-thumbnail.gif" alt="IBM Z DevOps" />
           </div>
@@ -397,11 +397,40 @@
         </a>
 
         <!-- CARD 1 -->
-        <div class="work-panel">
-          <a href="/work/coming-soon.html" class="work-panel__link">
+        <div class="work-panel" data-cursor-label="view case study →">
+          <a href="/hackduke-2026" class="work-panel__link">
             <div class="work-panel__img">
-              <div class="work-panel__placeholder">
-                <span>HackDuke</span>
+              <!-- motion-thumbnail tester: real Figma storefront art, animated with CSS
+                   (doors slide open/closed, slight warm glow) -->
+              <div class="hackduke-motion" role="img" aria-label="Animated HackDuke 2026 storefront illustration">
+                <!-- true-color layer, always underneath -->
+                <div class="hd-color-layer">
+                  <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
+                  <div class="hd-glow" aria-hidden="true"></div>
+                  <div class="hd-window" aria-hidden="true">
+                    <div class="hd-door hd-door--left">
+                      <img src="/hackduke-motion-left-door.png" alt="" />
+                    </div>
+                    <div class="hd-door hd-door--right">
+                      <img src="/hackduke-motion-right-door.png" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <!-- grayscale + blue-tint layer on top, masked with a hole that follows the
+                     cursor (hackduke-thumbnail-reveal.js) so hovering "erases" the tint locally
+                     and reveals the true color underneath -->
+                <div class="hd-tint-layer">
+                  <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
+                  <div class="hd-window" aria-hidden="true">
+                    <div class="hd-door hd-door--left">
+                      <img src="/hackduke-motion-left-door.png" alt="" />
+                    </div>
+                    <div class="hd-door hd-door--right">
+                      <img src="/hackduke-motion-right-door.png" alt="" />
+                    </div>
+                  </div>
+                  <div class="hd-tint" aria-hidden="true"></div>
+                </div>
               </div>
             </div>
             <div class="work-panel__caption">
@@ -409,7 +438,8 @@
               <div class="work-panel__name">HackDuke 2026</div>
               <div class="work-panel__tags">
                 <span class="work-tag">Brand</span>
-                <span class="work-tag">Design Systems</span>
+                <span class="work-tag">Web</span>
+                <span class="work-tag">Illustration</span>
               </div>
             </div>
           </a>
@@ -534,5 +564,6 @@
   <script type="module" src="/src/js/footer-cat-bubble.js"></script>
   <script type="module" src="/src/js/girl-bubble.js"></script>
   <script type="module" src="/src/js/mobile-gate.js"></script>
+  <script type="module" src="/src/js/hackduke-thumbnail-reveal.js"></script>
 </body>
 </html>

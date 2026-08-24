@@ -740,6 +740,152 @@ span.train-nav__label {
   color: rgba(26,82,212,0.18);
 }
 
+/* ── HackDuke animated thumbnail (motion tester — Figma assets, CSS-animated) ── */
+.hackduke-motion {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transition: transform 0.4s ease; /* same hover-zoom the plain <img> cards get */
+}
+.work-panel:hover .hackduke-motion {
+  transform: scale(1.03);
+}
+.hd-color-layer,
+.hd-tint-layer {
+  position: absolute;
+  inset: 0;
+}
+/* the tint layer is a full grayscale+blue-tinted duplicate of the color layer,
+   painted on top of it. A radial-gradient mask punches a soft hole at the cursor
+   position (hackduke-thumbnail-reveal.js writes --hd-mx/--hd-my on mousemove), so
+   hovering "erases" the tint locally and reveals the true-color layer underneath.
+   isolation:isolate keeps the blend-mode below contained to this layer's own
+   content, so it doesn't also try to blend with the color layer beneath it. */
+.hd-tint-layer {
+  isolation: isolate;
+  -webkit-mask-image: radial-gradient(circle 70px at var(--hd-mx, -200px) var(--hd-my, -200px),
+    transparent 0%, transparent 72%, black 100%);
+  mask-image: radial-gradient(circle 70px at var(--hd-mx, -200px) var(--hd-my, -200px),
+    transparent 0%, transparent 72%, black 100%);
+}
+/* grayscale goes on the art itself, BEFORE the blend-mode tint composites over it —
+   filter on the parent would run after compositing and wipe the tint back to grey.
+   Scoped to the tint layer only — the color layer's copies stay full color. */
+.hd-tint-layer .hd-backdrop,
+.hd-tint-layer .hd-door img {
+  filter: grayscale(1) contrast(1.08);
+}
+.hd-tint {
+  position: absolute;
+  inset: 0;
+  background: var(--blue);
+  mix-blend-mode: color;
+  pointer-events: none;
+  z-index: 5;
+}
+.hd-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* soft warm pulse in the upper-right (clear of the caption card) — reads as train
+   light washing past off-frame */
+.hd-glow {
+  position: absolute;
+  right: -10%;
+  top: -12%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(circle, rgba(255,176,89,0.65) 0%, rgba(255,176,89,0) 70%);
+  mix-blend-mode: screen;
+  opacity: 0.2;
+  animation: hd-glow-pulse 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes hd-glow-pulse {
+  0%, 100% { opacity: 0.16; transform: translateX(0); }
+  50%      { opacity: 0.4;  transform: translateX(4%); }
+}
+/* the shop's middle window — doors slide open to reveal the waving cat already
+   baked into the backdrop art, then slide shut again */
+.hd-window {
+  position: absolute;
+  left: 43%;
+  top: 45%;
+  width: 35%;
+  height: 42%;
+  overflow: hidden;
+}
+.hd-door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+.hd-door img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* diagonal band, matching the matte technique actually used on the window glass
+   in the Figma file: a hard-edged stripe close to the door's own hue (warm tan,
+   rgb(196,161,95)), not a glossy white gradient — reads as flat-illustration
+   shading rather than a shiny reflection */
+.hd-door::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    transparent 0%, transparent 34%,
+    rgba(255,225,175,0.4) 34%, rgba(255,225,175,0.4) 56%,
+    transparent 56%, transparent 100%);
+  pointer-events: none;
+}
+/* small door handle */
+.hd-door::before {
+  content: "";
+  position: absolute;
+  top: 47%;
+  width: 7%;
+  height: 6%;
+  border-radius: 50%;
+  background: rgba(20,30,38,0.4);
+  z-index: 1;
+}
+.hd-door--left {
+  left: 0;
+  transform-origin: left center;
+  animation: hd-door-left 7s ease-in-out infinite;
+  /* seam between the two leaves */
+  box-shadow: inset -2px 0 0 rgba(10,20,30,0.3);
+}
+.hd-door--left::before { right: 8%; }
+.hd-door--right {
+  right: 0;
+  transform-origin: right center;
+  animation: hd-door-right 7s ease-in-out infinite;
+  box-shadow: inset 2px 0 0 rgba(10,20,30,0.3);
+}
+.hd-door--right::before { left: 8%; }
+@keyframes hd-door-left {
+  0%, 22%  { transform: translateX(0); }
+  45%, 68% { transform: translateX(-100%); }
+  90%,100% { transform: translateX(0); }
+}
+@keyframes hd-door-right {
+  0%, 22%  { transform: translateX(0); }
+  45%, 68% { transform: translateX(100%); }
+  90%,100% { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hd-door, .hd-glow { animation: none; }
+}
+
 /* caption box — exact match to landing page .caption-box */
 .work-panel__caption {
   position: absolute;
