@@ -406,9 +406,24 @@ body {
   overflow: hidden;
   margin: 24px 0;
 }
-.cs-panel img { display: block; width: 100%; height: auto; }
+.cs-panel img,
+.cs-panel video { display: block; width: 100%; height: auto; }
+/* reserve space at the video's real aspect ratio so the page doesn't jump
+   once its metadata loads, and tint the box while it's still loading */
+.cs-panel video { aspect-ratio: 16 / 9; background: rgba(26,82,212,0.04); }
 /* portrait social assets shouldn't run the full column width */
 .cs-panel--poster { max-width: 320px; }
+/* a panel immediately followed by a caption sits closer to it than the
+   panel's normal 24px bottom margin allows */
+.cs-panel--captioned { margin-bottom: 8px; }
+.cs-panel-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
 .cs-panel-placeholder {
   aspect-ratio: 16 / 10;
   display: flex; align-items: center; justify-content: center;
@@ -592,7 +607,14 @@ body {
         <h2 class="cs-section__title">Inheriting a theme, then leaving it</h2>
         <p>I inherited "Underwater Rave" — deep purples, neon, an ethereal space aesthetic — and led the transition to 2025–26's "Urban Convenience Store": warm, lo-fi, community-driven instead of cold and technical.</p>
         <div class="cs-panel">
-          <div class="cs-panel-placeholder"><span>PRIOR-YEAR SITE SCREENSHOT</span></div>
+          <video
+            src="/Hackduke2025scroll.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            aria-label="Screen recording scrolling through the 2024–25 HackDuke 'Underwater Rave' site, showing its neon gradients, underwater scene, and floating stat cards"
+          ></video>
         </div>
       </section>
 
@@ -616,9 +638,10 @@ body {
           <p>I worked directly with HackDuke's tech team through the React implementation, matching the Figma 1:1 — custom illustrations and responsive behavior included.</p>
         </div>
 
-        <div class="cs-panel">
-          <div class="cs-panel-placeholder"><span>LANDING PAGE MOCKUP + EARLY SKETCHES</span></div>
+        <div class="cs-panel cs-panel--captioned">
+          <img src="/hackduke-early-prototype.png" alt="Early landing-page prototype of the HackDuke storefront concept, rendered in a warm sunset color palette instead of the blue that eventually shipped" loading="lazy"/>
         </div>
+        <p class="cs-panel-caption">An early prototype from the Figma Make wireframing phase — the "corner store" concept was locked in before the color direction was</p>
 
         <div class="cs-subhead">Social campaign</div>
         <p>Alongside the site, I designed countdown and announcement graphics for Instagram so the identity held across platforms. Two things made that work: modular Figma templates that supported daily countdown updates without rebuilding assets from scratch, and carrying the same gradients, illustrations, and urban motifs from the landing page into the posts.</p>

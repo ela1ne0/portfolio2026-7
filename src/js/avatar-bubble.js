@@ -1,6 +1,6 @@
 const LINES = [
   { 
-    text: 'please hire me', 
+    text: 'Hire me?', 
     sub: 'looking for summer 2027 opportunities',
     link: null
   },

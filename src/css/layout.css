@@ -1294,7 +1294,7 @@ span.train-nav__label {
   cursor: none;
   width: fit-content;
   align-self: center;
-  margin-top: 16px;
+  margin-top: auto;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .recruiter-toggle:hover {

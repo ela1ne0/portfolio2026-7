@@ -75,8 +75,11 @@ function scrollToWork() {
   const workSection = document.getElementById('work');
   const rightScroll = document.querySelector('.right-scroll');
   if (workSection && rightScroll) {
+    const targetRect = workSection.getBoundingClientRect();
+    const scrollRect = rightScroll.getBoundingClientRect();
+    const delta = targetRect.top - scrollRect.top;
     rightScroll.scrollTo({
-      top: workSection.offsetTop,
+      top: rightScroll.scrollTop + delta,
       behavior: 'smooth'
     });
   }
