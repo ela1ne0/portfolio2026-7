@@ -914,6 +914,19 @@ span.train-nav__label {
   line-height: 1.2;
   margin-bottom: 5px;
 }
+.work-panel__summary {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  line-height: 1.55;
+  color: rgba(26,82,212,0.6);
+  margin-bottom: 8px;
+  /* .work-panel__caption has no width of its own, just a generous max-width —
+     without this the caption card stretches wide to fit the sentence on as
+     few lines as possible instead of staying the same compact size as the
+     title/tags underneath it. This keeps it wrapping at a fixed, narrower
+     column instead. */
+  max-width: 230px;
+}
 .work-panel__tags {
   display: flex;
   gap: 5px;
@@ -956,6 +969,112 @@ span.train-nav__label {
 .work-panel__site-link:hover {
   background: var(--blue);
   color: #fff;
+}
+
+/* ── HOVER POPOUT — case-study summary card, HackDuke thumbnail ──
+   Lives as a sibling of .work-panel (not a descendant), because .work-panel
+   has overflow:hidden for the thumbnail effects and would clip anything
+   positioned outside its own box. .work-panel-wrap is the shared positioning
+   context so this can sit at left:100% of the actual card. */
+.work-panel-wrap {
+  position: relative;
+}
+.work-panel__popout {
+  /* fixed, not absolute: .right-scroll (the page's scroll container) has
+     overflow-x:hidden, which would clip this if it were positioned relative
+     to the card. src/js/hackduke-popout.js sets left/top in px to track the
+     card's live on-screen position instead. */
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* wider than tall on purpose — a narrow column wraps the summary into a
+     tall stack of short lines that buries the thumbnail behind it. Wider
+     keeps the line count (and so the popout's height) down so the bottom
+     half of whatever's underneath still peeks out. */
+  width: 300px;
+  background: #fff;
+  border-radius: 6px;
+  padding: 14px 18px 16px;
+  box-shadow: 0 16px 36px rgba(10, 24, 60, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-8px);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1), visibility 0.25s;
+  pointer-events: none;
+  z-index: 20;
+}
+/* speech-bubble pointer back toward the card */
+.work-panel__popout::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  transform: rotate(45deg);
+  box-shadow: -3px 3px 6px rgba(10, 24, 60, 0.05);
+}
+.work-panel-wrap:hover .work-panel__popout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+/* flipped to the card's left side when there's no room on the right
+   (src/js/hackduke-popout.js toggles this) — mirror the slide-in direction
+   and the speech-bubble pointer */
+.work-panel__popout--flipped {
+  transform: translateX(8px);
+}
+.work-panel-wrap:hover .work-panel__popout--flipped {
+  transform: translateX(0);
+}
+.work-panel__popout--flipped::before {
+  left: auto;
+  right: -6px;
+  box-shadow: 3px -3px 6px rgba(10, 24, 60, 0.05);
+}
+.work-panel__popout-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(26,82,212,0.5);
+  margin-bottom: 6px;
+}
+.work-panel__popout-text {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #1a2744;
+  margin-bottom: 12px;
+}
+.work-panel__popout-facts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  border-top: 1px solid rgba(26,82,212,0.1);
+  padding-top: 10px;
+}
+.work-panel__popout-facts div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: #1a2744;
+  font-weight: 700;
+}
+.work-panel__popout-facts span {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(26,82,212,0.4);
+  font-weight: 400;
+}
+/* not enough room to pop out past the card on narrower viewports */
+@media (max-width: 1400px) {
+  .work-panel__popout { display: none; }
 }
 
 /* ── FOOTER STRIP ── */

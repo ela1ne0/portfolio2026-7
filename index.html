@@ -397,6 +397,7 @@
         </a>
 
         <!-- CARD 1 -->
+        <div class="work-panel-wrap">
         <div class="work-panel" data-cursor-label="view case study →">
           <a href="/hackduke-2026" class="work-panel__link">
             <div class="work-panel__img">
@@ -436,6 +437,7 @@
             <div class="work-panel__caption">
               <div class="work-panel__num">02</div>
               <div class="work-panel__name">HackDuke 2026</div>
+              <div class="work-panel__summary">Redesigning HackDuke's 2026 landing page around a warm, community-first "corner store" concept — from Figma prototype to shipped site.</div>
               <div class="work-panel__tags">
                 <span class="work-tag">Brand</span>
                 <span class="work-tag">Web</span>
@@ -445,6 +447,21 @@
           </a>
           <a href="https://2026.hackduke.org/" target="_blank" rel="noopener" class="work-panel__site-link">visit site ↗</a>
         </div>
+
+        <!-- summary card that pops out to the right of the thumbnail on hover —
+             lives outside .work-panel (which has overflow:hidden for the image
+             effects) so it isn't clipped; .work-panel-wrap below is the
+             positioning context for it -->
+        <div class="work-panel__popout" aria-hidden="true">
+          <div class="work-panel__popout-label">Case Study</div>
+          <p class="work-panel__popout-text">Led the shift from a generic "sleek tech" look to a lo-fi, community-first "corner store" concept — solo landing page design, built out with the dev team.</p>
+          <div class="work-panel__popout-facts">
+            <div><span>Role</span>UI/UX Lead</div>
+            <div><span>Team</span>5 designers</div>
+            <div><span>Timeline</span>3 months</div>
+          </div>
+        </div>
+        </div><!-- /work-panel-wrap -->
 
         <!-- HealthHound and Nebraska Flood Outreach panels removed for now — not currently prioritized -->
 
@@ -565,5 +582,6 @@
   <script type="module" src="/src/js/girl-bubble.js"></script>
   <script type="module" src="/src/js/mobile-gate.js"></script>
   <script type="module" src="/src/js/hackduke-thumbnail-reveal.js"></script>
+  <script type="module" src="/src/js/hackduke-popout.js"></script>
 </body>
 </html>
