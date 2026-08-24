@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Hackduke 2026 — Elaine Yu</title>
+<title>HackDuke 2026 — Elaine Yu</title>
+<meta name="description" content="Case study: rebranding HackDuke's 2026 landing page from a generic tech-conference look into an Urban Convenience Store storefront."/>
 <link rel="icon" type="image/png" href="/updatedfavicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
@@ -100,6 +101,57 @@ body {
 }
 .left-facts__handle:hover { text-decoration: underline; }
 .left-facts__role { display: block; color: rgba(255,255,255,0.55); margin-top: 1px; }
+/* ── SIDEBAR WALKING CHARACTER ──
+   Mirrors the shared .sidebar-walk block from layout.css. Inlined rather than
+   linking layout.css, because layout.css defines .page-body as a 2-column grid
+   and this page needs the 3-column (sidebar / track nav / content) variant. */
+.sidebar-walk {
+  margin-top: 20px;
+  width: 100%;
+  height: 140px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.cityscape-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.cityscape-track {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  height: 100%;
+  animation: cityScroll 18s linear infinite;
+  width: 200%;
+  transform-origin: bottom left;
+  transform: scale(2.7);
+}
+.city-block {
+  flex-shrink: 0;
+  width: 50%;
+  height: 85px;
+  display: block;
+  object-fit: contain;
+}
+@keyframes cityScroll {
+  0%   { transform: scale(3.5) translateX(0%) translateY(20px); }
+  100% { transform: scale(3.5) translateX(-50%) translateY(20px); }
+}
+.walk-animation {
+  position: absolute;
+  bottom: -8px;
+  left: 40%;
+  transform: translateX(-50%) scale(1.9);
+  transform-origin: bottom center;
+  height: 90px;
+  width: auto;
+  z-index: 2;
+}
+
 .left-contact {
   margin-top: auto;
   padding-top: 14px;
@@ -260,7 +312,7 @@ body {
 .cs-tags {
   display: flex; flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 56px;
+  margin-bottom: 22px;
 }
 .cs-tag {
   font-size: 8px; letter-spacing: 0.1em;
@@ -269,6 +321,53 @@ body {
   border: 1px solid rgba(255,255,255,0.25);
   padding: 4px 10px;
   font-family: var(--font-mono);
+}
+
+/* primary CTA under the hero */
+.cs-visit {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 9px 18px;
+  border-radius: 4px;
+  margin-bottom: 56px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.cs-visit:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+
+/* sub-heading inside a section (e.g. the social campaign block) */
+.cs-subhead {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin: 34px 0 12px;
+}
+
+/* a named decision point inside the process section */
+.cs-decision { margin-bottom: 26px; }
+.cs-decision__title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+.cs-decision p { margin-bottom: 0; }
+
+/* honest-qualifier note under a stat block */
+.cs-note {
+  font-size: 12px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.5);
+  max-width: 520px;
+  margin-top: 22px;
 }
 
 /* content sections */
@@ -308,6 +407,8 @@ body {
   margin: 24px 0;
 }
 .cs-panel img { display: block; width: 100%; height: auto; }
+/* portrait social assets shouldn't run the full column width */
+.cs-panel--poster { max-width: 320px; }
 .cs-panel-placeholder {
   aspect-ratio: 16 / 10;
   display: flex; align-items: center; justify-content: center;
@@ -394,6 +495,18 @@ body {
         <span class="left-facts__role">Design Intern</span>
       </div>
     </div>
+
+    <div class="sidebar-walk">
+      <div class="cityscape-wrap">
+        <div class="cityscape-track">
+          <!-- city artwork — appears twice for seamless loop -->
+          <img class="city-block" src="/city-buildings.png" alt="" />
+          <img class="city-block" src="/city-buildings.png" alt="" />
+        </div>
+      </div>
+      <img src="/walking-updated.gif" alt="walking character" class="walk-animation"/>
+    </div>
+
     <div class="left-contact">
       <a href="https://www.linkedin.com/in/elaine-yu1/" target="_blank" rel="noopener">linkedin</a> · <a href="/resume.pdf" target="_blank">resume</a><br>
       elaineyustudio@gmail.com
@@ -405,20 +518,23 @@ body {
     <div class="cs-track-nav__rail">
       <div class="cs-track-nav__line" aria-hidden="true"></div>
       <div class="cs-track-nav__fill" id="cs-track-fill" aria-hidden="true"></div>
-      <div class="cs-track-nav__stop" data-target="context">
-        <a href="#context"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">context</span></a>
-      </div>
       <div class="cs-track-nav__stop" data-target="problem">
         <a href="#problem"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">problem</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="goal">
+        <a href="#goal"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">goal</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="challenge">
+        <a href="#challenge"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">challenge</span></a>
       </div>
       <div class="cs-track-nav__stop" data-target="process">
         <a href="#process"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">process</span></a>
       </div>
-      <div class="cs-track-nav__stop" data-target="solution">
-        <a href="#solution"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">solution</span></a>
+      <div class="cs-track-nav__stop" data-target="impact">
+        <a href="#impact"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">impact</span></a>
       </div>
-      <div class="cs-track-nav__stop" data-target="outcome">
-        <a href="#outcome"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">outcome</span></a>
+      <div class="cs-track-nav__stop" data-target="reflection">
+        <a href="#reflection"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">reflection</span></a>
       </div>
     </div>
   </nav>
@@ -432,11 +548,11 @@ body {
       <div class="cs-ticket">
         <div class="cs-ticket__row">
           <span class="cs-ticket__label">role</span>
-          <span class="cs-ticket__value">Design Lead, UI/UX Designer</span>
+          <span class="cs-ticket__value">UI/UX Lead</span>
         </div>
         <div class="cs-ticket__row">
           <span class="cs-ticket__label">timeline</span>
-          <span class="cs-ticket__value">[Month–Month Year]</span>
+          <span class="cs-ticket__value">3 months</span>
         </div>
         <div class="cs-ticket__row">
           <span class="cs-ticket__label">tools</span>
@@ -448,62 +564,97 @@ body {
         </div>
       </div>
 
-      <h1 class="cs-title">Hackduke 2026</h1>
-      <p class="cs-desc">HackDuke is a student-run hackathon at Duke University that aims to enable all students to use technology for social good. For the 2026 event, I was individually tasked with the end-to-end design of the main landing page, collaborating with a 5-member design team to scale this identity.</p>
+      <h1 class="cs-title">HackDuke 2026</h1>
+      <p class="cs-desc">HackDuke is a student-run hackathon at Duke that exists to get students building technology for social good. For the 2026 event I owned the end-to-end design of the landing page, working alongside a 5-person design team who scaled the identity across the rest of the site.</p>
       <div class="cs-tags">
-        <span class="cs-tag">[Brand]</span>
-        <span class="cs-tag">[Tag]</span>
-        <span class="cs-tag">[Tag]</span>
+        <span class="cs-tag">2026</span>
+        <span class="cs-tag">Brand</span>
+        <span class="cs-tag">Web</span>
+        <span class="cs-tag">Illustration</span>
       </div>
-
-      <section id="context" class="cs-section">
-        <div class="cs-section__label">01 — context</div>
-        <h2 class="cs-section__title">Context</h2>
-        <p>Every year, the HackDuke design team picks a new visual theme for the event and rebuilds the digital presence around it. I inherited 2024–25's "Underwater Rave" theme — deep purples, neons, an almost club-like feel — and was tasked with leading the shift into 2025–26's theme: "Urban Convenience Store."</p>
-      </section>
+      <a href="https://2026.hackduke.org/" target="_blank" rel="noopener" class="cs-visit">Visit the site →</a>
 
       <section id="problem" class="cs-section">
-        <div class="cs-section__label">02 — problem</div>
-        <h2 class="cs-section__title">[What was actually broken?]</h2>
-        <p>[The specific problem, ideally with a number or concrete detail that makes it real — not "the UX was bad" but what that meant for actual people.]</p>
+        <div class="cs-section__label">01 — problem</div>
+        <h2 class="cs-section__title">Polished, but interchangeable</h2>
+        <p>HackDuke rebuilds its visual identity from scratch every year — new theme, new site, new assets — against a hard deadline before applications open. The 2024–25 site, "Underwater Rave," was polished: neon gradients, an underwater scene, floating stat cards.</p>
+        <p>That was the problem. It read like a dozen other university hackathon sites chasing the same sleek tech-conference look, with little in it that felt like HackDuke specifically. The 2025–26 site needed to do more than look good — it needed to feel like a place students wanted to show up to, not another well-executed CS-club page.</p>
+      </section>
+
+      <section id="goal" class="cs-section">
+        <div class="cs-section__label">02 — goal</div>
+        <h2 class="cs-section__title">Approachable to first-time hackers</h2>
+        <p>Make the event feel approachable to first-time hackers rather than just CS majors, and lift registration conversion from the landing page specifically.</p>
+      </section>
+
+      <section id="challenge" class="cs-section">
+        <div class="cs-section__label">03 — challenge</div>
+        <h2 class="cs-section__title">Inheriting a theme, then leaving it</h2>
+        <p>I inherited "Underwater Rave" — deep purples, neon, an ethereal space aesthetic — and led the transition to 2025–26's "Urban Convenience Store": warm, lo-fi, community-driven instead of cold and technical.</p>
+        <div class="cs-panel">
+          <div class="cs-panel-placeholder"><span>PRIOR-YEAR SITE SCREENSHOT</span></div>
+        </div>
       </section>
 
       <section id="process" class="cs-section">
-        <div class="cs-section__label">03 — process</div>
-        <h2 class="cs-section__title">[How'd you get to the answer?]</h2>
-        <p>[Research, iterations, what you tried and cut. This is the section people skim for signal that you can think, not just execute — so name a real decision you made and why.]</p>
+        <div class="cs-section__label">04 — process</div>
+        <h2 class="cs-section__title">Three decisions that shaped it</h2>
+        <p>The landing page was mine alone; the rest of the site's assets were a 5-person effort. I wanted to get away from standard tech — dark, sleek, minimal — and toward something lo-fi, anime-adjacent, and character-driven.</p>
+
+        <div class="cs-decision">
+          <div class="cs-decision__title">01 · Storefront</div>
+          <p>Code for good should feel as approachable as walking into your neighborhood corner store, not like stepping into a tech conference. That went straight into the page: a literal storefront, awning and all, with HACKDUKE / CODE FOR GOOD as the signage, sponsor logos running along the window like a decal strip, and a click-to-open door as the entry point to the rest of the site.</p>
+        </div>
+
+        <div class="cs-decision">
+          <div class="cs-decision__title">02 · Prototype in Figma Make first</div>
+          <p>I wireframed in Figma Make before touching visual design, which cut early iteration time by roughly 70% against the team's estimate for their usual, mostly-manual landing-page process.</p>
+        </div>
+
+        <div class="cs-decision">
+          <div class="cs-decision__title">03 · Front-end handoff</div>
+          <p>I worked directly with HackDuke's tech team through the React implementation, matching the Figma 1:1 — custom illustrations and responsive behavior included.</p>
+        </div>
+
         <div class="cs-panel">
-          <div class="cs-panel-placeholder"><span>PROCESS VISUAL</span></div>
+          <div class="cs-panel-placeholder"><span>LANDING PAGE MOCKUP + EARLY SKETCHES</span></div>
+        </div>
+
+        <div class="cs-subhead">Social campaign</div>
+        <p>Alongside the site, I designed countdown and announcement graphics for Instagram so the identity held across platforms. Two things made that work: modular Figma templates that supported daily countdown updates without rebuilding assets from scratch, and carrying the same gradients, illustrations, and urban motifs from the landing page into the posts.</p>
+        <div class="cs-panel">
+          <img src="/hackduke-countdown.png" alt="Three Instagram countdown graphics — 3, 2 and 1 days left to apply — set against a city skyline that resolves into the HackDuke storefront" loading="lazy"/>
+        </div>
+        <div class="cs-panel cs-panel--poster">
+          <img src="/hackduke-rescheduled.png" alt="HackDuke 2026 rescheduled dates announcement graphic — a student and a cat on a train platform under a station sign reading 3/21–3/22" loading="lazy"/>
         </div>
       </section>
 
-      <section id="solution" class="cs-section">
-        <div class="cs-section__label">04 — solution</div>
-        <h2 class="cs-section__title">[What did you actually ship?]</h2>
-        <p>[The final design, described in terms of what it does for the user — not a feature list.]</p>
-        <div class="cs-panel">
-          <div class="cs-panel-placeholder"><span>SOLUTION VISUAL</span></div>
-        </div>
-      </section>
-
-      <section id="outcome" class="cs-section">
-        <div class="cs-section__label">05 — outcome</div>
-        <h2 class="cs-section__title">[What happened after?]</h2>
-        <p>[Impact, adoption, what you'd do differently next time — reflection reads as more senior than a pure win.]</p>
+      <section id="impact" class="cs-section">
+        <div class="cs-section__label">05 — impact</div>
+        <h2 class="cs-section__title">What moved</h2>
         <div class="cs-stats">
           <div class="cs-stat">
-            <div class="cs-stat__num">[X%]</div>
-            <div class="cs-stat__label">[what this measures]</div>
+            <div class="cs-stat__num">~900</div>
+            <div class="cs-stat__label">participants registered, up from ~500</div>
           </div>
           <div class="cs-stat">
-            <div class="cs-stat__num">[X]</div>
-            <div class="cs-stat__label">[what this measures]</div>
+            <div class="cs-stat__num">2×</div>
+            <div class="cs-stat__label">landing-page conversion</div>
           </div>
           <div class="cs-stat">
-            <div class="cs-stat__num">[X]</div>
-            <div class="cs-stat__label">[what this measures]</div>
+            <div class="cs-stat__num">20+</div>
+            <div class="cs-stat__label">graphics and assets across channels</div>
           </div>
         </div>
+        <p class="cs-note">Registrations went from ~500 to ~900 participants (+80%) after the redesign and theme change. The number I'd stand behind more firmly is landing-page conversion, which doubled — the overall registration figure reflects more than the site alone.<!-- TODO (Elaine): replace the closing clause with one concrete detail on what else changed in outreach that year — more sponsors, more channels, an earlier launch date. A specific turns this hedge into a credible qualifier. --></p>
+      </section>
+
+      <section id="reflection" class="cs-section">
+        <div class="cs-section__label">06 — reflection</div>
+        <h2 class="cs-section__title">What I'd do differently</h2>
+        <p>Next time I'd bring the tech team in during early prototyping instead of after. The interactive landing page was one of the most creative parts of the site and also caused real confusion — several participants told me the sliding-door interaction wasn't obvious enough as an entry point, which likely cost sign-ups. Discoverability of an interaction like that needs to be tested with real users before launch, not diagnosed after it.</p>
+        <p>I'd also lean harder on AI-assisted tooling — Figma's MCP server with Claude, for one — to cut landing-page build time. Design was a hard blocker for every other team on this project. A faster design-to-build pipeline wouldn't just save my time; it would let sign-ups open earlier and give everyone else more runway.</p>
       </section>
 
     </div>
@@ -556,6 +707,10 @@ body {
       fill.style.height = pct + '%';
     }
 
+    // A section taller than the viewport can never hit a percentage threshold,
+    // so instead of threshold:0.4 we watch a thin horizontal band ~38% down the
+    // scroll container. Whichever section is crossing that band is the active
+    // one — works for both short sections and the very tall process section.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -566,10 +721,22 @@ body {
       },
       {
         root: scrollEl,
-        threshold: 0.4,
+        rootMargin: '-38% 0px -58% 0px',
+        threshold: 0,
       }
     );
     sections.forEach((sec) => observer.observe(sec));
+
+    // The band never covers the very top or the very bottom of the scroll
+    // range, so pin the first/last stop at the extremes.
+    scrollEl.addEventListener('scroll', () => {
+      if (scrollEl.scrollTop < 80) setActive(0);
+      else if (scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 80) {
+        setActive(sections.length - 1);
+      }
+    }, { passive: true });
+
+    setActive(0);
   })();
 </script>
 
