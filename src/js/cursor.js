@@ -112,6 +112,15 @@ document.querySelectorAll('.work-panel').forEach(panel => {
   });
 });
 
+document.querySelectorAll('.work-panel__site-link').forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    cursorLabel.classList.remove('visible');
+  });
+  link.addEventListener('mouseleave', () => {
+    if (isOnWork) cursorLabel.classList.add('visible');
+  });
+});
+
 // nav dots: extra pulse on hover (station-passing feel)
 document.querySelectorAll('.dot, .stop').forEach(dot => {
   dot.addEventListener('mouseenter', () => {
