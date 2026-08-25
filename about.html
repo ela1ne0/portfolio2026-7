@@ -776,15 +776,18 @@
     #fun-word {
       cursor: default;
       position: relative;
-      text-decoration: underline;
-      text-decoration-style: dashed;
-      text-underline-offset: 10px;
-      text-decoration-color: rgba(255,255,255,0.4);
-      animation: fun-word-pulse 2.5s ease-in-out infinite;
+      text-decoration: none;
+      padding-bottom: 4px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='8' viewBox='0 0 60 8'%3E%3Cpath d='M1 4 Q6 1 11 4 T21 4 T31 4 T41 4 T51 4 T61 4' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-position: 0 100%;
+      background-size: 20px 8px;
+      opacity: 0.85;
+      animation: fun-word-wiggle 1.8s ease-in-out infinite;
     }
-    @keyframes fun-word-pulse {
-      0%, 50% { text-decoration-color: rgba(255,255,255,0.35); }
-      50%      { text-decoration-color: rgba(255,255,255,0.9); }
+    @keyframes fun-word-wiggle {
+      0%, 100% { background-position: 0 100%; opacity: 0.75; }
+      50%      { background-position: 4px 96%; opacity: 1; }
     }
     .fun-trail-symbol {
       position: fixed;

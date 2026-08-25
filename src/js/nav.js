@@ -218,11 +218,11 @@ const panels          = document.querySelector('.panels');
 const recruiterToggle = document.getElementById('recruiter-toggle');
 
 function enableRecruiterMode() {
+  rightScroll?.scrollTo({ top: 0, behavior: 'smooth' });
   recruiterPanel?.classList.add('visible');
   if (panels) panels.style.display = 'none';
   recruiterToggle?.classList.add('active');
   if (recruiterToggle) recruiterToggle.textContent = 'exit';
-  rightScroll?.scrollTo({ top: 0, behavior: 'smooth' });
   const url = new URL(window.location);
   url.searchParams.set('recruiter', 'true');
   window.history.replaceState({}, '', url);
