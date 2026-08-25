@@ -1136,17 +1136,25 @@ span.train-nav__label {
 .footer-inner {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "illustration illustration"
+    "identity     links"
+    "tagline      bottom";
+  align-items: start;
+  column-gap: 40px;
+  row-gap: 10px;
   padding: 40px 44px 32px;
-  text-align: center;
+  text-align: left;
 }
 
 .footer-platform-wrap {
   position: relative;
   display: inline-block;
+  grid-area: illustration;
+  justify-self: center;
+  margin-bottom: 8px;
 }
 
 .footer-platform-img {
@@ -1180,6 +1188,7 @@ span.train-nav__label {
   display: flex;
   align-items: center;
   gap: 10px;
+  grid-area: identity;
 }
 .footer-avatar {
   width: 36px; height: 36px;
@@ -1203,8 +1212,9 @@ span.train-nav__label {
   align-items: center;
   gap: 5px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   line-height: 1.5;
+  grid-area: tagline;
 }
 .footer-heart {
   color: #ffffff;
@@ -1235,6 +1245,9 @@ span.train-nav__label {
   display: flex;
   align-items: center;
   gap: 20px;
+  grid-area: links;
+  justify-self: end;
+  justify-content: flex-end;
 }
 .footer-link {
   color: rgba(255,255,255,0.38);
@@ -1259,8 +1272,9 @@ span.train-nav__label {
   display: flex;
   align-items: center;
   gap: 32px;
-  width: 100%;
-  justify-content: center;
+  grid-area: bottom;
+  justify-self: end;
+  width: auto;
 }
 .footer-copy {
   font-family: 'Space Mono', monospace;
