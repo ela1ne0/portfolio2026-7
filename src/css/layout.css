@@ -205,11 +205,15 @@ span.train-nav__label {
   display: block;
   margin-bottom: 14px;
 }
-.left-name-img {
-  width: 150px;
-  height: auto;
-  display: block;
-  margin-bottom: 16px;
+.left-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+  white-space: normal;
 }
 .left-caption {
   font-size: 13px;
