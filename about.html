@@ -661,12 +661,19 @@
       padding: 0;
     }
     .about-interests li {
+      display: flex;
+      align-items: center;
       font-size: 15px;
       color: rgba(255,255,255,0.85);
     }
     .about-interests__icon {
+      width: auto;
+      height: 28px;
       margin-right: 10px;
+      flex-shrink: 0;
     }
+    .about-interests__icon--sm { height: 24px; }
+    .about-interests__icon--lg { height: 32px; }
     .about-interests a {
       color: #fff;
       text-decoration: underline;
@@ -938,11 +945,11 @@
       <div class="about-section">
         <div class="about-section__label">outside of work you can find me...</div>
         <ul class="about-interests">
-          <li><span class="about-interests__icon">🎧</span> listening — <a href="https://open.spotify.com/user/q0xzx8ebk5ji1hvc369yhy34q?si=979d3c50380a4f20" target="_blank" rel="noopener">my spotify</a></li>
-          <li><span class="about-interests__icon">🍽️</span> tracking — Beli (@ela1ne), <a href="https://www.strava.com/athletes/773052493" target="_blank" rel="noopener">Strava</a>, <a href="https://www.duolingo.com/profile/Elaine_.yu" target="_blank" rel="noopener">Duolingo</a></li>
-          <li><span class="about-interests__icon">🏃</span> moving — lifting, walking, running, larping...</li>
-          <li><span class="about-interests__icon">📸</span> shooting — photography, travel</li>
-          <li><span class="about-interests__icon">🎨</span> making — <a href="https://instagram.com/elaineyustudio" target="_blank" rel="noopener">@elaineyustudio</a></li>
+          <li><img class="about-interests__icon" src="/about-icon-listening.png" alt="" /> listening — <a href="https://open.spotify.com/user/q0xzx8ebk5ji1hvc369yhy34q?si=979d3c50380a4f20" target="_blank" rel="noopener">my spotify</a></li>
+          <li><img class="about-interests__icon about-interests__icon--sm" src="/about-icon-tracking.png" alt="" /> tracking — Beli (@ela1ne), <a href="https://www.strava.com/athletes/773052493" target="_blank" rel="noopener">Strava</a>, <a href="https://www.duolingo.com/profile/Elaine_.yu" target="_blank" rel="noopener">Duolingo</a></li>
+          <li><img class="about-interests__icon about-interests__icon--lg" src="/about-icon-moving.png" alt="" /> moving — lifting, walking, running, larping...</li>
+          <li><img class="about-interests__icon about-interests__icon--sm" src="/about-icon-shooting.png" alt="" /> shooting — photography, travel</li>
+          <li><img class="about-interests__icon" src="/about-icon-making.png" alt="" /> making — <a href="https://instagram.com/elaineyustudio" target="_blank" rel="noopener">@elaineyustudio</a></li>
         </ul>
       </div>
 
