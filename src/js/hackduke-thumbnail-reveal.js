@@ -17,8 +17,8 @@
 const LERP = 0.22;           // 0–1: how quickly the reveal "catches up" to the real cursor
 const TRAIL_LIFETIME = 240;  // ms a sampled point stays part of the trail
 const POOL_SIZE = 10;        // pre-created circles per card; unused ones sit at r:0
-const BASE_RADIUS = 48;      // px, radius of the newest/freshest trail circle
-const MIN_RADIUS = 14;       // px, radius trail circles shrink to as they age out
+const BASE_RADIUS = 68;      // px, radius of the newest/freshest trail circle
+const MIN_RADIUS = 20;       // px, radius trail circles shrink to as they age out
 const BLUR_STD_DEV = 12;     // px, softens circle edges and blends overlapping points
 
 const cards = document.querySelectorAll('.hackduke-motion');
