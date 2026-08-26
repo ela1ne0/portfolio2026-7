@@ -204,6 +204,11 @@ span.train-nav__label {
   object-fit: contain;
   display: block;
   margin-bottom: 14px;
+  animation: avatar-idle-hint 0.6s ease-in-out 2s 2;
+}
+@keyframes avatar-idle-hint {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
 }
 .left-name {
   font-family: 'Noto Serif JP', serif;
