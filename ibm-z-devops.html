@@ -100,6 +100,56 @@ body {
 }
 .left-facts__handle:hover { text-decoration: underline; }
 .left-facts__role { display: block; color: rgba(255,255,255,0.55); margin-top: 1px; }
+/* ── SIDEBAR WALKING CHARACTER ──
+   Mirrors the shared .sidebar-walk block from layout.css. Inlined rather than
+   linking layout.css, because layout.css defines .page-body as a 2-column grid
+   and this page needs the 3-column (sidebar / track nav / content) variant. */
+.sidebar-walk {
+  margin-top: 20px;
+  width: 100%;
+  height: 140px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.cityscape-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.cityscape-track {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  height: 100%;
+  animation: cityScroll 18s linear infinite;
+  width: 200%;
+  transform-origin: bottom left;
+  transform: scale(2.7);
+}
+.city-block {
+  flex-shrink: 0;
+  width: 50%;
+  height: 85px;
+  display: block;
+  object-fit: contain;
+}
+@keyframes cityScroll {
+  0%   { transform: scale(3.5) translateX(0%) translateY(20px); }
+  100% { transform: scale(3.5) translateX(-50%) translateY(20px); }
+}
+.walk-animation {
+  position: absolute;
+  bottom: -8px;
+  left: 40%;
+  transform: translateX(-50%) scale(1.9);
+  transform-origin: bottom center;
+  height: 90px;
+  width: auto;
+  z-index: 2;
+}
 .left-contact {
   margin-top: auto;
   padding-top: 14px;
@@ -394,8 +444,20 @@ body {
         <span class="left-facts__role">Design Intern</span>
       </div>
     </div>
+
+    <div class="sidebar-walk">
+      <div class="cityscape-wrap">
+        <div class="cityscape-track">
+          <!-- city artwork — appears twice for seamless loop -->
+          <img class="city-block" src="/city-buildings.png" alt="" />
+          <img class="city-block" src="/city-buildings.png" alt="" />
+        </div>
+      </div>
+      <img src="/walking-updated.gif" alt="walking character" class="walk-animation"/>
+    </div>
+
     <div class="left-contact">
-      <a href="https://www.linkedin.com/in/elaine-yu1/" target="_blank" rel="noopener">linkedin</a> · <a href="/resume.pdf" target="_blank">resume</a><br>
+      <a href="https://www.linkedin.com/in/elaine-yu1/" target="_blank" rel="noopener">linkedin</a> · <a href="/resume.pdf" target="_blank" download="Elaine-Yu-Resume-2026.pdf">resume</a><br>
       elaineyustudio@gmail.com
     </div>
   </aside>
