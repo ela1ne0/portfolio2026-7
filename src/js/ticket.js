@@ -213,10 +213,10 @@ function doStamp(e) {
     const rightScroll = document.querySelector('.right-scroll');
     const workSection = document.getElementById('work');
     if (rightScroll && workSection) {
-      rightScroll.scrollTo({
-        top: workSection.offsetTop + 8,
-        behavior: 'smooth'
-      });
+      const targetRect = workSection.getBoundingClientRect();
+      const scrollRect = rightScroll.getBoundingClientRect();
+      const delta = targetRect.top - scrollRect.top;
+      rightScroll.scrollTo({ top: rightScroll.scrollTop + delta, behavior: 'smooth' });
     }
 
     const dotWork = document.getElementById('dot-work');
