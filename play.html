@@ -347,7 +347,7 @@ body {
   height: auto;
   transform: translateY(-60%);
   transform-origin: bottom center;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 20;
 }
 .doodle-stop {
@@ -401,17 +401,14 @@ body {
   position: absolute;
   top: 20px;
   left: 26px;
-  font-family: var(--font-hand);
-  font-size: 24px;
-  color: rgba(26,82,212,0.45);
+  width: 32%;
+  min-width: 140px;
+  max-width: 260px;
+  height: auto;
   transform: rotate(-3deg);
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   transition: opacity 0.5s ease;
 }
-.doodle-hint svg { flex-shrink: 0; transform: translateY(3px); }
 .doodle-canvas-wrap.has-drawn .doodle-hint { opacity: 0; }
 .doodle-toolbar {
   display: flex;
@@ -462,6 +459,72 @@ body.doodle-hover .cur-dot,
 body.doodle-hover .cur-ring,
 body.doodle-hover .cur-label {
   opacity: 0 !important;
+}
+.doodle-peek-bubble {
+  position: fixed;
+  background: #ffffff;
+  border: 1.5px solid #1a52d4;
+  border-radius: 4px;
+  padding: 8px 12px;
+  white-space: normal;
+  max-width: 200px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translateY(-50%) translateX(-6px) scale(0.95);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.doodle-peek-bubble::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 10px solid #1a52d4;
+}
+.doodle-peek-bubble::after {
+  content: '';
+  position: absolute;
+  left: -7.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 8.5px solid #ffffff;
+}
+.doodle-peek-bubble.visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0) scale(1);
+}
+.doodle-peek-bubble-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a52d4;
+  line-height: 1.4;
+}
+.doodle-divider-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  display: block;
+  width: 30px;
+  height: auto;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .doodle-divider-arrow {
+    animation: doodle-divider-arrow-bounce 1.6s ease-in-out infinite;
+  }
+}
+@keyframes doodle-divider-arrow-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(4px); }
 }
 </style>
 <link rel="stylesheet" href="/src/css/layout.css"/>
@@ -572,19 +635,14 @@ body.doodle-hover .cur-label {
             </svg>
           </span>
           <p class="cs-illustration-caption">looks like you got off at the wrong stop...<br>might as well doodle something below</p>
+          <img src="/doodle-divider-arrow.png" alt="" class="doodle-divider-arrow" />
         </div>
 
         <div class="doodle-body">
           <div class="doodle-divider">stop 04 — doodle pad</div>
           <div class="doodle-canvas-wrap" id="doodle-wrap">
-            <img src="/doodle-peek.png" alt="" class="doodle-peek" />
-            <div class="doodle-hint" id="doodle-hint">
-              doodle here
-              <svg width="30" height="20" viewBox="0 0 30 20" fill="none">
-                <path d="M1 10 C10 2, 20 2, 28 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-                <path d="M22 5 L28 9 L21 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              </svg>
-            </div>
+            <img src="/doodle-peek.png" alt="" class="doodle-peek" id="doodle-peek-hotspot" />
+            <img id="doodle-hint" class="doodle-hint" src="/doodle-hint.png" alt="" />
             <canvas id="doodle-canvas"></canvas>
           </div>
           <div class="doodle-toolbar">
@@ -742,6 +800,59 @@ body.doodle-hover .cur-label {
     pencil.style.left = e.clientX + 'px';
     pencil.style.top = e.clientY + 'px';
   });
+})();
+</script>
+<script>
+(function () {
+  const DOODLE_PEEK_LINES = [
+    "ooh what are we making",
+    "definitely not spying...",
+    "make it weird",
+    "but don't make it too sus...",
+    "oh what da heck",
+    "have fun!",
+    "if you don't like it, just clear it",
+  ];
+
+  const hotspot = document.getElementById('doodle-peek-hotspot');
+  if (!hotspot) return;
+
+  const bubble = document.createElement('div');
+  bubble.className = 'doodle-peek-bubble';
+  bubble.innerHTML = `<div class="doodle-peek-bubble-text" id="doodle-peek-bubble-text"></div>`;
+  document.body.appendChild(bubble);
+
+  const bubbleText = document.getElementById('doodle-peek-bubble-text');
+  let lineIndex = 0;
+  let hideTimeout = null;
+
+  function positionBubble() {
+    const rect = hotspot.getBoundingClientRect();
+    bubble.style.left = (rect.right + 12) + 'px';
+    bubble.style.top = (rect.top + rect.height * 0.3) + 'px';
+  }
+
+  function showBubble() {
+    clearTimeout(hideTimeout);
+    positionBubble();
+    bubbleText.textContent = DOODLE_PEEK_LINES[lineIndex];
+    lineIndex = (lineIndex + 1) % DOODLE_PEEK_LINES.length;
+    bubble.classList.add('visible');
+  }
+
+  function hideBubble() {
+    hideTimeout = setTimeout(() => {
+      bubble.classList.remove('visible');
+    }, 150);
+  }
+
+  hotspot.addEventListener('mouseenter', showBubble);
+  hotspot.addEventListener('mouseleave', hideBubble);
+
+  window.addEventListener('scroll', () => {
+    if (bubble.classList.contains('visible')) positionBubble();
+  }, { passive: true });
+  window.addEventListener('resize', positionBubble);
 })();
 </script>
 <script>
