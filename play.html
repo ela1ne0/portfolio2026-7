@@ -339,6 +339,17 @@ body {
   margin-bottom: 16px;
   font-family: var(--font-mono);
 }
+.doodle-peek {
+  position: absolute;
+  top: 0;
+  right: 10%;
+  width: 20%;
+  height: auto;
+  transform: translateY(-60%);
+  transform-origin: bottom center;
+  pointer-events: none;
+  z-index: 20;
+}
 .doodle-stop {
   font-size: 9px; letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -374,7 +385,7 @@ body {
   position: relative;
   border: 1px dashed rgba(26,82,212,0.25);
   border-radius: 3px;
-  overflow: hidden;
+  overflow: visible;
   background:
     linear-gradient(rgba(26,82,212,0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(26,82,212,0.06) 1px, transparent 1px);
@@ -566,6 +577,7 @@ body.doodle-hover .cur-label {
         <div class="doodle-body">
           <div class="doodle-divider">stop 04 — doodle pad</div>
           <div class="doodle-canvas-wrap" id="doodle-wrap">
+            <img src="/doodle-peek.png" alt="" class="doodle-peek" />
             <div class="doodle-hint" id="doodle-hint">
               doodle here
               <svg width="30" height="20" viewBox="0 0 30 20" fill="none">
