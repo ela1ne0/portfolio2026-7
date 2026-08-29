@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>[Project Name] — Elaine Yu</title>
+<title>IBM Z DevX — MCP Design Guidelines — Elaine Yu</title>
 <link rel="icon" type="image/png" href="/updatedfavicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Space+Mono:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet"/>
@@ -494,76 +494,74 @@ body {
       <div class="cs-ticket">
         <div class="cs-ticket__row">
           <span class="cs-ticket__label">role</span>
-          <span class="cs-ticket__value">[Your Role]</span>
+          <span class="cs-ticket__value">Z DevX UX Design Intern</span>
         </div>
         <div class="cs-ticket__row">
           <span class="cs-ticket__label">timeline</span>
-          <span class="cs-ticket__value">[Month–Month Year]</span>
+          <span class="cs-ticket__value">May – August 2026 (3 months)</span>
         </div>
         <div class="cs-ticket__row">
           <span class="cs-ticket__label">tools</span>
-          <span class="cs-ticket__value">[Figma, ...]</span>
+          <span class="cs-ticket__value">Mural, Box, Microsoft Copilot, IBM Bob, Git/GitHub</span>
         </div>
         <div class="cs-ticket__row">
           <span class="cs-ticket__label">team</span>
-          <span class="cs-ticket__value">[Solo / X people]</span>
+          <span class="cs-ticket__value">Solo authorship, with review from lead architects and design peers</span>
         </div>
       </div>
 
-      <h1 class="cs-title">[Project Name]</h1>
-      <p class="cs-desc">[One or two sentences — what this project is and why it exists. This is the line someone reads before deciding whether to keep scrolling.]</p>
+      <h1 class="cs-title">IBM Z DevX — MCP Design Guidelines</h1>
+      <p class="cs-desc">IBM's Z DevOps ecosystem — Zowe, the RSE API, IBM's internal coding assistant "Bob," Copilot integrations — had no shared standard for how AI agent tools should be named, described, or parameterized. I was individually tasked with defining that standard from the ground up: researching how leading AI companies structure tool design, then converting the result into guidelines the whole org could actually use.</p>
       <div class="cs-tags">
-        <span class="cs-tag">[Tag]</span>
-        <span class="cs-tag">[Tag]</span>
-        <span class="cs-tag">[Tag]</span>
+        <span class="cs-tag">2026</span>
+        <span class="cs-tag">Design Systems</span>
+        <span class="cs-tag">AI Tooling</span>
+        <span class="cs-tag">Documentation</span>
       </div>
 
       <section id="context" class="cs-section">
         <div class="cs-section__label">01 — context</div>
-        <h2 class="cs-section__title">[What's the setting?]</h2>
-        <p>[Who asked for this, what existed before, what constraints you were working within. Keep this short — it's scene-setting, not the whole story.]</p>
+        <h2 class="cs-section__title">Built by whoever got there first</h2>
+        <p>Z DevX builds developer tooling for IBM's Z (mainframe) ecosystem, including AI coding assistants that plug into tools like Zowe and the RSE API. As more of these tools shipped, there was no shared design standard behind them — each was named, described, and parameterized differently, by whoever built it. That inconsistency showed up as real confusion among developers, architects, and designers, stalled work, and inefficient token usage as AI agents struggled to parse ambiguous tool signals.</p>
       </section>
 
       <section id="problem" class="cs-section">
         <div class="cs-section__label">02 — problem</div>
-        <h2 class="cs-section__title">[What was actually broken?]</h2>
-        <p>[The specific problem, ideally with a number or concrete detail that makes it real — not "the UX was bad" but what that meant for actual people.]</p>
+        <h2 class="cs-section__title">Ambiguous signals, by default</h2>
+        <p>Without shared conventions, tool naming, descriptions, and parameter design were left to individual judgment — which meant AI agents calling these tools (IBM's Bob, Copilot integrations) had inconsistent, sometimes ambiguous signals to work from. Every new tool made the inconsistency worse, and there was no reference to point new tool authors to.</p>
       </section>
 
       <section id="process" class="cs-section">
         <div class="cs-section__label">03 — process</div>
-        <h2 class="cs-section__title">[How'd you get to the answer?]</h2>
-        <p>[Research, iterations, what you tried and cut. This is the section people skim for signal that you can think, not just execute — so name a real decision you made and why.]</p>
-        <div class="cs-panel">
-          <div class="cs-panel-placeholder"><span>PROCESS VISUAL</span></div>
-        </div>
+        <h2 class="cs-section__title">Three decisions, one standard</h2>
+        <p>I ran a gap analysis comparing Z DevX's existing tools against published best practices from leading AI companies, then wrote a full guideline covering naming, tool descriptions, parameters, context and token management, modes, tool grouping, security, and localization — the first standard of its kind for the team.</p>
+        <p><strong>Decision 1 — an information architecture, not just a style guide.</strong> Beyond naming conventions, I designed an IA that organizes tools into modes and skills, so an AI agent isn't handed every tool at once — reducing decision-making complexity and preventing redundant, overlapping tool options from overwhelming the model.</p>
+        <p><strong>Decision 2 — converting the guideline into something enforceable.</strong> A written guideline that lives in a doc gets skimmed once and forgotten. I condensed it into a company-wide skill library — a SKILL.md — so the standard is something tools can actually be checked against, not just read.</p>
+        <p><strong>Decision 3 — iterating with the people who'd actually use it.</strong> Partnered with lead architects and design peers to pressure-test the standard, translating ambiguous requirements around context size, accessibility, and localization into something concrete enough for cross-team reuse.</p>
       </section>
 
       <section id="solution" class="cs-section">
         <div class="cs-section__label">04 — solution</div>
-        <h2 class="cs-section__title">[What did you actually ship?]</h2>
-        <p>[The final design, described in terms of what it does for the user — not a feature list.]</p>
-        <div class="cs-panel">
-          <div class="cs-panel-placeholder"><span>SOLUTION VISUAL</span></div>
-        </div>
+        <h2 class="cs-section__title">Nine sections, one shared standard</h2>
+        <p>The end result: a 9-section MCP design guideline (naming → descriptions → parameters → context/token management → modes → tool grouping → security → localization) and the SKILL.md it's built into, now the reference for how AI agent tools get designed across Z DevX.</p>
       </section>
 
       <section id="outcome" class="cs-section">
         <div class="cs-section__label">05 — outcome</div>
-        <h2 class="cs-section__title">[What happened after?]</h2>
-        <p>[Impact, adoption, what you'd do differently next time — reflection reads as more senior than a pure win.]</p>
+        <h2 class="cs-section__title">What moved</h2>
+        <p>Adoption drove two measurable shifts: a 30% increase in the team's AI tool usage, and a 50% improvement in token efficiency from the guideline's context-management standards. The guideline was adopted as Z DevX's standard for new MCP tools going forward — and the Bob team has since started building their own tools against it, extending adoption beyond the group that originally commissioned the standard.</p>
         <div class="cs-stats">
           <div class="cs-stat">
-            <div class="cs-stat__num">[X%]</div>
-            <div class="cs-stat__label">[what this measures]</div>
+            <div class="cs-stat__num">30%</div>
+            <div class="cs-stat__label">increase in AI tool usage</div>
           </div>
           <div class="cs-stat">
-            <div class="cs-stat__num">[X]</div>
-            <div class="cs-stat__label">[what this measures]</div>
+            <div class="cs-stat__num">50%</div>
+            <div class="cs-stat__label">improvement in token efficiency</div>
           </div>
           <div class="cs-stat">
-            <div class="cs-stat__num">[X]</div>
-            <div class="cs-stat__label">[what this measures]</div>
+            <div class="cs-stat__num">9</div>
+            <div class="cs-stat__label">guideline sections (naming through localization)</div>
           </div>
         </div>
       </section>
