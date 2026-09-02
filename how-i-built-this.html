@@ -241,6 +241,19 @@ body {
   max-width: none;
 }
 .hib-placeholder p:last-child { margin-bottom: 0; }
+.hib-todo {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  border: 1px solid rgba(200,0,30,0.5);
+  padding: 2px 7px;
+  margin-left: 4px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
 
 /* screenshot grid ("how this happened") */
 .hib-shots {
@@ -248,6 +261,10 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
 }
+.hib-shots--wide {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.hib-shot__frame--wide { aspect-ratio: 3/2; }
 .hib-shot__frame {
   aspect-ratio: 4/3;
   background: rgba(255,255,255,0.07);
@@ -465,76 +482,97 @@ body {
         <img src="/how-built-doodle.png" alt="Doodle of a builder in a hard hat holding a hammer" class="hib-header__doodle" />
       </div>
 
+      <!-- TL;DR -->
       <div class="hib-section">
-        <div class="hib-placeholder">
-          <span class="hib-placeholder__tag">Elaine: write me</span>
-          <p>A short tl;dr — what this site is, why you built it this way, and what someone will get out of reading the rest of this page.</p>
+        <div class="hib-body">
+          <p>This whole page is a bit long because I believe design is for everyone! Especially with the tools we have access to today, I think that anyone is capable of building cool and creative things — it's just a matter of knowing how to use everything.</p>
+          <p>Below, I'm walking through the whole process: how I actually think and work (scrapped ideas, notes-app chaos, and all), where AI fit in — and very much didn't — how I planned and researched before touching Figma, the interaction decisions I made along the way, and the hand-drawn assets and animations that ended up being the most time-consuming (BUT most fun) part of the whole thing.</p>
         </div>
       </div>
 
-      <!-- HOW THIS HAPPENED -->
+      <!-- HOW I WORK / HOW MY MIND OPERATES -->
       <div class="hib-section">
-        <div class="hib-section__label">how this happened</div>
-        <div class="hib-shots">
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-        </div>
-        <!-- Elaine: 6 slots to start — add/remove <figure> blocks as needed. Swap the placeholder div for an <img src="..."/> once you drop screenshots into public/. -->
+        <div class="hib-section__label">how I work / how my mind operates</div>
+        <ul class="hib-list">
+          <li>Over the summer, I would walk to the gym A LOT, which meant I had some time to just be with myself and my thoughts — I quickly realized that a lot of my best ideas came up during this time (check out my <a href="https://www.strava.com/athletes/773052493" target="_blank" rel="noopener" style="color:#fff; text-decoration-color:rgba(255,255,255,0.35);">Strava</a> to see it documented…lol).</li>
+          <li>Whenever an idea came to me, I wrote it down as fast as possible. If I was on the go, I would jot it down in my notes app, or if I was on my laptop, I had Claude + Notion MCP make me task organization where I could plug in tasks, and I would check them off.</li>
+          <li>From there, I give myself deadlines so the idea can actually be executed. For this portfolio, I knew I wanted to get it out before September 1st (before school got really busy and before most major companies drop their summer internship roles), so being organized and consistent was a top priority for me.</li>
+        </ul>
       </div>
 
-      <!-- THINGS I PAID ATTENTION TO -->
+      <!-- WORKING WITH AI -->
       <div class="hib-section">
-        <div class="hib-section__label">things I paid attention to</div>
-        <div class="hib-placeholder">
-          <span class="hib-placeholder__tag">Elaine: write me</span>
-          <p>The small, easy-to-skip details you cared about — the ones that don't show up in a screenshot. (You already wrote a version of this for the <a href="/about-the-trains.html" style="color:rgba(255,255,255,0.6); text-decoration-color:rgba(255,255,255,0.35);">"what's with the trains?"</a> page — could link out to that here instead of repeating it, your call.)</p>
+        <div class="hib-section__label">working WITH ai, instead of ai working for me</div>
+        <div class="hib-body">
+          <p>To me, a portfolio shouldn't just be a vehicle to display a designer's work. Instead, it should showcase who the designer is at their core (and also, of course, display their work). That's why I only used AI with more menial tasks related to optimizing my workflow — like organizing tasks/feedback, tracking progress, setting deadlines, replicating pages, basic layouts, compressing or cropping images, and coding — instead of it fully doing the work for me and producing AI slop. Because of this, I made sure the portfolio truly reflected my own thinking.</p>
         </div>
       </div>
 
-      <!-- WRITING: HOW I WORK -->
+      <!-- PLANNING STAGES -->
       <div class="hib-section">
-        <div class="hib-section__label">writing — how I work</div>
-        <div class="hib-placeholder">
-          <span class="hib-placeholder__tag">Elaine: write me</span>
-          <p>How ideas come to you and what you do with them — e.g. writing things down the moment they hit, gym walks as thinking time (link your Strava if you want to show it), giving yourself a deadline so the idea actually ships.</p>
+        <div class="hib-section__label">planning stages</div>
+        <div class="hib-body">
+          <p>Before even starting to design my portfolio, I stalked so many portfolios and combined them in a document where I noted down specific interactions I liked. I found that the most helpful portfolios were the ones that detailed their<span class="hib-todo">Elaine: finish this thought</span></p>
         </div>
       </div>
 
-      <!-- WHAT I LEARNED / WHAT I'D DO DIFFERENTLY -->
+      <!-- EARLY (AND SCRAPPED) IDEAS -->
       <div class="hib-section">
-        <div class="hib-section__label">what I learned · what I'd do differently</div>
-        <div class="hib-callouts">
-          <div class="hib-placeholder">
-            <span class="hib-placeholder__tag">Elaine: write me</span>
-            <p>What I learned</p>
-          </div>
-          <div class="hib-placeholder">
-            <span class="hib-placeholder__tag">Elaine: write me</span>
-            <p>What I'd do differently next time</p>
-          </div>
+        <div class="hib-section__label">early (and scrapped) ideas</div>
+        <div class="hib-shots hib-shots--wide">
+          <figure>
+            <div class="hib-shot__frame hib-shot__frame--wide"><img src="/early-idea-fishbowl.png" alt="Early scrapped concept: an underwater speech-bubble hero" loading="lazy" /></div>
+            <figcaption class="hib-shot__caption">an underwater / speech-bubble direction</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-shot__frame hib-shot__frame--wide"><img src="/early-idea-ocean.png" alt="Early scrapped concept: an ocean hero with a browser window mockup" loading="lazy" /></div>
+            <figcaption class="hib-shot__caption">an ocean/aquarium concept with a browser mockup</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-shot__frame hib-shot__frame--wide"><img src="/early-idea-playgrid.png" alt="Early scrapped concept: a playful art grid for the Play page" loading="lazy" /></div>
+            <figcaption class="hib-shot__caption">a playful grid layout for the aquarium concept Play page</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-shot__frame hib-shot__frame--wide"><img src="/early-idea-isometric.png" alt="Early scrapped concept: a hand-drawn isometric building as navigation" loading="lazy" /></div>
+            <figcaption class="hib-shot__caption">a hand-drawn isometric building as the nav — scrapped this one because it felt like too much of a Monument Valley knockoff…</figcaption>
+          </figure>
         </div>
+        <!-- Elaine: captions above are my best guess from the screenshots — edit to whatever you actually called these. -->
+      </div>
+
+      <!-- BALANCING FUN AND PRACTICALITY -->
+      <div class="hib-section">
+        <div class="hib-section__label">balancing fun and practicality through interactions</div>
+        <div class="hib-body">
+          <p>I wanted to have lots of fun interactions but wanted them to be noticeable enough so that the user would be able to also<span class="hib-todo">Elaine: this sentence needs a cleanup pass</span> I didn't want them to be too overstimulated.</p>
+        </div>
+      </div>
+
+      <!-- THE ASSETS -->
+      <div class="hib-section">
+        <div class="hib-body">
+          <p>This is probably where I poured the most amount of time. All the little doodles and drawings were all hand-drawn.</p>
+          <p>The animations were also all hand-drawn frame by frame. I had no prior animation experience, so looking at references on Pinterest helped a lot. But once I got the hang of it,<span class="hib-todo">Elaine: finish this thought</span></p>
+        </div>
+        <div class="hib-shots" style="margin-top:20px;">
+          <figure>
+            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
+            <figcaption class="hib-shot__caption">[caption]</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
+            <figcaption class="hib-shot__caption">[caption]</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
+            <figcaption class="hib-shot__caption">[caption]</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
+            <figcaption class="hib-shot__caption">[caption]</figcaption>
+          </figure>
+        </div>
+        <!-- Elaine: drop in frames of the doodles/animations here — add or remove <figure> blocks as needed. -->
       </div>
 
       <!-- GITHUB ACTIVITY -->
@@ -546,6 +584,23 @@ body {
           <div class="hib-github__caption">can you tell when I really started to build/lock in?</div>
           <div class="hib-github__note">most of June was just planning and brainstorming — actual building didn't start until June 22.</div>
           <a href="https://github.com/ela1ne0" target="_blank" rel="noopener" class="hib-github__link">view full profile ↗</a>
+        </div>
+      </div>
+
+      <!-- WHAT I LEARNED / WHAT I'D DO DIFFERENTLY -->
+      <div class="hib-section">
+        <div class="hib-section__label">what I learned · what I'd do differently</div>
+        <div class="hib-callouts">
+          <div>
+            <ul class="hib-list">
+              <li>Being organized is SUCH a big deal and sped up the process SOOO much when I figured out an efficient way to work. I could literally just plug and chug any ideas I wanted to implement — this was especially helpful when I got feedback from others.</li>
+            </ul>
+            <!-- Elaine: add more bullets here if you want -->
+          </div>
+          <div class="hib-placeholder">
+            <span class="hib-placeholder__tag">Elaine: write me</span>
+            <p>What I'd do differently next time</p>
+          </div>
         </div>
       </div>
 
