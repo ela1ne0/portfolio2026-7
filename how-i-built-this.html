@@ -301,6 +301,63 @@ body {
   max-width: 280px;
 }
 
+/* screenshot inserted under "how I work" list */
+.hib-worklist-shot {
+  margin-top: 20px;
+  max-width: 620px;
+}
+.hib-worklist-shot__frame {
+  aspect-ratio: 2 / 1;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.hib-worklist-shot__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hib-worklist-shot__caption {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+/* "current favorite" illustration hover-preview, in "the assets" section */
+.hib-fav-trigger {
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.5);
+  text-underline-offset: 3px;
+}
+.hib-fav-popup {
+  position: fixed;
+  width: 320px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  transform: translateY(-50%) translateX(-6px) scale(0.95);
+}
+.hib-fav-popup img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hib-fav-popup.visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0) scale(1);
+}
+
+/* header doodle hover-dialogue bubble sizing */
+.speech-bubble.hib-header-bubble {
+  width: max-content;
+  min-width: 0;
+  max-width: 240px;
+}
+
 /* screenshot grid ("how this happened") */
 .hib-shots {
   display: grid;
@@ -525,7 +582,7 @@ body {
           <div class="hib-label">a behind-the-scenes look</div>
           <h1 class="hib-title">How I built this site</h1>
         </div>
-        <img src="/how-built-doodle.png" alt="Doodle of a builder in a hard hat holding a hammer" class="hib-header__doodle" />
+        <img src="/how-built-doodle.png" alt="Doodle of a builder in a hard hat holding a hammer" class="hib-header__doodle" id="hib-header-doodle" />
       </div>
 
       <!-- TL;DR -->
@@ -544,6 +601,12 @@ body {
           <li>Whenever an idea came to me, I wrote it down as fast as possible. If I was on the go, I would jot it down in my notes app, or if I was on my laptop, I had Claude + Notion MCP make me task organization where I could plug in tasks, and I would check them off.</li>
           <li>From there, I give myself deadlines so the idea can actually be executed. For this portfolio, I knew I wanted to get it out before September 1st (before school got really busy and before most major companies drop their summer internship roles), so being organized and consistent was a top priority for me.</li>
         </ul>
+        <figure class="hib-worklist-shot">
+          <div class="hib-worklist-shot__frame">
+            <img src="/notion-tasks.png" alt="Screenshot of Elaine's Notion task tracker for the portfolio project, with tasks like fixing nav station colors and adding a walking animation marked done" loading="lazy" />
+          </div>
+          <figcaption class="hib-worklist-shot__caption">the actual task tracker — yes, "make stamp placement precise + prevent border cutoff" was a real ticket</figcaption>
+        </figure>
       </div>
 
       <!-- WORKING WITH AI -->
@@ -558,7 +621,8 @@ body {
       <div class="hib-section">
         <div class="hib-section__label">planning stages</div>
         <div class="hib-body">
-          <p>Before even starting to design my portfolio, I stalked so many portfolios and combined them in a document where I noted down specific interactions I liked. I found that the most helpful portfolios were the ones that detailed their<span class="hib-todo">Elaine: finish this thought</span></p>
+          <p>One of my FAVORITE quotes that constantly drives my curiosity and passion for design is from Austin Kleon's book, <em>Steal Like An Artist</em>: "If you steal from one author, it's plagiarism; if you steal from many, it's research."</p>
+          <p>So before even starting to design my portfolio, I stalked so many portfolios and combined them in a document where I noted down specific interactions (<a href="https://docs.google.com/document/d/11FiLWbXT39LiG9wVNZq2QpXZNP6gNKHItsEU_nAWw9M/edit?tab=t.0" target="_blank" rel="noopener">take a look here!</a>) — heads up, I ended up taking my actual notes out, so it's really just a list of the portfolios I looked at with links to each. I found that the most helpful portfolios were the ones that detailed their process and thought process behind their designs — so I hope to do the same!</p>
         </div>
       </div>
 
@@ -596,6 +660,9 @@ body {
           </figure>
         </div>
         <!-- Elaine: captions above are my best guess from the screenshots — edit to whatever you actually called these. -->
+        <div class="hib-body" style="margin-top:20px;">
+          <p>After talking with <a href="https://www.linkedin.com/in/qitian-bruce-cao/" target="_blank" rel="noopener">Bruce Cao</a>, he asked me a lot of thought-provoking questions like, "What are the fish supposed to tell me about YOU?" which pivoted the way I viewed portfolios as a whole and led me to creating something that truly felt like "me."</p>
+        </div>
       </div>
 
       <!-- BALANCING FUN AND PRACTICALITY -->
@@ -610,7 +677,7 @@ body {
       <div class="hib-section">
         <div class="hib-body">
           <p>This is probably where I poured the most amount of time. All the little doodles and drawings were all hand-drawn.</p>
-          <p>The animations were also all hand-drawn frame by frame. I had no prior animation experience, so looking at references on Pinterest helped a lot. But once I got the hang of it,<span class="hib-todo">Elaine: finish this thought</span></p>
+          <p>The animations were also all hand-drawn frame by frame. I had no prior animation experience, so looking at references on Pinterest helped a lot. But once I got the hang of it, I had the most fun thinking of new illustrations I could add (<span class="hib-fav-trigger" id="hib-fav-trigger">this one is my current favorite</span>)</p>
         </div>
         <div class="hib-shots" style="margin-top:20px;">
           <figure>
@@ -666,7 +733,7 @@ body {
       <div class="hib-closing">
         <p>
           <!-- Elaine: swap in your actual portfolios list / notion link -->
-          for more portfolio inspiration, <a href="#">check out this list →</a>
+          for more portfolio inspiration, <a href="https://docs.google.com/document/d/11FiLWbXT39LiG9wVNZq2QpXZNP6gNKHItsEU_nAWw9M/edit?tab=t.0" target="_blank" rel="noopener">check out this list →</a>
         </p>
         <p>
           if this didn't answer your questions, feel free to let me know! if you want this to be more comprehensive, <a href="mailto:elaineyustudio@gmail.com">let me know</a>.
@@ -705,6 +772,8 @@ body {
 <script type="module" src="/src/js/cursor.js"></script>
 <script type="module" src="/src/js/avatar-bubble.js"></script>
 <script type="module" src="/src/js/scrapped-cry-bubble.js"></script>
+<script type="module" src="/src/js/header-doodle-bubble.js"></script>
+<script type="module" src="/src/js/fav-illustration-popup.js"></script>
 <script type="module" src="/src/js/mobile-gate.js"></script>
 <script>
   // nav track fill — this page isn't one of the 4 main stops, so no dot lights up,
