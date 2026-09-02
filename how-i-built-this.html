@@ -264,7 +264,7 @@ body {
 .hib-cry {
   position: relative;
   display: inline-block;
-  width: 52px;
+  width: 78px;
   flex-shrink: 0;
 }
 .hib-cry__img {
@@ -277,9 +277,9 @@ body {
   left: 27%;
   top: 40%;
   width: 17%;
-  min-width: 7px;
-  max-width: 9px;
-  transform: translateY(2px);
+  min-width: 9px;
+  max-width: 13px;
+  transform: translateY(3px);
   transition: transform 0.45s cubic-bezier(0.34, 1.15, 0.64, 1);
 }
 .hib-cry__tear svg {
@@ -290,10 +290,15 @@ body {
 }
 .hib-cry:hover .hib-cry__tear,
 .hib-cry.hib-cry--active .hib-cry__tear {
-  transform: translateY(9px);
+  transform: translateY(12px);
 }
 .hib-cry.intro-slide .hib-cry__tear {
-  transform: translateY(9px);
+  transform: translateY(12px);
+}
+.speech-bubble.hib-cry-bubble {
+  width: max-content;
+  min-width: 0;
+  max-width: 280px;
 }
 
 /* screenshot grid ("how this happened") */

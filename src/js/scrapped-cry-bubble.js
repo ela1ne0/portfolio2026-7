@@ -7,14 +7,14 @@ const LINES = [
 ];
 
 let currentIndex = 0;
-let rotateInterval = null;
+let hideTimeout = null;
 
 const trigger = document.querySelector('#hib-cry');
 if (!trigger) console.warn('scrapped-cry-bubble.js: #hib-cry not found');
 
 // ── Build bubble and append to BODY, reusing the .speech-bubble styling ──
 const bubble = document.createElement('div');
-bubble.className = 'speech-bubble';
+bubble.className = 'speech-bubble hib-cry-bubble';
 bubble.innerHTML = `
   <div class="bubble-main" id="cry-bubble-main"></div>
   <div class="bubble-sub"  id="cry-bubble-sub"></div>
@@ -34,50 +34,34 @@ function positionBubble() {
   bubble.style.transform = 'translateY(-50%)';
 }
 
-// ── Render a line ──
 function renderLine(index) {
   const line = LINES[index];
-  bubble.classList.add('switching');
-  setTimeout(() => {
-    bubbleMain.textContent = line.text;
-    if (line.sub && line.link) {
-      bubbleSub.innerHTML = `<a href="${line.link}" target="_blank"
-        rel="noopener" class="bubble-link">${line.sub}</a>`;
-    } else if (line.sub) {
-      bubbleSub.textContent = line.sub;
-    } else {
-      bubbleSub.textContent = '';
-    }
-    bubble.classList.remove('switching');
-    bubble.classList.add('entering');
-    setTimeout(() => bubble.classList.remove('entering'), 300);
-  }, 150);
+  bubbleMain.textContent = line.text;
+  if (line.sub && line.link) {
+    bubbleSub.innerHTML = `<a href="${line.link}" target="_blank"
+      rel="noopener" class="bubble-link">${line.sub}</a>`;
+  } else if (line.sub) {
+    bubbleSub.textContent = line.sub;
+  } else {
+    bubbleSub.textContent = '';
+  }
 }
 
-// ── Hover ──
-let hideTimeout = null;
-
+// ── Hover: same pattern as footer-cat-bubble.js — one line per hover,
+// advancing to the next line each time, instead of auto-rotating on a timer ──
 function showBubble() {
   clearTimeout(hideTimeout);
   positionBubble();
-  currentIndex = 0;
   renderLine(currentIndex);
+  currentIndex = (currentIndex + 1) % LINES.length;
   bubble.classList.add('visible');
   if (trigger) trigger.classList.add('hib-cry--active');
-  if (!rotateInterval) {
-    rotateInterval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % LINES.length;
-      renderLine(currentIndex);
-    }, 2200);
-  }
 }
 
 function hideBubble() {
   if (trigger) trigger.classList.remove('hib-cry--active');
   hideTimeout = setTimeout(() => {
     bubble.classList.remove('visible');
-    clearInterval(rotateInterval);
-    rotateInterval = null;
   }, 150);
 }
 
@@ -86,11 +70,9 @@ if (trigger) {
   trigger.addEventListener('mouseleave', hideBubble);
 }
 
-bubble.addEventListener('mouseenter', showBubble);
-bubble.addEventListener('mouseleave', hideBubble);
-
-// reposition on scroll/resize so it stays attached to the illustration
-window.addEventListener('scroll', positionBubble, { passive: true });
+window.addEventListener('scroll', () => {
+  if (bubble.classList.contains('visible')) positionBubble();
+}, { passive: true });
 window.addEventListener('resize', positionBubble);
 
 // small intro wiggle on load, matching the .sweat-drop pattern used elsewhere on the site
