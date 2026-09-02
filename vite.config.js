@@ -13,6 +13,7 @@ export default defineConfig({
         ibm: resolve(__dirname, 'ibm-z-devops.html'),
         aboutSoon: resolve(__dirname, 'about-coming-soon.html'),
         trains: resolve(__dirname, 'about-the-trains.html'),
+        howBuilt: resolve(__dirname, 'how-i-built-this.html'),
       }
     }
   }
