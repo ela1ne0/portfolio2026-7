@@ -226,15 +226,12 @@ body {
 .hib-main {
   max-width: 760px;
   margin: 0 auto;
-  /* Bottom padding is scroll "runway" for the track nav's scrollspy, not
-     visual spacing. The last couple of .hib-sections (what-i-learned, closing)
-     are short, so without extra room below them the container hits max scroll
-     before their headings can individually reach the reference line the
-     scrollspy watches for — they'd land on the exact same clamped scroll
-     position and become indistinguishable. 60vh gives enough runway for both
-     to resolve to distinct positions while keeping the trailing empty space
-     modest rather than a full blank screen. */
-  padding: 56px 44px 60vh;
+  /* A little extra bottom padding, mainly so the last section doesn't feel
+     cramped against the very end of the scroll — the track nav's scrollspy
+     no longer depends on this for correctness (clicking a stop sets it
+     active directly; see the script below), so this stays modest instead of
+     a large blank runway. */
+  padding: 56px 44px 18vh;
 }
 
 /* header */
@@ -916,7 +913,7 @@ body {
           for more portfolio inspiration, <a href="https://docs.google.com/document/d/11FiLWbXT39LiG9wVNZq2QpXZNP6gNKHItsEU_nAWw9M/edit?tab=t.0" target="_blank" rel="noopener">check out this list →</a>
         </p>
         <p>
-          if this didn't answer your questions, feel free to let me know! if you want this to be more comprehensive, <a href="mailto:elaineyustudio@gmail.com">let me know</a>.
+          if this didn't answer your questions or you want this to be more comprehensive, my DMs are always open on <a href="https://www.linkedin.com/in/elaine-yu1/" target="_blank" rel="noopener">LinkedIn</a>.
         </p>
       </div>
 
@@ -962,6 +959,15 @@ body {
   // browser happens to report last, not whichever is actually at the top of
   // the screen. Instead: the active stop is always the last section whose
   // heading has scrolled above a reference line near the top of the viewport.
+  //
+  // Clicking a stop also sets it active immediately, instead of waiting for
+  // the resulting scroll to be detected. Reason: the last couple of sections
+  // are short enough that the browser's native anchor-jump for "what i
+  // learned" and for "closing" can both land at the exact same (clamped) max
+  // scroll position — so scroll-position detection alone can't always tell
+  // them apart. The click itself is unambiguous, so it wins; a brief
+  // suppression window stops the scroll event the click triggers from
+  // immediately overriding it back via the atBottom check below.
   (function () {
     const scrollEl = document.getElementById('cs-scroll');
     const stops = Array.from(document.querySelectorAll('.cs-track-nav__stop'));
@@ -970,6 +976,9 @@ body {
     if (!scrollEl || !stops.length || !sections.length) return;
 
     const REFERENCE_OFFSET = 140; // px from the top of the scroll viewport
+    const CLICK_SUPPRESS_MS = 700; // ignore scroll-driven detection right after a click
+
+    let suppressUntil = 0;
 
     function setActive(index) {
       stops.forEach((s, i) => s.classList.toggle('is-active', i === index));
@@ -978,6 +987,7 @@ body {
     }
 
     function updateActive() {
+      if (Date.now() < suppressUntil) return;
       // scrolled to the very bottom: the last section may be too short for
       // its heading to ever reach REFERENCE_OFFSET (there's no more room to
       // scroll), so force the last stop active rather than getting stuck on
@@ -995,6 +1005,15 @@ body {
       }
       setActive(activeIndex);
     }
+
+    stops.forEach((stop, i) => {
+      const link = stop.querySelector('a');
+      if (!link) return;
+      link.addEventListener('click', () => {
+        setActive(i);
+        suppressUntil = Date.now() + CLICK_SUPPRESS_MS;
+      });
+    });
 
     let ticking = false;
     scrollEl.addEventListener('scroll', () => {
