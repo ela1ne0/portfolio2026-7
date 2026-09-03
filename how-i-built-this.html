@@ -392,6 +392,59 @@ body {
   line-height: 1.5;
 }
 
+/* interaction-process screenshots — compact grid, no cropping (object-fit: contain) */
+.hib-interaction-shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.hib-interaction-shot__frame {
+  aspect-ratio: 3 / 2;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hib-interaction-shot__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hib-interaction-shot__caption {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+/* single wide screenshot (Procreate gallery overview) — full frame, no cropping */
+.hib-gallery-shot {
+  margin-top: 20px;
+  max-width: 620px;
+}
+.hib-gallery-shot__frame {
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.hib-gallery-shot__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hib-gallery-shot__caption {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
 /* "things I paid attention to" list */
 .hib-list {
   list-style: none;
@@ -669,35 +722,34 @@ body {
       <div class="hib-section">
         <div class="hib-section__label">balancing fun and practicality through interactions</div>
         <div class="hib-body">
-          <p>I wanted to have lots of fun interactions but wanted them to be noticeable enough so that the user would be able to also<span class="hib-todo">Elaine: this sentence needs a cleanup pass</span> I didn't want them to be too overstimulated.</p>
+          <p>I wanted to fill the site with fun, playful interactions, but I also wanted them to be noticeable enough that people would actually stop and engage with them — without going so far that it felt overstimulating.</p>
+        </div>
+        <div class="hib-interaction-shots">
+          <figure>
+            <div class="hib-interaction-shot__frame"><img src="/interaction-walk-anim.png" alt="Procreate animation timeline showing a walk cycle" loading="lazy" /></div>
+            <figcaption class="hib-interaction-shot__caption">frames of my walking animation</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-interaction-shot__frame"><img src="/interaction-layers-station.png" alt="Procreate layers panel showing the station interior illustration split across multiple transparent layers" loading="lazy" /></div>
+            <figcaption class="hib-interaction-shot__caption">i separated my drawings into multiple layers with transparent backgrounds and animated them with CSS</figcaption>
+          </figure>
+          <figure>
+            <div class="hib-interaction-shot__frame"><img src="/interaction-layers-blueprint.png" alt="Another hand-drawn illustration built on its own transparent background layer" loading="lazy" /></div>
+            <figcaption class="hib-interaction-shot__caption">another example of the transparent background layer</figcaption>
+          </figure>
         </div>
       </div>
 
       <!-- THE ASSETS -->
       <div class="hib-section">
         <div class="hib-body">
-          <p>This is probably where I poured the most amount of time. All the little doodles and drawings were all hand-drawn.</p>
-          <p>The animations were also all hand-drawn frame by frame. I had no prior animation experience, so looking at references on Pinterest helped a lot. But once I got the hang of it, I had the most fun thinking of new illustrations I could add (<span class="hib-fav-trigger" id="hib-fav-trigger">this one is my current favorite</span>)</p>
+          <p>This is probably where I poured the most time into the whole project — every little doodle and drawing here is hand-drawn.</p>
+          <p>The animations are hand-drawn too, frame by frame. I had zero prior animation experience, so I leaned on Pinterest references to figure it out. Once I got the hang of it, though, I had so much fun coming up with new illustrations to add (<span class="hib-fav-trigger" id="hib-fav-trigger">this one is my current favorite</span>).</p>
         </div>
-        <div class="hib-shots" style="margin-top:20px;">
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-          <figure>
-            <div class="hib-shot__frame"><span class="hib-shot__hint">screenshot</span></div>
-            <figcaption class="hib-shot__caption">[caption]</figcaption>
-          </figure>
-        </div>
-        <!-- Elaine: drop in frames of the doodles/animations here — add or remove <figure> blocks as needed. -->
+        <figure class="hib-gallery-shot">
+          <div class="hib-gallery-shot__frame"><img src="/assets-gallery-overview.png" alt="Procreate gallery view of all the hand-drawn assets made for this portfolio" loading="lazy" /></div>
+          <figcaption class="hib-gallery-shot__caption">a peek into my Procreate gallery — every hand-drawn asset for this site, the ones that made it in and the ones that didn't</figcaption>
+        </figure>
       </div>
 
       <!-- GITHUB ACTIVITY -->
@@ -716,6 +768,8 @@ body {
       <div class="hib-section">
         <div class="hib-section__label">what I learned</div>
         <ul class="hib-list">
+          <li>If you have an idea, act on it ASAP. Because either you're going to forget after a few minutes or someone else is going to think of it. <s>Some</s> actually, most of my best ideas came to me very randomly, but I'm SO glad I wrote them down and executed them.</li>
+          <li>Being inspired is important, but it’s also equally important to not get bogged down in aimlessly looking for inspo (because then you’re just wasting time…)</li>
           <li>Being organized is SUCH a big deal and sped up the process SOOO much when I figured out an efficient way to work. I could literally just plug and chug any ideas I wanted to implement — this was especially helpful when I got feedback from others.</li>
           <li>Obviously, when you give Claude or Cursor a prompt, it's going to take some time to execute it, so during that downtime I made sure I was either working on an illustration/animation, writing up a case study, finding design inspo — just doing anything to add to my portfolio instead of sitting idly or doomscrolling.</li>
         </ul>
