@@ -52,11 +52,18 @@ body {
 }
 .cur-ring.show { opacity: 1; width: 32px; height: 32px; }
 
-/* ── PAGE BODY ── */
-.page-body {
+/* ── PAGE BODY ──
+   Overridden via #hib-page-body, not the .page-body class: this page links
+   layout.css (for the shared left-col/right-scroll/train-nav/etc. rules),
+   and Vite's production build injects that <link> AFTER this inline <style>
+   block, so a same-specificity .page-body override here would silently lose
+   to layout.css's 2-column version. An id selector always wins regardless
+   of source order. */
+#hib-page-body {
   flex: 1; min-height: 0;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 200px 56px 1fr;
+  overflow: hidden;
 }
 
 /* ── LEFT COLUMN — sticky (same as about / trains) ── */
@@ -128,6 +135,86 @@ body {
 }
 .left-contact a:hover { color: rgba(255,255,255,0.8); }
 
+/* ── TRACK NAV — vertical train-stop nav, one column of its own ── */
+.cs-track-nav {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.cs-track-nav__rail {
+  position: relative;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.cs-track-nav__line {
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 1.5px;
+  background: rgba(255,255,255,0.22);
+  transform: translateX(-50%);
+}
+.cs-track-nav__fill {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 1.5px;
+  background: #fff;
+  transform: translateX(-50%);
+  transition: height 0.4s ease;
+  height: 0%;
+}
+.cs-track-nav__stop {
+  position: relative;
+  z-index: 1;
+}
+.cs-track-nav__stop a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.cs-track-nav__dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid rgba(255,255,255,0.4);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.cs-track-nav__stop:hover .cs-track-nav__dot {
+  border-color: rgba(255,255,255,0.8);
+  transform: scale(1.15);
+}
+.cs-track-nav__stop.is-active .cs-track-nav__dot {
+  background: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
+}
+.cs-track-nav__label {
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.cs-track-nav__stop:hover .cs-track-nav__label,
+.cs-track-nav__stop.is-active .cs-track-nav__label {
+  opacity: 1;
+  color: #fff;
+}
+
 /* ── RIGHT: scroll + main content ── */
 .right-scroll {
   height: 100%; overflow-y: auto; overflow-x: hidden;
@@ -139,7 +226,15 @@ body {
 .hib-main {
   max-width: 760px;
   margin: 0 auto;
-  padding: 56px 44px 110px;
+  /* Bottom padding is scroll "runway" for the track nav's scrollspy, not
+     visual spacing. The last couple of .hib-sections (what-i-learned, closing)
+     are short, so without extra room below them the container hits max scroll
+     before their headings can individually reach the reference line the
+     scrollspy watches for — they'd land on the exact same clamped scroll
+     position and become indistinguishable. 60vh gives enough runway for both
+     to resolve to distinct positions while keeping the trailing empty space
+     modest rather than a full blank screen. */
+  padding: 56px 44px 60vh;
 }
 
 /* header */
@@ -589,7 +684,7 @@ body {
 </nav>
 
 <!-- PAGE BODY -->
-<div class="page-body">
+<div class="page-body" id="hib-page-body">
 
   <!-- LEFT COL — identical to about.html / about-the-trains.html -->
   <aside class="left-col">
@@ -625,8 +720,43 @@ body {
     </div>
   </aside>
 
+  <!-- section nav — vertical train-stop track -->
+  <nav class="cs-track-nav" aria-label="Page sections">
+    <div class="cs-track-nav__rail">
+      <div class="cs-track-nav__line" aria-hidden="true"></div>
+      <div class="cs-track-nav__fill" id="cs-track-fill" aria-hidden="true"></div>
+      <div class="cs-track-nav__stop" data-target="how-i-work">
+        <a href="#how-i-work"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">how i work</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="working-with-ai">
+        <a href="#working-with-ai"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">working w/ ai</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="planning-stages">
+        <a href="#planning-stages"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">planning</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="scrapped-ideas">
+        <a href="#scrapped-ideas"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">scrapped ideas</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="balancing-fun">
+        <a href="#balancing-fun"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">interactions</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="the-assets">
+        <a href="#the-assets"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">the assets</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="github-activity">
+        <a href="#github-activity"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">github</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="what-i-learned">
+        <a href="#what-i-learned"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">what i learned</span></a>
+      </div>
+      <div class="cs-track-nav__stop" data-target="closing">
+        <a href="#closing"><span class="cs-track-nav__dot"></span><span class="cs-track-nav__label">closing</span></a>
+      </div>
+    </div>
+  </nav>
+
   <!-- RIGHT -->
-  <div class="right-scroll">
+  <div class="right-scroll" id="cs-scroll">
     <div class="hib-main">
 
       <!-- HEADER / TL;DR -->
@@ -647,7 +777,7 @@ body {
       </div>
 
       <!-- HOW I WORK / HOW MY MIND OPERATES -->
-      <div class="hib-section">
+      <div class="hib-section" id="how-i-work">
         <div class="hib-section__label">how I work / how my mind operates</div>
         <ul class="hib-list">
           <li>Over the summer, I would walk to the gym A LOT, which meant I had some time to just be with myself and my thoughts — I quickly realized that a lot of my best ideas came up during this time (check out my <a href="https://www.strava.com/athletes/773052493" target="_blank" rel="noopener" style="color:#fff; text-decoration-color:rgba(255,255,255,0.35);">Strava</a> to see it documented…lol).</li>
@@ -663,7 +793,7 @@ body {
       </div>
 
       <!-- WORKING WITH AI -->
-      <div class="hib-section">
+      <div class="hib-section" id="working-with-ai">
         <div class="hib-section__label">working WITH ai, instead of ai working for me</div>
         <div class="hib-body">
           <p>To me, a portfolio shouldn't just be a vehicle to display a designer's work. Instead, it should showcase who the designer is at their core (and also, of course, display their work). That's why I only used AI with more menial tasks related to optimizing my workflow — like organizing tasks/feedback, tracking progress, setting deadlines, replicating pages, basic layouts, compressing or cropping images, and coding — instead of it fully doing the work for me and producing AI slop. Because of this, I made sure the portfolio truly reflected my own thinking.</p>
@@ -671,7 +801,7 @@ body {
       </div>
 
       <!-- PLANNING STAGES -->
-      <div class="hib-section">
+      <div class="hib-section" id="planning-stages">
         <div class="hib-section__label">planning stages</div>
         <div class="hib-body">
           <p>One of my FAVORITE quotes that constantly drives my curiosity and passion for design is from Austin Kleon's book, <em>Steal Like An Artist</em>: "If you steal from one author, it's plagiarism; if you steal from many, it's research."</p>
@@ -680,7 +810,7 @@ body {
       </div>
 
       <!-- EARLY (AND SCRAPPED) IDEAS -->
-      <div class="hib-section">
+      <div class="hib-section" id="scrapped-ideas">
         <div class="hib-section__label hib-scrapped-label">
           <span>early (and scrapped) ideas</span>
           <span class="hib-cry" id="hib-cry" aria-hidden="true">
@@ -719,7 +849,7 @@ body {
       </div>
 
       <!-- BALANCING FUN AND PRACTICALITY -->
-      <div class="hib-section">
+      <div class="hib-section" id="balancing-fun">
         <div class="hib-section__label">balancing fun and practicality through interactions</div>
         <div class="hib-body">
           <p>I wanted to fill the site with fun, playful interactions, but I also wanted them to be noticeable enough that people would actually stop and engage with them — without going so far that it felt overstimulating.</p>
@@ -741,7 +871,7 @@ body {
       </div>
 
       <!-- THE ASSETS -->
-      <div class="hib-section">
+      <div class="hib-section" id="the-assets">
         <div class="hib-body">
           <p>This is probably where I poured the most time into the whole project — every little doodle and drawing here is hand-drawn.</p>
           <p>The animations are hand-drawn too, frame by frame. I had zero prior animation experience, so I leaned on Pinterest references to figure it out. Once I got the hang of it, though, I had so much fun coming up with new illustrations to add (<span class="hib-fav-trigger" id="hib-fav-trigger">this one is my current favorite</span>).</p>
@@ -753,7 +883,7 @@ body {
       </div>
 
       <!-- GITHUB ACTIVITY -->
-      <div class="hib-section">
+      <div class="hib-section" id="github-activity">
         <div class="hib-section__label">github activity</div>
         <div class="hib-github">
           <div class="hib-github__label">commit history</div>
@@ -765,7 +895,7 @@ body {
       </div>
 
       <!-- WHAT I LEARNED -->
-      <div class="hib-section">
+      <div class="hib-section" id="what-i-learned">
         <div class="hib-section__label">what I learned</div>
         <ul class="hib-list">
           <li>If you have an idea, act on it ASAP. Because either you're going to forget after a few minutes or someone else is going to think of it. <s>Some</s> actually, most of my best ideas came to me very randomly, but I'm SO glad I wrote them down and executed them.</li>
@@ -777,7 +907,7 @@ body {
       </div>
 
       <!-- CLOSING -->
-      <div class="hib-closing">
+      <div class="hib-closing" id="closing">
         <p>
           I think I've come a long way within the span of a few months — check out my <a href="https://ela1ne0.github.io/" target="_blank" rel="noopener">old portfolio here</a>.
         </p>
@@ -816,6 +946,64 @@ body {
     rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
     ring.style.left=rx+'px'; ring.style.top=ry+'px';
     requestAnimationFrame(loop);
+  })();
+</script>
+
+<script>
+  // section scrollspy — drives the vertical track nav's active dot + fill line.
+  // root is explicitly the actual scroll container, not the window — .right-scroll
+  // scrolls internally rather than the page itself.
+  //
+  // Uses a scroll-position check (not IntersectionObserver's "which entries
+  // are >40% visible") because this page has several short sections near the
+  // bottom (github activity / what I learned / closing) that can all be
+  // simultaneously >40% visible in one tall viewport — a plain "activate on
+  // any intersecting entry" approach then just flips to whichever one the
+  // browser happens to report last, not whichever is actually at the top of
+  // the screen. Instead: the active stop is always the last section whose
+  // heading has scrolled above a reference line near the top of the viewport.
+  (function () {
+    const scrollEl = document.getElementById('cs-scroll');
+    const stops = Array.from(document.querySelectorAll('.cs-track-nav__stop'));
+    const fill = document.getElementById('cs-track-fill');
+    const sections = stops.map(s => document.getElementById(s.dataset.target)).filter(Boolean);
+    if (!scrollEl || !stops.length || !sections.length) return;
+
+    const REFERENCE_OFFSET = 140; // px from the top of the scroll viewport
+
+    function setActive(index) {
+      stops.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      const pct = stops.length > 1 ? (index / (stops.length - 1)) * 100 : 0;
+      fill.style.height = pct + '%';
+    }
+
+    function updateActive() {
+      // scrolled to the very bottom: the last section may be too short for
+      // its heading to ever reach REFERENCE_OFFSET (there's no more room to
+      // scroll), so force the last stop active rather than getting stuck on
+      // whichever one it last passed.
+      const atBottom = scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 2;
+      if (atBottom) {
+        setActive(sections.length - 1);
+        return;
+      }
+      const containerTop = scrollEl.getBoundingClientRect().top;
+      let activeIndex = 0;
+      for (let i = 0; i < sections.length; i++) {
+        const top = sections[i].getBoundingClientRect().top - containerTop;
+        if (top <= REFERENCE_OFFSET) activeIndex = i;
+      }
+      setActive(activeIndex);
+    }
+
+    let ticking = false;
+    scrollEl.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { updateActive(); ticking = false; });
+    }, { passive: true });
+
+    updateActive();
   })();
 </script>
 
