@@ -569,6 +569,29 @@ body {
   .hib-callouts { grid-template-columns: 1fr; }
 }
 
+#github-activity { position: relative; padding-bottom: 100px; }
+.hib-github-peek-wrap {
+  position: absolute;
+  top: 245px;
+  right: 10px;
+  width: 150px;
+}
+.hib-github-peek-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hib-github-peek-light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.hib-github-peek-wrap:hover .hib-github-peek-light {
+  opacity: 1;
+}
+
 /* github activity card */
 .hib-github {
   background: rgba(255,255,255,0.055);
@@ -890,6 +913,10 @@ body {
 
       <!-- GITHUB ACTIVITY -->
       <div class="hib-section" id="github-activity">
+        <div class="hib-github-peek-wrap">
+          <img src="/github-peek-full.png" alt="Elaine, hand-drawn, face-planted on her laptop keyboard mid-build" />
+          <img src="/github-peek.png" alt="" class="hib-github-peek-light" />
+        </div>
         <div class="hib-section__label">github activity</div>
         <div class="hib-github">
           <div class="hib-github__label">commit history</div>
