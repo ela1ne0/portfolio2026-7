@@ -132,6 +132,25 @@ if (cards.length) {
     card.addEventListener('mousemove', setTarget);
     card.addEventListener('mouseleave', clearTarget);
 
+    // touch equivalent: a finger-drag "paints" the reveal the same way a
+    // mouse-move does. touchstart is left passive (a plain tap still lets
+    // the card's own link navigate normally); touchmove has to prevent
+    // default so dragging across the card reveals color instead of
+    // scrolling the page — the trade-off called out when this was decided
+    // (see mobile-version-plan): a real drag across the card no longer
+    // also scrolls past it.
+    const setTargetFromTouch = (event) => {
+      const touch = event.touches[0] || event.changedTouches[0];
+      if (touch) setTarget(touch);
+    };
+    card.addEventListener('touchstart', setTargetFromTouch, { passive: true });
+    card.addEventListener('touchmove', (event) => {
+      event.preventDefault();
+      setTargetFromTouch(event);
+    }, { passive: false });
+    card.addEventListener('touchend', clearTarget);
+    card.addEventListener('touchcancel', clearTarget);
+
     function tick(now) {
       if (active && targetX !== null) {
         smoothX += (targetX - smoothX) * LERP;

@@ -93,9 +93,18 @@
   <!-- PAGE BODY -->
   <div class="page-body">
 
+    <!-- mobile-only: opens the left sidebar as an off-canvas drawer.
+         Hidden on desktop via CSS (see .sidebar-toggle in layout.css). -->
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="left-col">
+      <span class="sidebar-toggle__bar"></span>
+      <span class="sidebar-toggle__bar"></span>
+      <span class="sidebar-toggle__bar"></span>
+    </button>
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
     <!-- LEFT COLUMN -->
     <!--avatar-->
-    <aside class="left-col">
+    <aside class="left-col" id="left-col">
       <a href="/index.html" class="avatar-link">
         <img src="/updatedpfpicon.png"
           alt="Elaine Yu"
@@ -597,6 +606,7 @@
   <script type="module" src="/src/js/avatar-bubble.js"></script>
   <script type="module" src="/src/js/footer-cat-bubble.js"></script>
   <script type="module" src="/src/js/girl-bubble.js"></script>
+  <script type="module" src="/src/js/sidebar-drawer.js"></script>
   <script type="module" src="/src/js/mobile-gate.js"></script>
   <script type="module" src="/src/js/hackduke-thumbnail-reveal.js"></script>
   <script type="module" src="/src/js/hackduke-popout.js"></script>

@@ -1520,3 +1520,190 @@ span.train-nav__label {
 @media (max-width: 1400px) {
   .about-polaroid { display: none; }
 }
+
+/* ── mobile sidebar toggle + scrim ──
+   Both exist in the DOM at every width, but only do anything below the
+   900px mobile-layout breakpoint (see the @media block below) — on
+   desktop the toggle stays hidden and the scrim stays fully
+   transparent/click-through, so neither has any visual or interactive
+   footprint above the breakpoint. */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 22px;
+  left: 16px;
+  z-index: 310;
+  width: 38px;
+  height: 38px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(26,82,212,0.9);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.sidebar-toggle__bar {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: #fff;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.sidebar-toggle[aria-expanded="true"] .sidebar-toggle__bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.sidebar-toggle[aria-expanded="true"] .sidebar-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+.sidebar-toggle[aria-expanded="true"] .sidebar-toggle__bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+.sidebar-scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 250;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   MOBILE PILOT — index.html
+   Below the desktop-gate's own 1100px block, so none of this is reachable
+   in production yet — src/js/mobile-gate.js still hard-blocks everything
+   below 1100px on every page (index.html included) until the pilot pass
+   here is finished and verified. This lives at 900px on purpose: it's a
+   separate number from the gate's 1100px placeholder, sized instead for
+   an actual phone/small-tablet layout. Both numbers get reconciled once
+   the gate is lifted for this page — see mobile-version-plan in the
+   project docs.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+
+  html, body {
+    height: auto;
+    overflow-y: visible;
+    overflow-x: hidden;
+  }
+
+  /* whole page scrolls natively instead of the desktop's internal
+     .right-scroll container — friendlier to touch/momentum scrolling
+     and to the mobile browser chrome collapsing on scroll */
+  .page-body {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+    min-width: 0;
+  }
+  .right-scroll {
+    height: auto;
+    overflow: visible;
+    min-width: 0;
+  }
+
+  /* ── left sidebar → off-canvas drawer, toggled open ──
+     (pattern: collapsed/hidden to the left, opened with a tap —
+     see mobile-version-plan Log for the reference) */
+  .left-col {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(78vw, 300px);
+    height: 100dvh;
+    padding: 76px 20px 24px;
+    border-right: none;
+    box-shadow: 4px 0 28px rgba(0,0,0,0.35);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    z-index: 300;
+  }
+  .left-col.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  .sidebar-scrim {
+    display: block;
+    background: rgba(10,14,20,0.5);
+    transition: opacity 0.3s ease;
+  }
+  .sidebar-scrim.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── homepage panels: stack instead of a fixed-height grid ── */
+  .panels {
+    height: auto;
+    padding: 20px 16px 32px;
+  }
+  .row-top {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    /* grid tracks default to min-width:auto, which sizes to the intrinsic
+       (native-pixel) width of the images inside — without this override,
+       a single 1fr column still blows out past the viewport instead of
+       actually shrinking to fit it */
+    min-width: 0;
+  }
+  .row-top .panel {
+    min-width: 0;
+  }
+  .panel {
+    height: auto;
+  }
+  .panel-ticket {
+    padding: 28px 16px;
+  }
+  /* platform + bottom panels lose their fixed-height flex slice and get an
+     explicit box instead — both illustrations are native 4:3 (4000×3000),
+     so this keeps every absolutely-positioned layer inside them framed
+     the same as on desktop */
+  .panel-platform,
+  .panel-bottom {
+    flex: none;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* ── work section: single column ── */
+  .work-section {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding: 40px 16px 0;
+    min-width: 0;
+  }
+  .work-left {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0 0 20px;
+    min-width: 0;
+  }
+  .work-panels {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+  }
+  .work-grid-equal {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    min-width: 0;
+  }
+  .work-grid-equal > * {
+    min-width: 0;
+  }
+  /* this strip bleeds edge-to-edge by canceling .work-section's own side
+     padding with a matching negative margin — has to track whatever that
+     padding is set to above, or it overhangs the viewport */
+  .work-footer-strip {
+    margin: 0 -16px;
+    padding: 16px 16px;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+}

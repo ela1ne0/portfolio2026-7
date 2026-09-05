@@ -51,6 +51,32 @@
   transform: translateY(-50%) translateX(0) scale(1);
 }
 
+/* mobile: bubble sits centered below the hotspot instead of to its right
+   (see positionGirlBubble's width check in girl-bubble.js) — flip the
+   speech-bubble tail to point up instead of left */
+.girl-speech-bubble--below {
+  transform: translateX(-50%) translateY(-4px) scale(0.95);
+}
+.girl-speech-bubble--below.visible {
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+.girl-speech-bubble--below::before,
+.girl-speech-bubble--below::after {
+  left: 50%;
+  border-top: none;
+  border-right: 9px solid transparent;
+  border-left: 9px solid transparent;
+  transform: translateX(-50%);
+}
+.girl-speech-bubble--below::before {
+  top: -9px;
+  border-bottom: 10px solid #1a52d4;
+}
+.girl-speech-bubble--below::after {
+  top: -7.5px;
+  border-bottom: 8.5px solid #ffffff;
+}
+
 .girl-bubble-text {
   font-family: 'Space Mono', monospace;
   font-size: 12px;

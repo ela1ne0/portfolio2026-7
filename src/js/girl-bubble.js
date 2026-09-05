@@ -66,6 +66,23 @@ if (girlHotspot) {
 
   function positionGirlBubble() {
     const rect = girlHotspot.getBoundingClientRect();
+
+    // below the mobile layout breakpoint the hotspot spans nearly the full
+    // panel width, so "34px to the right" runs the bubble off-screen —
+    // center it under the hotspot instead, clamped to stay on-screen
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      bubble.classList.add('girl-speech-bubble--below');
+      const half = Math.min(100, (window.innerWidth - 24) / 2);
+      const center = Math.min(
+        Math.max(rect.left + rect.width / 2, half + 12),
+        window.innerWidth - half - 12
+      );
+      bubble.style.left = center + 'px';
+      bubble.style.top = (rect.bottom + 14) + 'px';
+      return;
+    }
+
+    bubble.classList.remove('girl-speech-bubble--below');
     bubble.style.left = (rect.right + 34) + 'px';
     bubble.style.top = (rect.top + rect.height / 2 + 10) + 'px';
   }
@@ -94,6 +111,20 @@ if (girlHotspot) {
 
   girlHotspot.addEventListener('mouseenter', showGirlBubble);
   girlHotspot.addEventListener('mouseleave', hideGirlBubble);
+
+  // touch has no hover — tapping the hotspot reveals the bubble, and each
+  // subsequent tap cycles to the next line (showGirlBubble already both
+  // shows and advances the index, so re-firing it does exactly that)
+  girlHotspot.addEventListener('click', () => {
+    clearTimeout(hideTimeout);
+    showGirlBubble();
+  });
+
+  // tapping anywhere else dismisses it, since touch never fires mouseleave
+  document.addEventListener('click', (e) => {
+    if (e.target === girlHotspot || bubble.contains(e.target)) return;
+    hideGirlBubble();
+  });
 
   window.addEventListener('scroll', () => {
     if (bubble.classList.contains('visible')) positionGirlBubble();
