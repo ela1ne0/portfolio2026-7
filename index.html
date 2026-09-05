@@ -582,7 +582,18 @@
 
   <script type="module" src="/src/main.js"></script>
   <script type="module" src="/src/js/nav.js"></script>
-  <script type="module" src="/src/js/cursor.js"></script>
+  <script type="module">
+    // Only load the custom mouse-tracking cursor on devices that actually
+    // have a real pointer. Touch-only devices never fire the mousemove
+    // stream this depends on, so there's no point running it there — this
+    // is the mobile-version walking-skeleton gate (see mobile-version-plan
+    // in the project docs): interaction is gated on capability, not width.
+    // Uses a dynamic import() (not a runtime-injected <script src> tag) so
+    // Vite's build still sees and bundles cursor.js as a lazy chunk.
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      import('/src/js/cursor.js');
+    }
+  </script>
   <script type="module" src="/src/js/avatar-bubble.js"></script>
   <script type="module" src="/src/js/footer-cat-bubble.js"></script>
   <script type="module" src="/src/js/girl-bubble.js"></script>
