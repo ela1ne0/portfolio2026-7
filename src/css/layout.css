@@ -1614,6 +1614,7 @@ span.train-nav__label {
     height: 100dvh;
     padding: 76px 20px 24px;
     border-right: none;
+    background: var(--blue);
     box-shadow: 4px 0 28px rgba(0,0,0,0.35);
     overflow-y: auto;
     transform: translateX(-100%);
