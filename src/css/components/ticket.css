@@ -308,3 +308,16 @@
   100% { opacity: 0;    transform: scale(1)
          translate(var(--tx), var(--ty)); }
 }
+
+#ticket-reset {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 900px) {
+  #ticket-reset {
+    bottom: -26px;
+  }
+}

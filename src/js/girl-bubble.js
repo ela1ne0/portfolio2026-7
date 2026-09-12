@@ -109,8 +109,13 @@ if (girlHotspot) {
     }, 150);
   }
 
-  girlHotspot.addEventListener('mouseenter', showGirlBubble);
-  girlHotspot.addEventListener('mouseleave', hideGirlBubble);
+  // desktop-only — a mouseenter listener on the same element as a click
+  // listener causes iOS Safari's "first tap = hover, second tap = click"
+  // quirk even on devices that never actually hover.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    girlHotspot.addEventListener('mouseenter', showGirlBubble);
+    girlHotspot.addEventListener('mouseleave', hideGirlBubble);
+  }
 
   // touch has no hover — tapping the hotspot reveals the bubble, and each
   // subsequent tap cycles to the next line (showGirlBubble already both

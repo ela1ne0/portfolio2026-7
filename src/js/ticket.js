@@ -42,26 +42,31 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 1000);
 
-// cursor tracking
-document.addEventListener('mousemove', e => {
-  cursorEl.style.left = e.clientX + 'px';
-  cursorEl.style.top  = e.clientY + 'px';
-});
+// cursor tracking + hover→scan — desktop-only. Touch devices never fire
+// mousemove/mouseenter, but on iOS Safari a mouseenter listener on the
+// same element as a click listener also causes the "first tap fires the
+// synthetic hover, second tap fires the actual click" quirk — so this is
+// gated on capability, not just left inert.
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    cursorEl.style.left = e.clientX + 'px';
+    cursorEl.style.top  = e.clientY + 'px';
+  });
 
-// hover → scan
-panelTicket.addEventListener('mouseenter', () => {
-  cursorEl.classList.add('show');
-  if (stamped) return;
-  if (!scanned && !scanning) startScan();
-});
+  panelTicket.addEventListener('mouseenter', () => {
+    cursorEl.classList.add('show');
+    if (stamped) return;
+    if (!scanned && !scanning) startScan();
+  });
 
-panelTicket.addEventListener('mouseleave', () => {
-  cursorEl.classList.remove('show');
-});
+  panelTicket.addEventListener('mouseleave', () => {
+    cursorEl.classList.remove('show');
+  });
 
-panelTicket.addEventListener('mousemove', () => {
-  if (stamped) cursorEl.classList.add('show');
-});
+  panelTicket.addEventListener('mousemove', () => {
+    if (stamped) cursorEl.classList.add('show');
+  });
+}
 
 // click → stamp (or shake if clicked outside the actual ticket)
 panelTicket.addEventListener('click', (e) => {
@@ -237,10 +242,6 @@ function doStamp(e) {
     resetEl.id = 'ticket-reset';
     resetEl.textContent = '↺ reset';
     resetEl.style.cssText = `
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
       font-size: 15px;
       letter-spacing: 0.12em;
       color: rgba(26,82,212,0.35);
