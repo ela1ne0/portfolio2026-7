@@ -1588,6 +1588,19 @@ span.train-nav__label {
     overflow-x: hidden;
   }
 
+  /* ── top nav: pinned in place instead of scrolling away, so it's
+     reachable regardless of scroll position or which page you're on ──
+     z-index sits below the sidebar scrim (250) and drawer (300) so
+     opening the mobile menu still overlays it correctly */
+  #main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: var(--blue);
+  }
+
   /* whole page scrolls natively instead of the desktop's internal
      .right-scroll container — friendlier to touch/momentum scrolling
      and to the mobile browser chrome collapsing on scroll */
@@ -1596,6 +1609,7 @@ span.train-nav__label {
     height: auto;
     overflow: visible;
     min-width: 0;
+    padding-top: 88px;
   }
   .right-scroll {
     height: auto;
