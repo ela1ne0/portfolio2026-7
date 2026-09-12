@@ -217,11 +217,16 @@ function doStamp(e) {
   setTimeout(() => {
     const rightScroll = document.querySelector('.right-scroll');
     const workSection = document.getElementById('work');
-    if (rightScroll && workSection) {
-      const targetRect = workSection.getBoundingClientRect();
-      const scrollRect = rightScroll.getBoundingClientRect();
-      const delta = targetRect.top - scrollRect.top;
-      rightScroll.scrollTo({ top: rightScroll.scrollTop + delta, behavior: 'smooth' });
+    const usesInternalScroll = rightScroll && getComputedStyle(rightScroll).overflowY !== 'visible';
+    if (workSection) {
+      if (usesInternalScroll) {
+        const targetRect = workSection.getBoundingClientRect();
+        const scrollRect = rightScroll.getBoundingClientRect();
+        const delta = targetRect.top - scrollRect.top;
+        rightScroll.scrollTo({ top: rightScroll.scrollTop + delta, behavior: 'smooth' });
+      } else {
+        workSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
 
     const dotWork = document.getElementById('dot-work');

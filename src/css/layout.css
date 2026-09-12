@@ -1692,6 +1692,7 @@ span.train-nav__label {
     grid-template-rows: auto auto;
     padding: 40px 16px 0;
     min-width: 0;
+    scroll-margin-top: 88px;
   }
   .work-left {
     grid-column: 1;

@@ -2,16 +2,24 @@
 const yr = document.getElementById('footer-year');
 if (yr) yr.textContent = new Date().getFullYear();
 
+// returns .right-scroll when it's actually the scrolling container (desktop),
+// or null (meaning the window/viewport) when it isn't — e.g. under the
+// mobile breakpoint, where .right-scroll switches to overflow:visible and
+// the whole page scrolls natively instead. Centralizing this check because
+// several places below used to assume .right-scroll existing meant it was
+// scrolling, which stopped being true once mobile got its own layout.
+function activeScrollContainer() {
+  const rightScroll = document.querySelector('.right-scroll');
+  if (rightScroll && getComputedStyle(rightScroll).overflowY !== 'visible') return rightScroll;
+  return null;
+}
+
 // back to top
 const scrollUpBtn = document.getElementById('scroll-up');
 if (scrollUpBtn) {
   scrollUpBtn.addEventListener('click', () => {
-    const rightScroll = document.querySelector('.right-scroll');
-    if (rightScroll) {
-      rightScroll.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    const container = activeScrollContainer();
+    (container || window).scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
 
@@ -71,17 +79,18 @@ function lightWorkDot() {
 }
 
 // helper: scroll right panel to work section
+// helper: scroll right panel to work section
 function scrollToWork() {
   const workSection = document.getElementById('work');
-  const rightScroll = document.querySelector('.right-scroll');
-  if (workSection && rightScroll) {
+  if (!workSection) return;
+  const container = activeScrollContainer();
+  if (container) {
     const targetRect = workSection.getBoundingClientRect();
-    const scrollRect = rightScroll.getBoundingClientRect();
+    const scrollRect = container.getBoundingClientRect();
     const delta = targetRect.top - scrollRect.top;
-    rightScroll.scrollTo({
-      top: rightScroll.scrollTop + delta,
-      behavior: 'smooth'
-    });
+    container.scrollTo({ top: container.scrollTop + delta, behavior: 'smooth' });
+  } else {
+    workSection.scrollIntoView({ behavior: 'smooth' });
   }
 }
 
@@ -117,7 +126,7 @@ window.addEventListener('load', () => {
         });
       },
       {
-        root: document.querySelector('.right-scroll'),
+        root: activeScrollContainer(),
         threshold: 0.15,
       }
     );
