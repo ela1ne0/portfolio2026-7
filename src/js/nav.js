@@ -1,3 +1,17 @@
+// mobile's full-page scroll (vs. desktop's internal .right-scroll) means the
+// browser's own scroll-position restoration now applies to the document —
+// desktop never triggered this since the window itself never scrolled. On
+// reload/back-forward nav that can leave mobile visitors dropped wherever
+// they scrolled to last time instead of at the top. Force it back to manual
+// + top on every load; harmless no-op on desktop since window scroll there
+// never moves in the first place.
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+if (!window.location.hash) {
+  window.scrollTo(0, 0);
+}
+
 // footer year
 const yr = document.getElementById('footer-year');
 if (yr) yr.textContent = new Date().getFullYear();
