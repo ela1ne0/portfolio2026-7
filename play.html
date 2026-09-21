@@ -302,7 +302,11 @@ body {
   background: #fff;
   line-height: 1.5;
   text-align: center;
-  white-space: nowrap;
+  /* was white-space: nowrap — on a narrow viewport that forced the text
+     past max-width instead of wrapping, so it ran off-screen and got
+     clipped by the page's overflow:hidden. The <br> already in the markup
+     still gets its explicit break either way. */
+  white-space: normal;
   z-index: 2;
 }
 .cs-back {

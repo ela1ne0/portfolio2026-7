@@ -186,7 +186,7 @@ function doStamp(e) {
     `;
     indicator.style.cssText = `
       position: absolute;
-      bottom: 14px;
+      ${window.matchMedia('(max-width: 900px)').matches ? 'top: 10px;' : 'bottom: 14px;'}
       left: 50%;
       transform: translateX(-50%);
       display: flex;

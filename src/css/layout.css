@@ -1722,4 +1722,34 @@ span.train-nav__label {
     flex-wrap: wrap;
     row-gap: 10px;
   }
+
+  /* ── site footer: the two-column grid (identity+links, tagline+bottom)
+     never had a mobile pass — "links" and "bottom" both sat in an `auto`
+     column that had no room on a narrow screen, so the icon row silently
+     overflowed past the viewport edge (clipped by .site-footer's own
+     overflow:hidden) and the copyright/back-to-top row got squeezed into
+     an awkward wrap. Stack everything into one column and let the two
+     rows that were fighting for space wrap instead of overflow. ── */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "illustration"
+      "identity"
+      "tagline"
+      "links"
+      "bottom";
+    padding: 32px 20px 24px;
+    row-gap: 16px;
+  }
+  .footer-links {
+    justify-self: start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+  .footer-bottom {
+    justify-self: start;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
 }
