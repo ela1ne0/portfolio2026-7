@@ -951,6 +951,18 @@ span.train-nav__label {
   font-family: 'Space Mono', monospace;
 }
 
+/* bonus "how I built this" card — spans both columns, wider aspect ratio
+   than the numbered case-study thumbnails since it isn't one */
+.work-panel--extra {
+  grid-column: 1 / -1;
+}
+.work-panel--extra .work-panel__img {
+  aspect-ratio: 21 / 8;
+}
+.work-panel--extra .work-panel__num {
+  text-transform: uppercase;
+}
+
 .work-panel__link {
   display: flex;
   flex-direction: column;
