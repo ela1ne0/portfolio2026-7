@@ -289,7 +289,12 @@ body {
 /* back link */
 .cs-illustration-caption {
   position: absolute;
-  bottom: 45px;
+  /* was a fixed 45px — the image scales with viewport width (height: auto),
+     so on a narrow phone its rendered height shrinks a lot more than 45px
+     does, and the caption crept up onto the illustration instead of sitting
+     below it. A percentage keeps it in the same relative spot at any width
+     (9% ≈ 45px at this image's usual desktop render height). */
+  bottom: 9%;
   left: 50%;
   transform: translateX(-50%);
   width: fit-content;

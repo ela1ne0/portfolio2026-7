@@ -1688,14 +1688,24 @@ span.train-nav__label {
   .panel-ticket {
     padding: 28px 16px;
   }
-  /* platform + bottom panels lose their fixed-height flex slice and get an
-     explicit box instead — both illustrations are native 4:3 (4000×3000),
-     so this keeps every absolutely-positioned layer inside them framed
-     the same as on desktop */
-  .panel-platform,
-  .panel-bottom {
+  /* platform panel loses its fixed-height flex slice and gets an explicit
+     box instead — kept at the illustration's native 4:3 (4000×3000) so the
+     girl-hotspot tap zone (percentage-positioned in girl-bubble.css) stays
+     aligned with the figure in the art */
+  .panel-platform {
     flex: none;
     aspect-ratio: 4 / 3;
+  }
+  /* bottom panel: train-interior-bg.png/girl-sitting.png both have a lot of
+     blank canvas above and below the actual drawing (it only occupies the
+     middle ~38% of the 4000x3000 file). At native 4:3 that margin renders
+     in full, so the scene reads as small/zoomed-out. This panel has no
+     hotspot to keep aligned (just the corner-anchored caption box), so it's
+     safe to give it its own wider/shorter box — object-fit: cover then
+     crops most of that blank margin away instead of showing it. */
+  .panel-bottom {
+    flex: none;
+    aspect-ratio: 4 / 1.8;
   }
 
   /* ── work section: single column ── */

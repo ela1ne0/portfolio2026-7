@@ -674,6 +674,14 @@
     }
     .about-interests__icon--sm { height: 24px; }
     .about-interests__icon--lg { height: 32px; }
+    /* everything after the icon is wrapped in one span (see markup below) so
+       it's a single flex item that wraps as one paragraph — without it, each
+       bare text run and <a> became its OWN flex item, so a wrapped line
+       started at that fragment's own position instead of hanging under the
+       first line, producing the staggered alignment seen on mobile. */
+    .about-interests__text {
+      min-width: 0;
+    }
     .about-interests a {
       color: #fff;
       text-decoration: underline;
@@ -954,11 +962,11 @@
       <div class="about-section">
         <div class="about-section__label">outside of work you can find me...</div>
         <ul class="about-interests">
-          <li><img class="about-interests__icon" src="/about-icon-listening.png" alt="" /> listening — <a href="https://open.spotify.com/user/q0xzx8ebk5ji1hvc369yhy34q?si=979d3c50380a4f20" target="_blank" rel="noopener">my spotify</a></li>
-          <li><img class="about-interests__icon about-interests__icon--sm" src="/about-icon-tracking.png" alt="" /> tracking — Beli (@ela1ne), <a href="https://www.strava.com/athletes/773052493" target="_blank" rel="noopener">Strava</a>, <a href="https://www.duolingo.com/profile/Elaine_.yu" target="_blank" rel="noopener">Duolingo</a></li>
-          <li><img class="about-interests__icon about-interests__icon--lg" src="/about-icon-moving.png" alt="" /> moving — lifting, walking, running, larping...</li>
-          <li><img class="about-interests__icon about-interests__icon--sm" src="/about-icon-shooting.png" alt="" /> shooting — <a href="https://www.instagram.com/elainesdigitalcamera/" target="_blank" rel="noopener">photography</a>, travel</li>
-          <li><img class="about-interests__icon" src="/about-icon-making.png" alt="" /> making — <a href="https://instagram.com/elaineyustudio" target="_blank" rel="noopener">@elaineyustudio</a></li>
+          <li><img class="about-interests__icon" src="/about-icon-listening.png" alt="" /><span class="about-interests__text">listening — <a href="https://open.spotify.com/user/q0xzx8ebk5ji1hvc369yhy34q?si=979d3c50380a4f20" target="_blank" rel="noopener">my spotify</a></span></li>
+          <li><img class="about-interests__icon about-interests__icon--sm" src="/about-icon-tracking.png" alt="" /><span class="about-interests__text">tracking — Beli (@ela1ne), <a href="https://www.strava.com/athletes/773052493" target="_blank" rel="noopener">Strava</a>, <a href="https://www.duolingo.com/profile/Elaine_.yu" target="_blank" rel="noopener">Duolingo</a></span></li>
+          <li><img class="about-interests__icon about-interests__icon--lg" src="/about-icon-moving.png" alt="" /><span class="about-interests__text">moving — lifting, walking, running, larping...</span></li>
+          <li><img class="about-interests__icon about-interests__icon--sm" src="/about-icon-shooting.png" alt="" /><span class="about-interests__text">shooting — <a href="https://www.instagram.com/elainesdigitalcamera/" target="_blank" rel="noopener">photography</a>, travel</span></li>
+          <li><img class="about-interests__icon" src="/about-icon-making.png" alt="" /><span class="about-interests__text">making — <a href="https://instagram.com/elaineyustudio" target="_blank" rel="noopener">@elaineyustudio</a></span></li>
         </ul>
       </div>
 
