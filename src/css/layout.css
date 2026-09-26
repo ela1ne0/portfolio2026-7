@@ -959,6 +959,9 @@ span.train-nav__label {
 .work-panel--extra .work-panel__img {
   aspect-ratio: 21 / 8;
 }
+.work-panel--extra .work-panel__img img {
+  object-position: 50% 80%;
+}
 .work-panel--extra .work-panel__num {
   text-transform: uppercase;
 }
