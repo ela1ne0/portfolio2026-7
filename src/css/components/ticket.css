@@ -317,7 +317,13 @@
 }
 
 @media (max-width: 900px) {
+  /* .panel-ticket only grows as tall as its content on mobile
+     (see layout.css's mobile .panel { height: auto } override), and
+     .panel clips overflow — a negative bottom offset here pushed
+     #ticket-reset below that shrunk box, so it was being clipped away
+     entirely instead of just sitting lower. Keep it inside the panel's
+     own bottom padding instead, where it's actually visible. */
   #ticket-reset {
-    bottom: -26px;
+    bottom: 6px;
   }
 }
