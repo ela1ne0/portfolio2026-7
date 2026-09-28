@@ -486,9 +486,19 @@ span.train-nav__label {
   50%      { transform: translateY(-4px); }
 }
 
-/* train interior art is centered in its image */
+/* train interior art is centered in its image.
+   position: absolute (not relative) so it overlays .panel-bottom the same
+   way every other panel layer does (.layer-bg/.layer-train/.layer-girl/
+   .layer-passenger) — sized purely off the parent box via inset:0, not
+   off a percentage height resolved through it. That in-flow + height:100%
+   combination is what let a gap show above/below the art on mobile: with
+   .panel-bottom sized by aspect-ratio inside a column flex item, a
+   normal-flow child's percentage height doesn't reliably resolve to fill
+   it on every mobile browser, so the image rendered shorter than its box
+   and left the box's own white background visible top and bottom. */
 .panel-illustration--train {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
   object-fit: cover;
   object-position: center 65%;
