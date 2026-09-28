@@ -669,6 +669,20 @@ body {
   transition: color 0.2s;
 }
 .cs-back:hover { color: #fff; }
+
+/* mobile: collapse the 3-col grid, hide the track nav, drawer sidebar
+   (drawer's own look/position comes from layout.css, loaded after this
+   block — see the #hib-page-body comment above for why this override
+   has to be id-scoped to win). */
+@media (max-width: 900px) {
+  #hib-page-body {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+    min-width: 0;
+  }
+  .cs-track-nav { display: none; }
+}
 </style>
 <link rel="stylesheet" href="/src/css/layout.css"/>
 <!-- <link rel="stylesheet" href="/src/css/mobile-gate.css"/> -->
@@ -715,8 +729,17 @@ body {
 <!-- PAGE BODY -->
 <div class="page-body" id="hib-page-body">
 
+  <!-- mobile-only: opens the left sidebar as an off-canvas drawer.
+       Hidden on desktop via CSS (see .sidebar-toggle in layout.css). -->
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="left-col">
+    <span class="sidebar-toggle__bar"></span>
+    <span class="sidebar-toggle__bar"></span>
+    <span class="sidebar-toggle__bar"></span>
+  </button>
+  <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
   <!-- LEFT COL — identical to about.html / about-the-trains.html -->
-  <aside class="left-col">
+  <aside class="left-col" id="left-col">
     <a href="/index.html" class="avatar-link">
       <img src="/updatedpfpicon.png" alt="Elaine Yu" class="left-avatar"/>
     </a>
@@ -1074,6 +1097,7 @@ body {
 <script type="module" src="/src/js/scrapped-cry-bubble.js"></script>
 <script type="module" src="/src/js/header-doodle-bubble.js"></script>
 <script type="module" src="/src/js/fav-illustration-popup.js"></script>
+<script type="module" src="/src/js/sidebar-drawer.js"></script>
 <!-- <script type="module" src="/src/js/mobile-gate.js"></script> -->
 <script>
   // nav track fill — this page isn't one of the 4 main stops, so no dot lights up,

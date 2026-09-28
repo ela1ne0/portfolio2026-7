@@ -419,6 +419,101 @@ body {
   transition: color 0.2s;
 }
 .cs-footer__link:hover { color: #fff; }
+
+/* ── mobile: off-canvas sidebar drawer ──
+   This page doesn't link layout.css (see the comment above), so the
+   shared drawer styles there aren't inherited — replicated here instead.
+   Both exist in the DOM at every width, but only do anything below the
+   900px breakpoint — see layout.css for the reference pattern. */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 22px;
+  left: 16px;
+  z-index: 310;
+  width: 38px;
+  height: 38px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: rgba(26,82,212,0.9);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.sidebar-toggle__bar {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: #fff;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.sidebar-toggle[aria-expanded="true"] .sidebar-toggle__bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.sidebar-toggle[aria-expanded="true"] .sidebar-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+.sidebar-toggle[aria-expanded="true"] .sidebar-toggle__bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+.sidebar-scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 250;
+}
+
+@media (max-width: 900px) {
+  html, body {
+    height: auto;
+    overflow-y: visible;
+    overflow-x: hidden;
+  }
+  .page-body {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+    min-width: 0;
+  }
+  .right-scroll {
+    height: auto;
+    overflow: visible;
+    min-width: 0;
+  }
+  .cs-track-nav { display: none; }
+  .left-col {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(78vw, 300px);
+    height: 100dvh;
+    padding: 76px 20px 24px;
+    border-right: none;
+    background: var(--blue);
+    box-shadow: 4px 0 28px rgba(0,0,0,0.35);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    z-index: 300;
+  }
+  .left-col.is-open {
+    transform: translateX(0);
+  }
+  .sidebar-toggle { display: flex; }
+  .sidebar-scrim {
+    display: block;
+    background: rgba(10,14,20,0.5);
+    transition: opacity 0.3s ease;
+  }
+  .sidebar-scrim.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -429,7 +524,15 @@ body {
 
 <div class="page-body">
 
-  <aside class="left-col">
+  <!-- mobile-only: opens the left sidebar as an off-canvas drawer. -->
+  <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="left-col">
+    <span class="sidebar-toggle__bar"></span>
+    <span class="sidebar-toggle__bar"></span>
+    <span class="sidebar-toggle__bar"></span>
+  </button>
+  <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+  <aside class="left-col" id="left-col">
     <a href="/index.html" class="avatar-link">
       <img src="/updatedpfpicon.png" alt="Elaine Yu" class="left-avatar"/>
     </a>
@@ -642,6 +745,7 @@ body {
 
 <script type="module" src="/src/js/cursor.js"></script>
 <script type="module" src="/src/js/avatar-bubble.js"></script>
+<script type="module" src="/src/js/sidebar-drawer.js"></script>
 <!-- <script type="module" src="/src/js/mobile-gate.js"></script> -->
 </body>
 </html>
