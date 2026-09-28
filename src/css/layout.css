@@ -961,6 +961,8 @@ span.train-nav__label {
 }
 .work-panel--extra .work-panel__img img {
   object-position: 50% 80%;
+  scale: 1.04;
+  translate: 13% 0;
 }
 .work-panel--extra .work-panel__num {
   text-transform: uppercase;
