@@ -170,7 +170,6 @@ span.train-nav__label {
   height: 100%;
   overflow: visible;
   position: relative;
-  border-right: 1px solid rgba(255,255,255,0.08);
   padding: 28px 16px 24px 28px;
   display: flex;
   flex-direction: column;
@@ -320,7 +319,12 @@ span.train-nav__label {
 }
 
 .sidebar-walk {
-  margin-top: 20px;
+  /* pushed down to sit with the recruiter-toggle button instead of
+     piling into the avatar/name/caption/facts cluster above — the
+     identity block reads as one section at the top, then a beat of
+     space, then the animation + button anchored together at the
+     bottom. (previously: margin-top: 20px, right under .left-facts) */
+  margin-top: auto;
   width: 100%;
   height: 140px;
   position: relative;
@@ -1344,7 +1348,9 @@ span.train-nav__label {
   cursor: none;
   width: fit-content;
   align-self: center;
-  margin-top: auto;
+  /* .sidebar-walk now carries the margin-top: auto that pushes this
+     whole bottom group down — this just keeps a small gap under it */
+  margin-top: 12px;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .recruiter-toggle:hover {
@@ -1654,9 +1660,7 @@ span.train-nav__label {
     width: min(78vw, 300px);
     height: 100dvh;
     padding: 76px 20px 24px;
-    border-right: none;
     background: var(--blue);
-    box-shadow: 4px 0 28px rgba(0,0,0,0.35);
     overflow-y: auto;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
