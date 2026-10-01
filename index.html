@@ -406,38 +406,18 @@
         <div class="work-panel-wrap">
         <div class="work-panel" data-cursor-label="view case study →">
           <a href="/hackduke-2026" class="work-panel__link">
-            <div class="work-panel__img">
-              <!-- motion-thumbnail tester: real Figma storefront art, animated with CSS
-                   (doors slide open/closed, slight warm glow) -->
-              <div class="hackduke-motion" role="img" aria-label="Animated HackDuke 2026 storefront illustration">
-                <!-- true-color layer, always underneath -->
-                <div class="hd-color-layer">
-                  <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
-                  <div class="hd-glow" aria-hidden="true"></div>
-                  <div class="hd-window" aria-hidden="true">
-                    <div class="hd-door hd-door--left">
-                      <img src="/hackduke-motion-left-door.png" alt="" />
-                    </div>
-                    <div class="hd-door hd-door--right">
-                      <img src="/hackduke-motion-right-door.png" alt="" />
-                    </div>
-                  </div>
+            <div class="work-panel__img work-panel__img--browser">
+              <!-- floating browser-window frame around a real interface screenshot,
+                   per mentor feedback: show interface work from the thumbnail
+                   instead of illustrated storefront art -->
+              <div class="browser-mock">
+                <div class="browser-mock__chrome">
+                  <span class="browser-mock__dot browser-mock__dot--red"></span>
+                  <span class="browser-mock__dot browser-mock__dot--yellow"></span>
+                  <span class="browser-mock__dot browser-mock__dot--green"></span>
+                  <span class="browser-mock__url">2026.hackduke.org</span>
                 </div>
-                <!-- grayscale + blue-tint layer on top, masked with a hole that follows the
-                     cursor (hackduke-thumbnail-reveal.js) so hovering "erases" the tint locally
-                     and reveals the true color underneath -->
-                <div class="hd-tint-layer">
-                  <img class="hd-backdrop" src="/hackduke-motion-storefront-backdrop.png" alt="" aria-hidden="true" />
-                  <div class="hd-window" aria-hidden="true">
-                    <div class="hd-door hd-door--left">
-                      <img src="/hackduke-motion-left-door.png" alt="" />
-                    </div>
-                    <div class="hd-door hd-door--right">
-                      <img src="/hackduke-motion-right-door.png" alt="" />
-                    </div>
-                  </div>
-                  <div class="hd-tint" aria-hidden="true"></div>
-                </div>
+                <img class="browser-mock__screen" src="/hackduke-ui-placeholder.svg" alt="HackDuke 2026 storefront landing page interface" />
               </div>
             </div>
             <div class="work-panel__caption">

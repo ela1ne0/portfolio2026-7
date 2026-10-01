@@ -909,6 +909,72 @@ span.train-nav__label {
   .hd-door, .hd-glow { animation: none; }
 }
 
+/* ── BROWSER-MOCK THUMBNAIL (HackDuke card) ──
+   mentor feedback: show real interface work from the thumbnail, framed in a
+   floating browser window rather than illustrated storefront art. */
+.work-panel__img--browser {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  padding: 32px 24px;
+}
+
+.browser-mock {
+  width: 100%;
+  max-width: 340px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.2);
+  transform: rotate(-3deg);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+}
+.work-panel:hover .browser-mock {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 32px 64px rgba(0,0,0,0.4), 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.browser-mock__chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #e8e6e1;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.browser-mock__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.browser-mock__dot--red { background: #ff5f57; }
+.browser-mock__dot--yellow { background: #febc2e; }
+.browser-mock__dot--green { background: #28c840; }
+
+.browser-mock__url {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  color: rgba(26,52,68,0.45);
+  background: rgba(255,255,255,0.6);
+  border-radius: 3px;
+  padding: 3px 8px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browser-mock .browser-mock__screen {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* caption box — exact match to landing page .caption-box */
 .work-panel__caption {
   position: absolute;
